@@ -15,12 +15,13 @@ namespace DATA
     public partial class AppUser
     {
         public int appUser_id { get; set; }
-        public string user_firstName { get; set; }
+        public string username { get; set; }
         public string user_password { get; set; }
+        public string user_firstName { get; set; }
         public string user_lastName { get; set; }
         public string user_email { get; set; }
         public string user_gender { get; set; }
-        public System.DateTime user_birth { get; set; }
+        public Nullable<System.DateTime> user_birth { get; set; }
         public string user_role { get; set; }
         public string user_skinType { get; set; }
         public string user_skinProblem { get; set; }
@@ -34,6 +35,8 @@ namespace DATA
         public string user_sensitive { get; set; }
         public string user_areas { get; set; }
         public Nullable<decimal> cosmetic_license_num { get; set; }
+        public string cosmetic_businessName { get; set; }
+        public string cosmetic_address { get; set; }
         public string cosmetic_city { get; set; }
         public string cosmetic_speciality { get; set; }
     }
