@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="bgroup90_test2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AppUsers">
+          <Key>
+            <PropertyRef Name="user_email" />
+          </Key>
+          <Property Name="appUser_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_firstName" Type="varchar" MaxLength="50" />
+          <Property Name="user_password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="user_lastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="user_email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="user_gender" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="user_birth" Type="date" Nullable="false" />
+          <Property Name="user_role" Type="varchar" MaxLength="10" />
+          <Property Name="user_skinType" Type="varchar" MaxLength="20" />
+          <Property Name="user_skinProblem" Type="varchar" MaxLength="10" />
+          <Property Name="user_cheek" Type="varchar" MaxLength="10" />
+          <Property Name="user_Tzone" Type="varchar" MaxLength="10" />
+          <Property Name="user_sunExposure" Type="varchar" MaxLength="10" />
+          <Property Name="user_stress" Type="varchar" MaxLength="10" />
+          <Property Name="user_period" Type="varchar" MaxLength="10" />
+          <Property Name="user_dermatology" Type="char" MaxLength="1" />
+          <Property Name="user_currentProducts" Type="varchar" MaxLength="10" />
+          <Property Name="user_sensitive" Type="varchar" MaxLength="10" />
+          <Property Name="user_areas" Type="varchar" MaxLength="10" />
+          <Property Name="cosmetic_license_num" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="cosmetic_city" Type="varchar" MaxLength="50" />
+          <Property Name="cosmetic_speciality" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="prod_name" />
+          </Key>
+          <Property Name="prod_name" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="prod_type" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="prod_company" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="prod_description" Type="varchar" MaxLength="1000" />
+          <Property Name="prod_manual" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="prod_rate" Type="float" />
+          <Property Name="prod_sizeType" Type="varchar" MaxLength="10" />
+          <Property Name="prod_size" Type="int" />
+        </EntityType>
+        <EntityContainer Name="bgroup90_test2ModelStoreContainer">
+          <EntitySet Name="AppUsers" EntityType="Self.AppUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="bgroup90_test2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AppUser">
+          <Key>
+            <PropertyRef Name="user_email" />
+          </Key>
+          <Property Name="appUser_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_firstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="user_password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="user_lastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="user_email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="user_gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="user_birth" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="user_role" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="user_skinType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="user_skinProblem" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="user_cheek" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="user_Tzone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="user_sunExposure" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="user_stress" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="user_period" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="user_dermatology" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="user_currentProducts" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="user_sensitive" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="user_areas" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="cosmetic_license_num" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="cosmetic_city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cosmetic_speciality" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="prod_name" />
+          </Key>
+          <Property Name="prod_name" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="prod_type" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="prod_company" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="prod_description" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="prod_manual" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="prod_rate" Type="Double" />
+          <Property Name="prod_sizeType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="prod_size" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="bgroup90_test2Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AppUsers" EntityType="Self.AppUser" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="bgroup90_test2ModelStoreContainer" CdmEntityContainer="bgroup90_test2Entities">
+          <EntitySetMapping Name="AppUsers">
+            <EntityTypeMapping TypeName="bgroup90_test2Model.AppUser">
+              <MappingFragment StoreEntitySet="AppUsers">
+                <ScalarProperty Name="appUser_id" ColumnName="appUser_id" />
+                <ScalarProperty Name="user_firstName" ColumnName="user_firstName" />
+                <ScalarProperty Name="user_password" ColumnName="user_password" />
+                <ScalarProperty Name="user_lastName" ColumnName="user_lastName" />
+                <ScalarProperty Name="user_email" ColumnName="user_email" />
+                <ScalarProperty Name="user_gender" ColumnName="user_gender" />
+                <ScalarProperty Name="user_birth" ColumnName="user_birth" />
+                <ScalarProperty Name="user_role" ColumnName="user_role" />
+                <ScalarProperty Name="user_skinType" ColumnName="user_skinType" />
+                <ScalarProperty Name="user_skinProblem" ColumnName="user_skinProblem" />
+                <ScalarProperty Name="user_cheek" ColumnName="user_cheek" />
+                <ScalarProperty Name="user_Tzone" ColumnName="user_Tzone" />
+                <ScalarProperty Name="user_sunExposure" ColumnName="user_sunExposure" />
+                <ScalarProperty Name="user_stress" ColumnName="user_stress" />
+                <ScalarProperty Name="user_period" ColumnName="user_period" />
+                <ScalarProperty Name="user_dermatology" ColumnName="user_dermatology" />
+                <ScalarProperty Name="user_currentProducts" ColumnName="user_currentProducts" />
+                <ScalarProperty Name="user_sensitive" ColumnName="user_sensitive" />
+                <ScalarProperty Name="user_areas" ColumnName="user_areas" />
+                <ScalarProperty Name="cosmetic_license_num" ColumnName="cosmetic_license_num" />
+                <ScalarProperty Name="cosmetic_city" ColumnName="cosmetic_city" />
+                <ScalarProperty Name="cosmetic_speciality" ColumnName="cosmetic_speciality" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="bgroup90_test2Model.Product">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="prod_name" ColumnName="prod_name" />
+                <ScalarProperty Name="prod_type" ColumnName="prod_type" />
+                <ScalarProperty Name="prod_company" ColumnName="prod_company" />
+                <ScalarProperty Name="prod_description" ColumnName="prod_description" />
+                <ScalarProperty Name="prod_manual" ColumnName="prod_manual" />
+                <ScalarProperty Name="prod_rate" ColumnName="prod_rate" />
+                <ScalarProperty Name="prod_sizeType" ColumnName="prod_sizeType" />
+                <ScalarProperty Name="prod_size" ColumnName="prod_size" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32228.430
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI", "SkinMeApp\WebAPI.csproj", "{B283A5E6-5B64-4F10-AEE8-CE9B3D58DF73}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DATA", "DATA\DATA.csproj", "{D15A6472-4C11-419A-A994-8DE3FFF9DF5C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B283A5E6-5B64-4F10-AEE8-CE9B3D58DF73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B283A5E6-5B64-4F10-AEE8-CE9B3D58DF73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B283A5E6-5B64-4F10-AEE8-CE9B3D58DF73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B283A5E6-5B64-4F10-AEE8-CE9B3D58DF73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D15A6472-4C11-419A-A994-8DE3FFF9DF5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D15A6472-4C11-419A-A994-8DE3FFF9DF5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D15A6472-4C11-419A-A994-8DE3FFF9DF5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D15A6472-4C11-419A-A994-8DE3FFF9DF5C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1C64EAFA-6F1B-4606-95A2-F9140FA1321F}
+	EndGlobalSection
+EndGlobal
