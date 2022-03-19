@@ -22,6 +22,8 @@ namespace DATA
         public string user_email { get; set; }
         public string user_gender { get; set; }
         public Nullable<System.DateTime> user_birth { get; set; }
+        public byte[] user_profilepic { get; set; }
+        public byte[] user_picsprocess { get; set; }
         public string user_role { get; set; }
         public string user_skinType { get; set; }
         public string user_skinProblem { get; set; }
@@ -34,7 +36,7 @@ namespace DATA
         public string user_currentProducts { get; set; }
         public string user_sensitive { get; set; }
         public string user_areas { get; set; }
-        public Nullable<decimal> cosmetic_license_num { get; set; }
+        public Nullable<int> cosmetic_license_num { get; set; }
         public string cosmetic_businessName { get; set; }
         public string cosmetic_address { get; set; }
         public string cosmetic_city { get; set; }

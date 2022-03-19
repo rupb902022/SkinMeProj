@@ -5,13 +5,15 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using DATA;
 
 namespace SkinMeApp.Controllers
 {
+    [EnableCors(origins:"*",headers:"*",methods:"*")]
     public class LogInController : ApiController
     {
-        bgroup90_test2dbContext db = new bgroup90_test2dbContext();
+        bgroup90_skinmeDbContext db = new bgroup90_skinmeDbContext();
 
         public IHttpActionResult Get()
         {
@@ -58,10 +60,13 @@ namespace SkinMeApp.Controllers
 
             }
             catch (DbEntityValidationException e)
-            {
+            { 
                 Console.WriteLine(e);
                 return BadRequest(e.Message);
             }
         }
+          
+            
+        }
     }
-}
+
