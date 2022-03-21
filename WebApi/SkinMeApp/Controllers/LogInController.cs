@@ -13,7 +13,7 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins:"*",headers:"*",methods:"*")]
     public class LogInController : ApiController
     {
-        bgroup90_skinmeDbContext db = new bgroup90_skinmeDbContext();
+        bgroup90_test2Entities1 db = new bgroup90_test2Entities1();
 
         public IHttpActionResult Get()
         {
@@ -32,7 +32,7 @@ namespace SkinMeApp.Controllers
             try
             {
                 AppUser log = db.AppUsers.FirstOrDefault
-                    (x => x.username== userName && x.user_password == password);
+                    (x => x.username == userName && x.user_password == password);
 
                 if (log != null)
                 {
