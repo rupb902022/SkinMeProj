@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using DATA;
 
 namespace SkinMeApp.Controllers
 {
@@ -30,7 +31,8 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                AppUser log = db.AppUsers.Select(user_role == 'cosmetic')
+                AppUser log = db.AppUsers.user_role.contains(''cosmetic'')
+                    
 
                 if (log != null)
                 {
