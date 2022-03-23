@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using DATA;
+
 
 namespace SkinMeApp.Controllers
 {
@@ -15,9 +18,19 @@ namespace SkinMeApp.Controllers
         // GET api/<controller>
         public IHttpActionResult Get()
         {
+            
+
             try
             {
-                return Ok(db.AppUsers);
+                if (db.AppUsers(x => x.user_role == 'cosmetic')
+                {
+                    return $"userName: {x.userName}";
+                }
+                else
+                {
+                    return "error";
+                }
+
             }
             catch (Exception ex)
             {
@@ -27,28 +40,28 @@ namespace SkinMeApp.Controllers
         }
 
         // GET api/<controller>/5
-        public IHttpActionResult Get(string username)
-        {
-            try
-            {
-                AppUser log = db.AppUsers.user_role.contains('cosmetic');
-                    
+        //public IHttpActionResult Get(string userName)
+        //{
+        //    try
+        //    {
+        //        AppUser log = db.AppUsers.user_role.contains('cosmetic');
 
-                if (log != null)
-                {
-                    return Content(HttpStatusCode.OK,
-                        $"Cosmetic licence number: {log.cosmetic_licence_num}Cosmetologit name: {log.cosmetic_businessName} Cosmetologit Adress:{log.osmetic_address},{log.cosmetic_city} Cosmetologit speciality: {log.cosmetic_speciality}");
-                  
-                }
-                return Content(HttpStatusCode.NotFound,
-                    $"username or password were not found");
-            }
-            catch (Exception)
-            {
 
-                throw;
-            }
-        }
+        //        if (log != null)
+        //        {
+        //            return Content(HttpStatusCode.OK,
+        //                $"Cosmetic licence number: {log.cosmetic_licence_num}Cosmetologit name: {log.cosmetic_businessName} Cosmetologit Adress:{log.osmetic_address},{log.cosmetic_city} Cosmetologit speciality: {log.cosmetic_speciality}");
+
+        //        }
+        //        return Content(HttpStatusCode.NotFound,
+        //            $"username or password were not found");
+        //    }
+        //    catch (Exception)
+        //    {
+
+        //        throw;
+        //    }
+        //}
 
         // POST api/<controller>
         public void Post([FromBody] string value)
