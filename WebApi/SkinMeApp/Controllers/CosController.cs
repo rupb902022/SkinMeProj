@@ -1,34 +1,16 @@
-﻿using System;
+﻿using DATA;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using DATA;
 
 namespace SkinMeApp.Controllers
 {
-    public class CosmetologistsController : ApiController
+    public class CosController : ApiController
     {
         PjDbContext db = new PjDbContext();
-
-        //GET api/<controller>
-        public IHttpActionResult Get()
-        {
-            
-            try
-            {
-                
-                return Ok(db.AppUsers.Select(x => x.user_firstName).ToList());
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-
-            }
-        }
-
-        // GET api/<controller>/5
         public IHttpActionResult Get(string userrole = "cosmetic")
         {
             try
@@ -45,9 +27,6 @@ namespace SkinMeApp.Controllers
 
 
                 }
-
-
-
                 return Content(HttpStatusCode.NotFound,
                     $"no cosmetologist found");
             }
@@ -57,19 +36,6 @@ namespace SkinMeApp.Controllers
                 throw;
             }
         }
-        // POST api/<controller>
-        public void Post([FromBody] string value)
-        {
-        }
 
-        // PUT api/<controller>/5
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<controller>/5
-        public void Delete(int id)
-        {
-        }
     }
 }
