@@ -15,7 +15,7 @@ namespace SkinMeApp.Controllers
         {
             bgroup90_test2Entities1 db = new bgroup90_test2Entities1();
 
-            return db.AppUsers.Where(x => x.user_role == x.user_role.ToString()).Select (x=> x.username).ToList();
+            return db.AppUsers.Where(x => x.user_role == x.user_role.ToString()=='cosmetic').Select (x=> x.username).ToList();
         }
 
         // GET api/<controller>/5
