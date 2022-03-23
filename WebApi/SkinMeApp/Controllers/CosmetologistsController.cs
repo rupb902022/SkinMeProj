@@ -27,11 +27,11 @@ namespace SkinMeApp.Controllers
         }
 
         // GET api/<controller>/5
-        public IHttpActionResult Get(string cosmetic_licence_num)
+        public IHttpActionResult Get(string username)
         {
             try
             {
-                AppUser log = db.AppUsers.user_role.contains(''cosmetic'')
+                AppUser log = db.AppUsers.user_role.contains('cosmetic');
                     
 
                 if (log != null)
