@@ -10,7 +10,7 @@ namespace SkinMeApp.Controllers
 {
     public class CosController : ApiController
     {
-        PjDbContext db = new PjDbContext();
+        bgroup90_test2Entities db = new bgroup90_test2Entities();
         public IHttpActionResult Get(string userrole = "cosmetic")
         {
             try

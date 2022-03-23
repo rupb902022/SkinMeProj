@@ -104,7 +104,7 @@
           <Property Name="prod_sizeType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="prod_size" Type="Int32" />
         </EntityType>
-        <EntityContainer Name="PjDbContext" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="bgroup90_test2Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AppUsers" EntityType="Self.AppUser" />
           <EntitySet Name="Products" EntityType="Self.Product" />
         </EntityContainer>
@@ -113,7 +113,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="bgroup90_test2ModelStoreContainer" CdmEntityContainer="PjDbContext">
+        <EntityContainerMapping StorageEntityContainer="bgroup90_test2ModelStoreContainer" CdmEntityContainer="bgroup90_test2Entities">
           <EntitySetMapping Name="AppUsers">
             <EntityTypeMapping TypeName="bgroup90_test2Model.AppUser">
               <MappingFragment StoreEntitySet="AppUsers">

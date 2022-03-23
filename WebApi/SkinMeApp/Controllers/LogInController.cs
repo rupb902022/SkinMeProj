@@ -13,7 +13,7 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins:"*",headers:"*",methods:"*")]
     public class LogInController : ApiController
     {
-        PjDbContext db = new PjDbContext();
+        bgroup90_test2Entities db = new bgroup90_test2Entities();
 
         public IHttpActionResult Get()
         {
