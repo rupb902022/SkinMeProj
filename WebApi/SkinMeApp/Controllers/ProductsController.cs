@@ -12,7 +12,7 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ProductsController : ApiController
     {
-        bgroup90_test2Entities db = new bgroup90_test2Entities();
+        SkinDbContext db = new SkinDbContext();
 
         public IHttpActionResult Get()
         {
@@ -40,8 +40,43 @@ namespace SkinMeApp.Controllers
             {
                 return BadRequest(ex.Message);
             }
-
-
+        }
+        public IHttpActionResult Put(string name, [FromBody] Product value) // change to id , add prod id in DB
+        {
+            try
+            {
+                Product p = db.Products.SingleOrDefault(x => x.prod_name == name);
+                if (p != null)
+                {
+                    p.prod_description = value.prod_description;
+                    p.prod_manual = value.prod_manual;
+                    return Ok(p);
+                }
+                return Content(HttpStatusCode.NotFound,
+                    $"Product with name={name} was not found.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        public IHttpActionResult Delete(string name) // change to id when add id in product db 
+        {
+            try
+            {
+                Product prod = db.Products.SingleOrDefault(x => x.prod_name == name);
+                if (prod != null)
+                {
+                    db.Products.Remove(prod);
+                    return Ok();
+                }
+                return Content(HttpStatusCode.NotFound,
+                    $"Product with name={name} was not found to delete");
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, ex);
+            }
         }
     }
 }
