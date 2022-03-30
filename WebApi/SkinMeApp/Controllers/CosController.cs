@@ -10,8 +10,8 @@ namespace SkinMeApp.Controllers
 {
     public class CosController : ApiController
     {
-        bgroup90_test2Entities2 db = new bgroup90_test2Entities2();
-        public IHttpActionResult Get(string userrole = "cosmetic")
+        AppDbContext db = new AppDbContext();
+        public IHttpActionResult Get(string userrole = "cosmetic") // get only cosmetologist
         {
             try
             {
@@ -36,6 +36,19 @@ namespace SkinMeApp.Controllers
                 throw;
             }
         }
+        public IHttpActionResult Get() // Get all care plans 
+        {
+            try
+            {
+                return Ok(db.CarePlans);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+        }
+
 
     }
 }

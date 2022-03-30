@@ -14,6 +14,12 @@ namespace DATA
     
     public partial class Product
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Product()
+        {
+            this.SkinPlans = new HashSet<SkinPlan>();
+        }
+    
         public int prod_id { get; set; }
         public string prod_name { get; set; }
         public string prod_type { get; set; }
@@ -23,5 +29,8 @@ namespace DATA
         public Nullable<double> prod_rate { get; set; }
         public string prod_sizeType { get; set; }
         public Nullable<int> prod_size { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SkinPlan> SkinPlans { get; set; }
     }
 }
