@@ -7,5 +7,8 @@ namespace SkinMeApp.DTO
 {
     public class PlanUpdate
     {
+      
+
+        
     }
 }

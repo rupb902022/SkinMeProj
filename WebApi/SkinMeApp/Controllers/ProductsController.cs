@@ -12,7 +12,7 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ProductsController : ApiController
     {
-        AppDbContext db = new AppDbContext();
+        bgroup90DbContext db = new bgroup90DbContext();
 
         public IHttpActionResult Get()
         {

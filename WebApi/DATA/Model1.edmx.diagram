@@ -4,9 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="473ba866f3de431ba88708bba9d681e1" Name="Diagram1">
-        <EntityTypeShape EntityType="bgroup90_test2Model.ApprovedCo" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="bgroup90_test2Model.AppUser" Width="1.5" PointX="0.75" PointY="9.625" IsExpanded="true" />
+      <Diagram DiagramId="473ba866f3de431ba88708bba9d681e1" Name="Diagram1" ZoomLevel="64">
+        <EntityTypeShape EntityType="bgroup90_test2Model.ApprovedCo" Width="1.5" PointX="6.375" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup90_test2Model.AppUser" Width="1.5" PointX="5.375" PointY="3.625" IsExpanded="true" />
         <EntityTypeShape EntityType="bgroup90_test2Model.Product" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="bgroup90_test2Model.SkinPlan" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
         <AssociationConnector Association="bgroup90_test2Model.FK_SkinPlan_AppUsers" ManuallyRouted="false" />
