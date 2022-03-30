@@ -58,6 +58,7 @@ namespace SkinMeApp.Controllers
 
         
         [HttpPost]
+        [Route("api/LogIn/register")]
 
         public IHttpActionResult Post([FromBody] AppUser value)
             

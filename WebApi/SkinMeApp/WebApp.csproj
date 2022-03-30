@@ -225,8 +225,11 @@
     <Compile Include="Controllers\LogInController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="DTO\AddProduct.cs" />
     <Compile Include="DTO\Logincheck.cs" />
     <Compile Include="DTO\PlanUpdate.cs" />
+    <Compile Include="DTO\UpdateCosInfo.cs" />
+    <Compile Include="DTO\UpdateUserInfo.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
