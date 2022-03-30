@@ -76,18 +76,45 @@ namespace SkinMeApp.Controllers
             }
         }
 
-        public IHttpActionResult Put(int id, [FromBody] AppUser value)
+        //public IHttpActionResult Put(int id, [FromBody] AppUser value)
+        //{
+        //    try
+        //    {
+        //        AppUser user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
+        //        if (user != null)
+        //        {
+        //            user.user_firstName = value.user_firstName;
+        //            user.user_lastName = value.user_lastName;
+        //            user.user_email = value.user_email;
+        //            user.username = value.username;
+        //            user.user_password = value.user_password;
+        //            return Ok(user);
+        //        }
+        //        return Content(HttpStatusCode.NotFound,
+        //            $"User with id={id} was not found.");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
+
+
+        [HttpPut]
+        [Route("api/UpdateUser")]
+        public IHttpActionResult UpdateUserInfo(int id, [FromBody] UpdateUserInfo up) // update user info dto
         {
             try
             {
                 AppUser user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
                 if (user != null)
                 {
-                    user.user_firstName = value.user_firstName;
-                    user.user_lastName = value.user_lastName;
-                    user.user_email = value.user_email;
-                    user.username = value.username;
-                    user.user_password = value.user_password;
+                    
+                    user.user_email = up.user_email;
+                    user.username = up.username;
+                    user.user_password = up.user_password;
+                    user.user_profilepic = up.user_profilepic;
+
                     return Ok(user);
                 }
                 return Content(HttpStatusCode.NotFound,
@@ -99,6 +126,35 @@ namespace SkinMeApp.Controllers
             }
         }
 
+        [HttpPut]
+        [Route("api/UpdateCos")]
+
+        public IHttpActionResult UpdateCosInfo(int id, [FromBody] UpdateCosInfo up) // update cosmetologist info dto
+        {
+            try
+            {
+                AppUser user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
+                if (user != null)
+                {
+                    
+                    user.user_email = up.user_email;
+                    user.username = up.username;
+                    user.user_password = up.user_password;
+                    user.cosmetic_license_num = up.cosmetic_license_num;
+                    user.cosmetic_businessName = up.cosmetic_businessName;
+                    user.cosmetic_city = up.cosmetic_city;
+                    user.cosmetic_address = up.cosmetic_address;
+
+                    return Ok(user);
+                }
+                return Content(HttpStatusCode.NotFound,
+                    $"Cosmetologist with id={id} was not found.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
     }
     }
