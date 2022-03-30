@@ -60,6 +60,7 @@ namespace SkinMeApp.Controllers
         [HttpPost]
 
         public IHttpActionResult Post([FromBody] AppUser value)
+            
         {
             try
             {
