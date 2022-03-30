@@ -14,7 +14,7 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins:"*",headers:"*",methods:"*")]
     public class LogInController : ApiController
     {
-        SkinDbContext db = new SkinDbContext();
+        bgroup90_test2Entities2 db = new bgroup90_test2Entities2();
 
         public IHttpActionResult Get()
         {
