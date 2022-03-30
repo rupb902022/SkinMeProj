@@ -1,4 +1,5 @@
 ﻿using DATA;
+using SkinMeApp.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,37 +42,58 @@ namespace SkinMeApp.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        public IHttpActionResult Put(string name, [FromBody] Product value) // change to id , add prod id in DB
+        //public IHttpActionResult Put(int id, [FromBody] Product value) 
+        //{
+        //    try
+        //    {
+        //        Product p = db.Products.SingleOrDefault(x => x.prod_id == id);
+        //        if (p != null)
+        //        {
+        //            p.prod_description = value.prod_description;
+        //            p.prod_manual = value.prod_manual;
+        //            return Ok(p);
+        //        }
+        //        return Content(HttpStatusCode.NotFound,
+        //            $"Product with id={id} was not found.");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
+        [HttpPut]
+        [Route("api/Products")]
+        public IHttpActionResult Update(int id, [FromBody] AddProduct prod ) // can uptade only manual / instructions
         {
             try
             {
-                Product p = db.Products.SingleOrDefault(x => x.prod_name == name);
+                Product p = db.Products.SingleOrDefault(x => x.prod_id == id);
                 if (p != null)
                 {
-                    p.prod_description = value.prod_description;
-                    p.prod_manual = value.prod_manual;
+                    p.prod_manual = prod.prod_manual;
+                   
                     return Ok(p);
                 }
                 return Content(HttpStatusCode.NotFound,
-                    $"Product with name={name} was not found.");
+                    $"Product with id={id} was not found.");
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
         }
-        public IHttpActionResult Delete(string name) // change to id when add id in product db 
+        public IHttpActionResult Delete(int id) 
         {
             try
             {
-                Product prod = db.Products.SingleOrDefault(x => x.prod_name == name);
+                Product prod = db.Products.SingleOrDefault(x => x.prod_id == id);
                 if (prod != null)
                 {
                     db.Products.Remove(prod);
                     return Ok();
                 }
                 return Content(HttpStatusCode.NotFound,
-                    $"Product with name={name} was not found to delete");
+                    $"Product with id={id} was not found to delete");
             }
             catch (Exception ex)
             {

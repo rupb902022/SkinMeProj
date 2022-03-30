@@ -5,9 +5,11 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace SkinMeApp.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CosController : ApiController
     {
         bgroup90DbContext db = new bgroup90DbContext();
@@ -36,11 +38,11 @@ namespace SkinMeApp.Controllers
                 throw;
             }
         }
-        public IHttpActionResult Get() // Get all care plans 
+        public IHttpActionResult Get() // Get all תוכניות טיפוח
         {
             try
             {
-                return Ok(db.CarePlans);
+                return Ok(db.SkinPlans);
             }
             catch (Exception ex)
             {
@@ -48,6 +50,65 @@ namespace SkinMeApp.Controllers
 
             }
         }
+
+        [HttpPost]
+        public IHttpActionResult Post([FromBody] SkinPlan value) // add plan
+        {
+            try
+            {
+                db.SkinPlans.Add(value);
+                db.SaveChanges();
+                return Created(new Uri(Request.RequestUri.AbsoluteUri + value.plan_id), value);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        public IHttpActionResult Put(int id, [FromBody] SkinPlan value) // Update plan 
+        {
+            try
+            {
+                SkinPlan s = db.SkinPlans.SingleOrDefault(x => x.plan_id == id);
+                if (s != null)
+                {
+                    s.plan_name = value.plan_name;
+                    s.plan_date = value.plan_date;
+                    s.notes = value.notes;
+                    s.Product = value.Product;  /// ? how to change products 
+                    
+                    return Ok(s);
+                }
+                return Content(HttpStatusCode.NotFound,
+                    $"Plan with id={id} was not found.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        public IHttpActionResult Delete(int id) // Delete plan 
+        {
+            try
+            {
+                SkinPlan s = db.SkinPlans.SingleOrDefault(x => x.plan_id == id);
+                if (s != null)
+                {
+                    db.SkinPlans.Remove(s);
+                    return Ok();
+                }
+                return Content(HttpStatusCode.NotFound,
+                    $"Plan with id={id} was not found to delete");
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, ex);
+            }
+        }
+
+
 
 
     }
