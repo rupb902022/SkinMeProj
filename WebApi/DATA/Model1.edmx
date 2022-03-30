@@ -47,11 +47,34 @@
           <Property Name="cosmetic_city" Type="varchar" MaxLength="50" />
           <Property Name="cosmetic_speciality" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="CarePlan">
+          <Key>
+            <PropertyRef Name="plan_id" />
+          </Key>
+          <Property Name="plan_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cosmetic_license_num" Type="int" />
+          <Property Name="appUser_id" Type="int" />
+          <Property Name="products" Type="varchar" MaxLength="2000" />
+          <Property Name="plan_date" Type="date" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'bgroup90_test2.dbo.PlanForUser' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="PlanForUser">
+          <Property Name="plan_id" Type="int" />
+          <Property Name="appUser_id" Type="int" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'bgroup90_test2.dbo.prodForUser' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="prodForUser">
+          <Property Name="appUser_id" Type="int" />
+          <Property Name="prod_id" Type="int" />
+        </EntityType>-->
         <EntityType Name="Products">
           <Key>
-            <PropertyRef Name="prod_name" />
+            <PropertyRef Name="prod_id" />
           </Key>
-          <Property Name="prod_name" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="prod_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="prod_name" Type="varchar" MaxLength="50" />
           <Property Name="prod_type" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="prod_company" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="prod_description" Type="varchar" MaxLength="1000" />
@@ -60,9 +83,22 @@
           <Property Name="prod_sizeType" Type="varchar" MaxLength="10" />
           <Property Name="prod_size" Type="int" />
         </EntityType>
+        <!--Errors Found During Generation:
+error 6004: The table 'bgroup90_test2.dbo.PlanForUser' is referenced by a relationship, but cannot be found.
+        <Association Name="FK__PlanForUs__appUs__19AACF41" />-->
+        <!--Errors Found During Generation:
+error 6004: The table 'bgroup90_test2.dbo.PlanForUser' is referenced by a relationship, but cannot be found.
+        <Association Name="FK__PlanForUs__plan___18B6AB08" />-->
+        <!--Errors Found During Generation:
+error 6004: The table 'bgroup90_test2.dbo.prodForUser' is referenced by a relationship, but cannot be found.
+        <Association Name="FK__prodForUs__appUs__24285DB4" />-->
+        <!--Errors Found During Generation:
+error 6004: The table 'bgroup90_test2.dbo.prodForUser' is referenced by a relationship, but cannot be found.
+        <Association Name="FK__prodForUs__prod___251C81ED" />-->
         <EntityContainer Name="bgroup90_test2ModelStoreContainer">
           <EntitySet Name="ApprovedCos" EntityType="Self.ApprovedCos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AppUsers" EntityType="Self.AppUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CarePlan" EntityType="Self.CarePlan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema>
@@ -112,11 +148,22 @@
           <Property Name="cosmetic_city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="cosmetic_speciality" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="CarePlan">
+          <Key>
+            <PropertyRef Name="plan_id" />
+          </Key>
+          <Property Name="plan_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cosmetic_license_num" Type="Int32" />
+          <Property Name="appUser_id" Type="Int32" />
+          <Property Name="products" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="plan_date" Type="DateTime" Precision="0" />
+        </EntityType>
         <EntityType Name="Product">
           <Key>
-            <PropertyRef Name="prod_name" />
+            <PropertyRef Name="prod_id" />
           </Key>
-          <Property Name="prod_name" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="prod_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="prod_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="prod_type" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="prod_company" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="prod_description" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
@@ -125,9 +172,10 @@
           <Property Name="prod_sizeType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="prod_size" Type="Int32" />
         </EntityType>
-        <EntityContainer Name="SkinDbContext" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="bgroup90_test2Entities2" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ApprovedCos" EntityType="Self.ApprovedCo" />
           <EntitySet Name="AppUsers" EntityType="Self.AppUser" />
+          <EntitySet Name="CarePlans" EntityType="Self.CarePlan" />
           <EntitySet Name="Products" EntityType="Self.Product" />
         </EntityContainer>
       </Schema>
@@ -135,7 +183,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="bgroup90_test2ModelStoreContainer" CdmEntityContainer="SkinDbContext">
+        <EntityContainerMapping StorageEntityContainer="bgroup90_test2ModelStoreContainer" CdmEntityContainer="bgroup90_test2Entities2">
           <EntitySetMapping Name="ApprovedCos">
             <EntityTypeMapping TypeName="bgroup90_test2Model.ApprovedCo">
               <MappingFragment StoreEntitySet="ApprovedCos">
@@ -180,9 +228,21 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="CarePlans">
+            <EntityTypeMapping TypeName="bgroup90_test2Model.CarePlan">
+              <MappingFragment StoreEntitySet="CarePlan">
+                <ScalarProperty Name="plan_id" ColumnName="plan_id" />
+                <ScalarProperty Name="cosmetic_license_num" ColumnName="cosmetic_license_num" />
+                <ScalarProperty Name="appUser_id" ColumnName="appUser_id" />
+                <ScalarProperty Name="products" ColumnName="products" />
+                <ScalarProperty Name="plan_date" ColumnName="plan_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="bgroup90_test2Model.Product">
               <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="prod_id" ColumnName="prod_id" />
                 <ScalarProperty Name="prod_name" ColumnName="prod_name" />
                 <ScalarProperty Name="prod_type" ColumnName="prod_type" />
                 <ScalarProperty Name="prod_company" ColumnName="prod_company" />

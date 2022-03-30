@@ -12,16 +12,12 @@ namespace DATA
     using System;
     using System.Collections.Generic;
     
-    public partial class Product
+    public partial class CarePlan
     {
-        public int prod_id { get; set; }
-        public string prod_name { get; set; }
-        public string prod_type { get; set; }
-        public string prod_company { get; set; }
-        public string prod_description { get; set; }
-        public string prod_manual { get; set; }
-        public Nullable<double> prod_rate { get; set; }
-        public string prod_sizeType { get; set; }
-        public Nullable<int> prod_size { get; set; }
+        public int plan_id { get; set; }
+        public Nullable<int> cosmetic_license_num { get; set; }
+        public Nullable<int> appUser_id { get; set; }
+        public string products { get; set; }
+        public Nullable<System.DateTime> plan_date { get; set; }
     }
 }
