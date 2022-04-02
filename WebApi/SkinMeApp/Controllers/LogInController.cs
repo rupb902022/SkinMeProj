@@ -14,7 +14,7 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class LogInController : ApiController
     {
-        bgroup90DbContext db = new bgroup90DbContext();
+        SkinmeDbContext db = new SkinmeDbContext();
 
         public IHttpActionResult Get()
         {
@@ -86,9 +86,9 @@ namespace SkinMeApp.Controllers
                 AppUser social = new AppUser();
                 if (social.appUser_id == 0)
                 {
-                    social.user_firstName = value.user_firstName;
-                    social.user_email = value.user_email;
-                    social.user_profilepic = value.user_profilepic;
+                    social.full_name = value.full_name;
+                    social.email = value.email;
+                    social.picture = value.picture;
 
                     db.AppUsers.Add(social);
                     db.SaveChanges();
@@ -140,10 +140,10 @@ namespace SkinMeApp.Controllers
                 if (user != null)
                 {
                     
-                    user.user_email = up.user_email;
+                    user.email = up.email;
                     user.username = up.username;
                     user.user_password = up.user_password;
-                    user.user_profilepic = up.user_profilepic;
+                    user.picture = up.picture;
 
                     return Ok(user);
                 }
@@ -167,7 +167,7 @@ namespace SkinMeApp.Controllers
                 if (user != null)
                 {
                     
-                    user.user_email = up.user_email;
+                    user.email = up.email;
                     user.username = up.username;
                     user.user_password = up.user_password;
                     user.cosmetic_license_num = up.cosmetic_license_num;

@@ -9,7 +9,7 @@ namespace SkinMeApp.DTO
     {
         public string username { get; set; }
         public string user_password { get; set; }
-        public string user_email { get; set; }
+        public string email { get; set; }
         public int cosmetic_license_num { get; set; }
         public string cosmetic_businessName { get; set; }
         public string cosmetic_address { get; set; }

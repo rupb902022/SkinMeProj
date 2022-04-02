@@ -14,30 +14,30 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class AdminController : ApiController
     {
-        bgroup90DbContext db = new bgroup90DbContext();
+        SkinmeDbContext db = new SkinmeDbContext();
 
-        public IHttpActionResult Post ([FromBody] Admin admin)
-        {
-            try
-            {
-                ApprovedCo cos = db.ApprovedCos.FirstOrDefault
-                    (x => x.cosmetic_license_num ==admin.cosmetic_license_num );
+        //public IHttpActionResult Post ([FromBody] Admin admin)
+        //{
+        //    try
+        //    {
+        //        ApprovedCo cos = db.ApprovedCo.FirstOrDefault
+        //            (x => x.cosmetic_license_num ==admin.cosmetic_license_num );
 
-                if (cos != null)
-                {
-                    return Content(HttpStatusCode.OK,
-                        $"Valid license number ");
-                }
-                return Content(HttpStatusCode.NotFound,
-                    $"license number was not found");
+        //        if (cos != null)
+        //        {
+        //            return Content(HttpStatusCode.OK,
+        //                $"Valid license number ");
+        //        }
+        //        return Content(HttpStatusCode.NotFound,
+        //            $"license number was not found");
 
-            }
-            catch (Exception)
-            {
+        //    }
+        //    catch (Exception)
+        //    {
 
-                throw;
-            }
-        }
+        //        throw;
+        //    }
+        //}
 
     }
 }
