@@ -14,7 +14,7 @@ namespace SkinMeApp.Controllers
     public class CosController : ApiController
     {
         bgroup90DbContext db = new bgroup90DbContext();
-        public IHttpActionResult Get(string userrole = "cosmetic") // get only cosmetologist
+        public IHttpActionResult Get(string userrole = "Cosmetologist") // get only cosmetologist
         {
             try
             {
