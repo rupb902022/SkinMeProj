@@ -11,7 +11,7 @@ using SkinMeApp.DTO;
 
 namespace SkinMeApp.Controllers
 {
-    [EnableCors(origins:"*",headers:"*",methods:"*")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class LogInController : ApiController
     {
         bgroup90DbContext db = new bgroup90DbContext();
@@ -19,7 +19,7 @@ namespace SkinMeApp.Controllers
         public IHttpActionResult Get()
         {
             try
-                
+
             {
                 return Ok(db.AppUsers);
             }
@@ -33,12 +33,12 @@ namespace SkinMeApp.Controllers
         [HttpPost]
         [Route("api/LogIn")]
 
-        public IHttpActionResult LogIn([FromBody] Logincheck login )
+        public IHttpActionResult LogIn([FromBody] Logincheck login)
         {
             try
             {
                 AppUser log = db.AppUsers.FirstOrDefault
-                    (x => x.username ==login.userName && x.user_password ==login.password);
+                    (x => x.username == login.userName && x.user_password == login.password);
 
                 if (log != null)
                 {
@@ -56,12 +56,12 @@ namespace SkinMeApp.Controllers
             }
         }
 
-        
+
         [HttpPost]
         [Route("api/LogIn/register")]
 
         public IHttpActionResult Post([FromBody] AppUser value)
-            
+
         {
             try
             {
@@ -76,6 +76,35 @@ namespace SkinMeApp.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+        [HttpPost]
+        [Route("api/LogIn/SocialMediaLogin")]
+        public IHttpActionResult SocialMediaLogin([FromBody] SocialMediaLogin value)
+        {
+            try
+            {
+                AppUser social = new AppUser();
+                if (social.appUser_id == 0)
+                {
+                    social.user_firstName = value.user_firstName;
+                    social.user_email = value.user_email;
+                    social.user_profilepic = value.user_profilepic;
+
+                    db.AppUsers.Add(social);
+                    db.SaveChanges();
+                    return Created(new Uri(Request.RequestUri.AbsoluteUri + value.appUser_id), value);
+                }
+                return Content(HttpStatusCode.NotFound,
+                    $"Could not connect to your social media ");
+
+            }
+            catch (DbEntityValidationException e)
+            {
+                Console.WriteLine(e);
+                return BadRequest(e.Message);
+            }
+        }
+    
 
         //public IHttpActionResult Put(int id, [FromBody] AppUser value)
         //{
