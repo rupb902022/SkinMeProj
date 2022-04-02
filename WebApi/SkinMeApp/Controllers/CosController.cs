@@ -132,7 +132,7 @@ namespace SkinMeApp.Controllers
             }
         }
 
-        public IHttpActionResult Put(int id, [FromBody] AddAddress value) // Add Address for cosmetic business
+        public IHttpActionResult Put(int id, [FromBody] MapAddress value) // Add Address for cosmetic business
         {
             try
             {

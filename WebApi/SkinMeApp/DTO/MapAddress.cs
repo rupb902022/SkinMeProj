@@ -7,5 +7,8 @@ namespace SkinMeApp.DTO
 {
     public class MapAddress
     {
+        public string cosmetic_address { get; set; }
+        public string cosmetic_city { get; set; }
+
     }
 }

@@ -16,7 +16,7 @@ namespace SkinMeApp.Controllers
         
         bgroup90DbContext db = new bgroup90DbContext();
 
-        public IHttpActionResult Get(string userrole = "user") // get only cosmetologist
+        public IHttpActionResult Get(string userrole = "User") // get only users
         {
             try
             {
@@ -41,5 +41,7 @@ namespace SkinMeApp.Controllers
                 throw;
             }
         }
+
+        
     }
 }

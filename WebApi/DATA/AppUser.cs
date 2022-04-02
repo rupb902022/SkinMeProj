@@ -23,12 +23,11 @@ namespace DATA
         public int appUser_id { get; set; }
         public string username { get; set; }
         public string user_password { get; set; }
-        public string user_firstName { get; set; }
-        public string user_lastName { get; set; }
-        public string user_email { get; set; }
+        public string full_name { get; set; }
+        public string email { get; set; }
         public string user_gender { get; set; }
         public Nullable<System.DateTime> user_birth { get; set; }
-        public byte[] user_profilepic { get; set; }
+        public byte[] picture { get; set; }
         public byte[] user_picsprocess { get; set; }
         public string user_role { get; set; }
         public string user_skinType { get; set; }
@@ -46,7 +45,9 @@ namespace DATA
         public string cosmetic_businessName { get; set; }
         public string cosmetic_address { get; set; }
         public string cosmetic_city { get; set; }
+        public Nullable<int> LatLng { get; set; }
         public string cosmetic_speciality { get; set; }
+        public string cosmetic_status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SkinPlan> SkinPlans { get; set; }
