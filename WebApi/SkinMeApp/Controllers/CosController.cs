@@ -24,7 +24,7 @@ namespace SkinMeApp.Controllers
                 {
                     foreach (AppUser u in users)
                     {
-                        Console.WriteLine(u.user_firstName);
+                        Console.WriteLine(u.user_firstName + u.cosmetic_address);
                     }
                     return Content(HttpStatusCode.OK, users);
 
@@ -131,6 +131,8 @@ namespace SkinMeApp.Controllers
                 return Content(HttpStatusCode.BadRequest, ex);
             }
         }
+
+  
 
 
 
