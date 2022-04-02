@@ -24,7 +24,7 @@ namespace SkinMeApp.Controllers
                 {
                     foreach (AppUser u in users)
                     {
-                        Console.WriteLine(u.user_firstName);
+                        Console.WriteLine(u.user_firstName + u.cosmetic_address + u.cosmetic_city);
                     }
                     return Content(HttpStatusCode.OK, users);
 
@@ -131,6 +131,29 @@ namespace SkinMeApp.Controllers
                 return Content(HttpStatusCode.BadRequest, ex);
             }
         }
+
+        public IHttpActionResult Put(int id, [FromBody] AddAddress value) // Add Address for cosmetic business
+        {
+            try
+            {
+                AppUser s = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
+                if (s != null)
+                {
+                    s.cosmetic_address = value.cosmetic_address;
+                    s.cosmetic_city = value.cosmetic_city;
+
+                    return Ok(s);
+                }
+                return Content(HttpStatusCode.NotFound,
+                    $"Cosmetic with id={id} was not found.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
 
 
 
