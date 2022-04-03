@@ -14,8 +14,10 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class LogInController : ApiController
     {
-        SkinmeDbContext db = new SkinmeDbContext();
+        bgroup90_SkinmeDbContext db = new bgroup90_SkinmeDbContext();
 
+       [HttpGet]
+       [Route ("api/LogIn/alluser")]
         public IHttpActionResult Get()
         {
             try
@@ -76,6 +78,11 @@ namespace SkinMeApp.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+
+
+
+
 
         [HttpPost]
         [Route("api/LogIn/SocialMediaLogin")]

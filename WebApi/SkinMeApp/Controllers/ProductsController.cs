@@ -13,7 +13,7 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ProductsController : ApiController
     {
-        SkinmeDbContext db = new SkinmeDbContext();
+        bgroup90_SkinmeDbContext db = new bgroup90_SkinmeDbContext();
 
         public IHttpActionResult Get()
         {
@@ -42,28 +42,10 @@ namespace SkinMeApp.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        //public IHttpActionResult Put(int id, [FromBody] Product value) 
-        //{
-        //    try
-        //    {
-        //        Product p = db.Products.SingleOrDefault(x => x.prod_id == id);
-        //        if (p != null)
-        //        {
-        //            p.prod_description = value.prod_description;
-        //            p.prod_manual = value.prod_manual;
-        //            return Ok(p);
-        //        }
-        //        return Content(HttpStatusCode.NotFound,
-        //            $"Product with id={id} was not found.");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //}
+        
         [HttpPut]
         [Route("api/Products")]
-        public IHttpActionResult Update(int id, [FromBody] AddProduct prod ) // can uptade only manual / instructions
+        public IHttpActionResult Update(int id, [FromBody] UpdateProduct prod ) // can uptade only manual / instructions
         {
             try
             {
