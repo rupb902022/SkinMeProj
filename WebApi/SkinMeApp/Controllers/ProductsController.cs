@@ -13,8 +13,10 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ProductsController : ApiController
     {
-        bgroup90_SkinmeDbContext db = new bgroup90_SkinmeDbContext();
+        SkinMeDbContext db = new SkinMeDbContext();
 
+        [HttpGet]
+        [Route ("api/Products")]
         public IHttpActionResult Get()
         {
             try
