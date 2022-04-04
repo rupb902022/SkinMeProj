@@ -19,7 +19,7 @@
           <Property Name="user_birth" Type="date" />
           <Property Name="picture" Type="varbinary" MaxLength="50" />
           <Property Name="user_picsprocess" Type="varbinary" MaxLength="50" />
-          <Property Name="user_role" Type="varchar" MaxLength="10" />
+          <Property Name="user_role" Type="varchar" MaxLength="50" />
           <Property Name="user_skinType" Type="varchar" MaxLength="20" />
           <Property Name="user_skinProblem" Type="varchar" MaxLength="10" />
           <Property Name="user_cheek" Type="varchar" MaxLength="10" />
@@ -78,7 +78,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SkinPlan_Products">
+        <Association Name="FK_SkinPlan_Products1">
           <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
           <End Role="SkinPlan" Type="Self.SkinPlan" Multiplicity="*" />
           <ReferentialConstraint>
@@ -98,7 +98,7 @@
             <End Role="AppUsers" EntitySet="AppUsers" />
             <End Role="SkinPlan" EntitySet="SkinPlan" />
           </AssociationSet>
-          <AssociationSet Name="FK_SkinPlan_Products" Association="Self.FK_SkinPlan_Products">
+          <AssociationSet Name="FK_SkinPlan_Products1" Association="Self.FK_SkinPlan_Products1">
             <End Role="Products" EntitySet="Products" />
             <End Role="SkinPlan" EntitySet="SkinPlan" />
           </AssociationSet>
@@ -122,7 +122,7 @@
           <Property Name="user_birth" Type="DateTime" Precision="0" />
           <Property Name="picture" Type="Binary" MaxLength="50" FixedLength="false" />
           <Property Name="user_picsprocess" Type="Binary" MaxLength="50" FixedLength="false" />
-          <Property Name="user_role" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="user_role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="user_skinType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="user_skinProblem" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="user_cheek" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
@@ -157,7 +157,7 @@
           <Property Name="prod_sizeType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="prod_size" Type="Int32" />
           <Property Name="prod_status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="SkinPlans" Relationship="Self.FK_SkinPlan_Products" FromRole="Products" ToRole="SkinPlan" />
+          <NavigationProperty Name="SkinPlans" Relationship="Self.FK_SkinPlan_Products1" FromRole="Products" ToRole="SkinPlan" />
         </EntityType>
         <EntityType Name="SkinPlan">
           <Key>
@@ -171,7 +171,7 @@
           <Property Name="plan_date" Type="DateTime" Precision="0" />
           <Property Name="notes" Type="String" MaxLength="2500" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="AppUser" Relationship="Self.FK_SkinPlan_AppUsers" FromRole="SkinPlan" ToRole="AppUsers" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_SkinPlan_Products" FromRole="SkinPlan" ToRole="Products" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_SkinPlan_Products1" FromRole="SkinPlan" ToRole="Products" />
         </EntityType>
         <Association Name="FK_SkinPlan_AppUsers">
           <End Role="AppUsers" Type="Self.AppUser" Multiplicity="0..1" />
@@ -185,7 +185,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SkinPlan_Products">
+        <Association Name="FK_SkinPlan_Products1">
           <End Role="Products" Type="Self.Product" Multiplicity="0..1" />
           <End Role="SkinPlan" Type="Self.SkinPlan" Multiplicity="*" />
           <ReferentialConstraint>
@@ -197,7 +197,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="SkinMeDbContext" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="bgroup90_SkinmeDbContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AppUsers" EntityType="Self.AppUser" />
           <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="SkinPlans" EntityType="Self.SkinPlan" />
@@ -205,7 +205,7 @@
             <End Role="AppUsers" EntitySet="AppUsers" />
             <End Role="SkinPlan" EntitySet="SkinPlans" />
           </AssociationSet>
-          <AssociationSet Name="FK_SkinPlan_Products" Association="Self.FK_SkinPlan_Products">
+          <AssociationSet Name="FK_SkinPlan_Products1" Association="Self.FK_SkinPlan_Products1">
             <End Role="Products" EntitySet="Products" />
             <End Role="SkinPlan" EntitySet="SkinPlans" />
           </AssociationSet>
@@ -215,7 +215,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="bgroup90_test2ModelStoreContainer" CdmEntityContainer="SkinMeDbContext">
+        <EntityContainerMapping StorageEntityContainer="bgroup90_test2ModelStoreContainer" CdmEntityContainer="bgroup90_SkinmeDbContext">
           <EntitySetMapping Name="AppUsers">
             <EntityTypeMapping TypeName="bgroup90_test2Model.AppUser">
               <MappingFragment StoreEntitySet="AppUsers">

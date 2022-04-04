@@ -13,7 +13,11 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CosController : ApiController
     {
-        SkinMeDbContext db = new SkinMeDbContext();
+        bgroup90_SkinmeDbContext db = new bgroup90_SkinmeDbContext();
+
+        
+       
+        
         public IHttpActionResult Get(string userrole = "Cosmetologist") // get only cosmetologist
         {
             try
@@ -39,18 +43,21 @@ namespace SkinMeApp.Controllers
                 throw;
             }
         }
-        public IHttpActionResult Get() // Get all תוכניות טיפוח
-        {
-            try
-            {
-                return Ok(db.SkinPlans);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
 
-            }
-        }
+        //[HttpGet]
+        //[Route ("api/Cos/allskinplans")]
+        //public IHttpActionResult Get() // Get all תוכניות טיפוח
+        //{
+        //    try
+        //    {
+        //        return Ok(db.SkinPlans);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+
+        //    }
+        //}
 
         [HttpPost]
         public IHttpActionResult Post([FromBody] SkinPlan value) // add plan
@@ -102,7 +109,7 @@ namespace SkinMeApp.Controllers
                     s.plan_date = value.plan_date;
                     s.notes = value.notes;
                     List<Product> products = db.Products.ToList(); /// ? how to change products from the plan
-
+                    db.SaveChanges();
                     return Ok(s);
                 }
                 return Content(HttpStatusCode.NotFound,
@@ -121,6 +128,7 @@ namespace SkinMeApp.Controllers
                 if (s != null)
                 {
                     db.SkinPlans.Remove(s);
+                    db.SaveChanges();
                     return Ok();
                 }
                 return Content(HttpStatusCode.NotFound,
@@ -141,7 +149,7 @@ namespace SkinMeApp.Controllers
                 {
                     s.cosmetic_address = value.cosmetic_address;
                     s.cosmetic_city = value.cosmetic_city;
-
+                    db.SaveChanges();
                     return Ok(s);
                 }
                 return Content(HttpStatusCode.NotFound,

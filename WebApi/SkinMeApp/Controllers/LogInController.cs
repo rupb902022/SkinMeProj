@@ -14,7 +14,7 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class LogInController : ApiController
     {
-        SkinMeDbContext db = new SkinMeDbContext();
+        bgroup90_SkinmeDbContext db = new bgroup90_SkinmeDbContext();
 
        [HttpGet]
        [Route ("api/LogIn/alluser")]
@@ -78,6 +78,8 @@ namespace SkinMeApp.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+        
 
 
 
@@ -151,7 +153,7 @@ namespace SkinMeApp.Controllers
                     user.username = up.username;
                     user.user_password = up.user_password;
                     user.picture = up.picture;
-
+                    db.SaveChanges();
                     return Ok(user);
                 }
                 return Content(HttpStatusCode.NotFound,
@@ -181,7 +183,7 @@ namespace SkinMeApp.Controllers
                     user.cosmetic_businessName = up.cosmetic_businessName;
                     user.cosmetic_city = up.cosmetic_city;
                     user.cosmetic_address = up.cosmetic_address;
-
+                    db.SaveChanges();
                     return Ok(user);
                 }
                 return Content(HttpStatusCode.NotFound,
