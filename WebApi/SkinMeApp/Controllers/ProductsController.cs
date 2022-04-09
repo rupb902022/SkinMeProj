@@ -29,6 +29,32 @@ namespace SkinMeApp.Controllers
 
             }
         }
+        public IHttpActionResult Get(string status = "Approved") // get only cosmetologist
+        {
+            try
+            {
+                List<Product> prod = db.Products.Where(x => x.prod_status == status).ToList();
+
+                if (prod != null)
+                {
+                    foreach (Product p in prod)
+                    {
+                        Console.WriteLine(p.prod_id);
+                    }
+                    return Content(HttpStatusCode.OK, prod);
+
+
+                }
+                return Content(HttpStatusCode.NotFound,
+                    $"no cosmetologist found");
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         [HttpPost]
         [Route("api/Products/Create")]
 

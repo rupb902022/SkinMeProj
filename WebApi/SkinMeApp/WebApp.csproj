@@ -227,6 +227,8 @@
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="DTO\ForgotPassword.cs" />
+    <Compile Include="DTO\ProductInfo.cs" />
     <Compile Include="DTO\RegisterCos.cs" />
     <Compile Include="DTO\RegisterUser.cs" />
     <Compile Include="DTO\UpdateProduct.cs" />
