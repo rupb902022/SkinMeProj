@@ -29,6 +29,7 @@ namespace DATA
         public Nullable<double> prod_rate { get; set; }
         public string prod_sizeType { get; set; }
         public Nullable<int> prod_size { get; set; }
+        public string prod_status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SkinPlan> SkinPlans { get; set; }

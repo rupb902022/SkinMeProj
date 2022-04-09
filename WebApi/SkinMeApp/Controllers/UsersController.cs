@@ -13,8 +13,8 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class UsersController : ApiController
     {
-        
-        bgroup90DbContext db = new bgroup90DbContext();
+
+        bgroup90_test2Entities3 db = new bgroup90_test2Entities3();
 
         public IHttpActionResult Get(string userrole = "user") // get only cosmetologist
         {
@@ -26,7 +26,7 @@ namespace SkinMeApp.Controllers
                 {
                     foreach (AppUser u in users)
                     {
-                        Console.WriteLine(u.user_firstName);
+                        Console.WriteLine(u.full_name);
                     }
                     return Content(HttpStatusCode.OK, users);
 

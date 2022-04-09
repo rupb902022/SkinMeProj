@@ -8,7 +8,7 @@ namespace SkinMeApp.DTO
     public class SocialMediaLogin
     {
         public int appUser_id { get; set; }
-        public string user_firstName { get; set; }
+        public string full_name { get; set; }
         public string user_email { get; set; }
 
         public byte[] user_profilepic { get; set; }
