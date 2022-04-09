@@ -82,7 +82,10 @@ namespace SkinMeApp.Controllers
             }
         }
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> e46fe8f56ba9715f8e7111a95f1e32867b176011
         [HttpPost]
         public IHttpActionResult Post([FromBody] Product value)
         {
