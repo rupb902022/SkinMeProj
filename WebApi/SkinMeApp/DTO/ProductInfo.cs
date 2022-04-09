@@ -5,8 +5,9 @@ using System.Web;
 
 namespace SkinMeApp.DTO
 {
-    public class AddProduct
+    public class ProductInfo
     {
+        public string prod_description { get; set; }
         public string prod_manual { get; set; }
     }
 }

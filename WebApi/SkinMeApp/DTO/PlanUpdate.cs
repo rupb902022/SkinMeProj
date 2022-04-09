@@ -13,7 +13,7 @@ namespace SkinMeApp.DTO
         public DateTime plan_date { get; set; }
         public string notes { get; set; }
 
-        public List<Product> Products; // ? possible 
+        public List<Product> Products; 
 
     }
 }
