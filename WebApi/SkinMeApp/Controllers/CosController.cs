@@ -168,9 +168,8 @@ namespace SkinMeApp.Controllers
 
         [HttpPost]
         [Route("api/Cos/GetDepending")]
-        public IHttpActionResult GetDepending(char route, string status = "waiting") // get users that waiting to cosmetologist
+        public IHttpActionResult GetDepending(string status = "waiting") // get users that waiting to cosmetologist
         {
-        
             try
             {
                 List<AppUser> users = db.AppUsers.Where(x => x.user_status == status && x.user_route != "1").ToList();
@@ -186,7 +185,7 @@ namespace SkinMeApp.Controllers
 
                 }
                 return Content(HttpStatusCode.NotFound,
-                    $"no cosmetologist found");
+                    $"no waiting users found");
             }
             catch (Exception)
             {

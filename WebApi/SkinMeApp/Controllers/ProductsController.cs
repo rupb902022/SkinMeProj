@@ -27,8 +27,7 @@ namespace SkinMeApp.Controllers
 
             }
         }
-<<<<<<< Updated upstream
-=======
+
         public IHttpActionResult Get(string status = "Approved") // get only approved products 
         {
             try
@@ -83,7 +82,6 @@ namespace SkinMeApp.Controllers
             }
         }
 
->>>>>>> Stashed changes
         [HttpPost]
         public IHttpActionResult Post([FromBody] Product value)
         {
