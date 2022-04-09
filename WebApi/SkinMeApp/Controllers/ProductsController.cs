@@ -13,7 +13,7 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ProductsController : ApiController
     {
-        bgroup90_test2DbContext db = new bgroup90_test2DbContext();
+        bgroup90_test2Entities4ofek db = new bgroup90_test2Entities4ofek();
 
         public IHttpActionResult Get()
         {
@@ -82,10 +82,7 @@ namespace SkinMeApp.Controllers
             }
         }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> e46fe8f56ba9715f8e7111a95f1e32867b176011
         [HttpPost]
         public IHttpActionResult Post([FromBody] Product value)
         {

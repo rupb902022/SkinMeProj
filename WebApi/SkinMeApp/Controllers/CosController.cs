@@ -13,7 +13,7 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CosController : ApiController
     {
-        bgroup90_test2DbContext db = new bgroup90_test2DbContext();
+        bgroup90_test2Entities4ofek db = new bgroup90_test2Entities4ofek();
         public IHttpActionResult Get(string userrole = "Cosmetologist") // get only cosmetologist
         {
             try
@@ -193,13 +193,33 @@ namespace SkinMeApp.Controllers
                 throw;
             }
         }
-
-
-        //    [HttpPost]
+        //[HttpGet]
         //[Route("api/Cos/GetClients")]
-        //public
+        //public IHttpActionResult GetClients(string role = "User") // get clients for cosmetologist
+        //{
+        //    try
+        //    {
+        //        List<AppUser> users = db.AppUsers.Where(x => x.user_role == role && x.skin != "1").ToList();
+
+        //        if (users != null)
+        //        {
+        //            foreach (AppUser u in users)
+        //            {
+        //                Console.WriteLine(u.appUser_id + u.first_name + u.user_route);
+        //            }
+        //            return Content(HttpStatusCode.OK, users);
 
 
+        //        }
+        //        return Content(HttpStatusCode.NotFound,
+        //            $"no waiting users found");
+        //    }
+        //    catch (Exception)
+        //    {
+
+        //        throw;
+        //    }
+        //}
 
     }
 }
