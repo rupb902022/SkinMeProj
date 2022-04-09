@@ -63,7 +63,7 @@ namespace SkinMeApp.Controllers
         //}
         [HttpPut]
         [Route("api/Products")]
-        public IHttpActionResult Update(int id, [FromBody] AddProduct prod ) // can uptade only manual / instructions
+        public IHttpActionResult Update(int id, [FromBody] UpdateProduct prod ) // can uptade only manual / instructions
         {
             try
             {
