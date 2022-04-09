@@ -168,7 +168,7 @@ namespace SkinMeApp.Controllers
 
         [HttpGet]
         [Route("api/Cos/GetDepending")]
-        public IHttpActionResult GetDepending(string status = "waiting") // get users that waiting to cosmetologist
+        public IHttpActionResult GetDepending(string status = "waiting") // get users that are waiting for cosmetologist
         {
             try
             {

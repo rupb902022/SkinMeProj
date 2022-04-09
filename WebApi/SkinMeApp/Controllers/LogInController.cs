@@ -186,6 +186,30 @@ namespace SkinMeApp.Controllers
             }
         }
 
+        [HttpPut]
+        [Route("api/login/ForgotPassword")]
+        public IHttpActionResult ForgotPassword(string username, [FromBody] ForgotPassword forgot) // update user info dto
+        {
+            try
+            {
+                AppUser user = db.AppUsers.SingleOrDefault(x => x.username == username);
+                if (user != null)
+                {
+
+                    user.user_password = forgot.user_password;
+                    db.SaveChanges();
+                    return Ok(user);
+                }
+                return Content(HttpStatusCode.NotFound,
+                    $"User with username={username} was not found.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
     }
-    }
+}
 

@@ -15,6 +15,7 @@ namespace SkinMeApp.Controllers
     {
         bgroup90_test2DbContext db = new bgroup90_test2DbContext();
 
+
         public IHttpActionResult Get()
         {
             try
@@ -27,7 +28,8 @@ namespace SkinMeApp.Controllers
 
             }
         }
-
+        [HttpGet]
+        [Route("api/Products/approved")]
         public IHttpActionResult Get(string status = "Approved") // get only approved products 
         {
             try
@@ -82,10 +84,7 @@ namespace SkinMeApp.Controllers
             }
         }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> e46fe8f56ba9715f8e7111a95f1e32867b176011
         [HttpPost]
         public IHttpActionResult Post([FromBody] Product value)
         {
@@ -149,6 +148,7 @@ namespace SkinMeApp.Controllers
                 if (prod != null)
                 {
                     db.Products.Remove(prod);
+                    db.SaveChanges();
                     return Ok();
                 }
                 return Content(HttpStatusCode.NotFound,
