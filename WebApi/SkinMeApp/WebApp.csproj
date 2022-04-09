@@ -229,6 +229,7 @@
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DTO\AddProduct.cs" />
     <Compile Include="DTO\Admin.cs" />
+    <Compile Include="DTO\DependingUsers.cs" />
     <Compile Include="DTO\Logincheck.cs" />
     <Compile Include="DTO\PlanUpdate.cs" />
     <Compile Include="DTO\SocialMediaLogin.cs" />
