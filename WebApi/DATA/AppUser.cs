@@ -23,7 +23,8 @@ namespace DATA
         public int appUser_id { get; set; }
         public string username { get; set; }
         public string user_password { get; set; }
-        public string full_name { get; set; }
+        public string first_name { get; set; }
+        public string last_name { get; set; }
         public string email { get; set; }
         public string user_gender { get; set; }
         public Nullable<System.DateTime> user_birth { get; set; }

@@ -12,7 +12,8 @@
           <Property Name="appUser_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="username" Type="varchar" MaxLength="20" />
           <Property Name="user_password" Type="varchar" MaxLength="50" />
-          <Property Name="full_name" Type="varchar" MaxLength="50" />
+          <Property Name="first_name" Type="varchar" MaxLength="50" />
+          <Property Name="last_name" Type="varchar" MaxLength="50" />
           <Property Name="email" Type="varchar" MaxLength="50" />
           <Property Name="user_gender" Type="char" MaxLength="1" />
           <Property Name="user_birth" Type="date" />
@@ -116,7 +117,8 @@
           <Property Name="appUser_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="username" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="user_password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="full_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="first_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="user_gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Name="user_birth" Type="DateTime" Precision="0" />
@@ -199,7 +201,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="bgroup90_test2Entities3" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="bgroup90_test2DbContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AppUsers" EntityType="Self.AppUser" />
           <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="SkinPlans" EntityType="Self.SkinPlan" />
@@ -217,14 +219,15 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="bgroup90_test2ModelStoreContainer" CdmEntityContainer="bgroup90_test2Entities3">
+        <EntityContainerMapping StorageEntityContainer="bgroup90_test2ModelStoreContainer" CdmEntityContainer="bgroup90_test2DbContext">
           <EntitySetMapping Name="AppUsers">
             <EntityTypeMapping TypeName="bgroup90_test2Model.AppUser">
               <MappingFragment StoreEntitySet="AppUsers">
                 <ScalarProperty Name="appUser_id" ColumnName="appUser_id" />
                 <ScalarProperty Name="username" ColumnName="username" />
                 <ScalarProperty Name="user_password" ColumnName="user_password" />
-                <ScalarProperty Name="full_name" ColumnName="full_name" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="user_gender" ColumnName="user_gender" />
                 <ScalarProperty Name="user_birth" ColumnName="user_birth" />

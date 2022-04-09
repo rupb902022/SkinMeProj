@@ -13,7 +13,7 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CosController : ApiController
     {
-        bgroup90_test2Entities3 db = new bgroup90_test2Entities3();
+        bgroup90_test2DbContext db = new bgroup90_test2DbContext();
         public IHttpActionResult Get(string userrole = "Cosmetologist") // get only cosmetologist
         {
             try
@@ -24,7 +24,7 @@ namespace SkinMeApp.Controllers
                 {
                     foreach (AppUser u in users)
                     {
-                        Console.WriteLine(u.full_name + u.cosmetic_address + u.cosmetic_city);
+                        Console.WriteLine(u.first_name + u.cosmetic_address + u.cosmetic_city);
                     }
                     return Content(HttpStatusCode.OK, users);
 
@@ -166,9 +166,9 @@ namespace SkinMeApp.Controllers
         //    }
         //}
 
-        [HttpPost]
+        [HttpGet]
         [Route("api/Cos/GetDepending")]
-        public IHttpActionResult GetDepending(char route, string status = "waiting") // get users that waiting to cosmetologist
+        public IHttpActionResult GetDepending(string status = "waiting") // get users that waiting to cosmetologist
         {
         
             try
@@ -179,7 +179,7 @@ namespace SkinMeApp.Controllers
                 {
                     foreach (AppUser u in users)
                     {   
-                        Console.WriteLine(u.appUser_id + u.full_name + u.user_route);
+                        Console.WriteLine(u.appUser_id + u.first_name + u.user_route);
                     }
                     return Content(HttpStatusCode.OK, users);
 

@@ -14,7 +14,7 @@ namespace SkinMeApp.Controllers
     public class UsersController : ApiController
     {
 
-        bgroup90_test2Entities3 db = new bgroup90_test2Entities3();
+        bgroup90_test2DbContext db = new bgroup90_test2DbContext();
 
         public IHttpActionResult Get(string userrole = "user") // get only cosmetologist
         {
@@ -26,7 +26,7 @@ namespace SkinMeApp.Controllers
                 {
                     foreach (AppUser u in users)
                     {
-                        Console.WriteLine(u.full_name);
+                        Console.WriteLine(u.first_name);
                     }
                     return Content(HttpStatusCode.OK, users);
 

@@ -14,7 +14,7 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class LogInController : ApiController
     {
-        bgroup90_test2Entities3 db = new bgroup90_test2Entities3();
+        bgroup90_test2DbContext db = new bgroup90_test2DbContext();
 
         public IHttpActionResult Get()
         {
@@ -86,7 +86,7 @@ namespace SkinMeApp.Controllers
                 AppUser social = new AppUser();
                 if (social.appUser_id == 0)
                 {
-                    social.full_name = value.full_name;
+                    social.first_name = value.first_name;
                     social.email = value.user_email;
                     social.picture = value.user_profilepic;
 
