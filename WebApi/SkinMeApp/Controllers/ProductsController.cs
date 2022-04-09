@@ -29,7 +29,7 @@ namespace SkinMeApp.Controllers
 
             }
         }
-        public IHttpActionResult Get(string status = "Approved") // get only cosmetologist
+        public IHttpActionResult Get(string status = "Approved") // get only approved products 
         {
             try
             {
@@ -46,7 +46,35 @@ namespace SkinMeApp.Controllers
 
                 }
                 return Content(HttpStatusCode.NotFound,
-                    $"no cosmetologist found");
+                    $"no approved products found");
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [HttpGet]
+        [Route("api/Products/oilyskin")]
+
+        public IHttpActionResult OilySkin(string goodfor = "oily") // get only products for oily skin 
+        {
+            try
+            {
+                List<Product> prod = db.Products.Where(x => x.prod_type == goodfor).ToList();
+
+                if (prod != null)
+                {
+                    foreach (Product p in prod)
+                    {
+                        Console.WriteLine(p.prod_id);
+                    }
+                    return Content(HttpStatusCode.OK, prod);
+
+
+                }
+                return Content(HttpStatusCode.NotFound,
+                    $"no product found");
             }
             catch (Exception)
             {
