@@ -14,10 +14,8 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class LogInController : ApiController
     {
-        bgroup90_SkinmeDbContext db = new bgroup90_SkinmeDbContext();
+        bgroup90_test2Entities3 db = new bgroup90_test2Entities3();
 
-       [HttpGet]
-       [Route ("api/LogIn/alluser")]
         public IHttpActionResult Get()
         {
             try
@@ -79,13 +77,6 @@ namespace SkinMeApp.Controllers
             }
         }
 
-        
-
-
-
-
-
-
         [HttpPost]
         [Route("api/LogIn/SocialMediaLogin")]
         public IHttpActionResult SocialMediaLogin([FromBody] SocialMediaLogin value)
@@ -95,9 +86,9 @@ namespace SkinMeApp.Controllers
                 AppUser social = new AppUser();
                 if (social.appUser_id == 0)
                 {
-                    social.user_firstName = value.user_firstName;
-                    social.email = value.email;
-                    social.picture = value.picture;
+                    social.full_name = value.full_name;
+                    social.email = value.user_email;
+                    social.picture = value.user_profilepic;
 
                     db.AppUsers.Add(social);
                     db.SaveChanges();
@@ -149,11 +140,11 @@ namespace SkinMeApp.Controllers
                 if (user != null)
                 {
                     
-                    user.email = up.email;
+                    user.email = up.user_email;
                     user.username = up.username;
                     user.user_password = up.user_password;
-                    user.picture = up.picture;
-                    db.SaveChanges();
+                    user.picture = up.user_profilepic;
+
                     return Ok(user);
                 }
                 return Content(HttpStatusCode.NotFound,
@@ -176,14 +167,14 @@ namespace SkinMeApp.Controllers
                 if (user != null)
                 {
                     
-                    user.email = up.email;
+                    user.email = up.user_email;
                     user.username = up.username;
                     user.user_password = up.user_password;
                     user.cosmetic_license_num = up.cosmetic_license_num;
                     user.cosmetic_businessName = up.cosmetic_businessName;
                     user.cosmetic_city = up.cosmetic_city;
                     user.cosmetic_address = up.cosmetic_address;
-                    db.SaveChanges();
+
                     return Ok(user);
                 }
                 return Content(HttpStatusCode.NotFound,
@@ -195,32 +186,6 @@ namespace SkinMeApp.Controllers
             }
         }
 
-        [HttpPut]
-        [Route("api/login/ForgotPassword")]
-        public IHttpActionResult ForgotPassword(string username, [FromBody] ForgotPassword forgot) // update user info dto
-        {
-            try
-            {
-                AppUser user = db.AppUsers.SingleOrDefault(x => x.username == username);
-                if (user != null)
-                {
-
-                    
-                    user.user_password = forgot.user_password;
-                 
-                    db.SaveChanges();
-                    return Ok(user);
-                }
-                return Content(HttpStatusCode.NotFound,
-                    $"User with username={username} was not found.");
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-
     }
-}
+    }
 

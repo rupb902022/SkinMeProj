@@ -12,14 +12,13 @@
           <Property Name="appUser_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="username" Type="varchar" MaxLength="20" />
           <Property Name="user_password" Type="varchar" MaxLength="50" />
-          <Property Name="user_firstName" Type="varchar" MaxLength="50" />
-          <Property Name="user_lastName" Type="varchar" MaxLength="50" />
+          <Property Name="full_name" Type="varchar" MaxLength="50" />
           <Property Name="email" Type="varchar" MaxLength="50" />
           <Property Name="user_gender" Type="char" MaxLength="1" />
           <Property Name="user_birth" Type="date" />
           <Property Name="picture" Type="varbinary" MaxLength="50" />
           <Property Name="user_picsprocess" Type="varbinary" MaxLength="50" />
-          <Property Name="user_role" Type="varchar" MaxLength="50" />
+          <Property Name="user_role" Type="varchar" MaxLength="20" />
           <Property Name="user_skinType" Type="varchar" MaxLength="20" />
           <Property Name="user_skinProblem" Type="varchar" MaxLength="10" />
           <Property Name="user_cheek" Type="varchar" MaxLength="10" />
@@ -31,13 +30,15 @@
           <Property Name="user_currentProducts" Type="varchar" MaxLength="10" />
           <Property Name="user_sensitive" Type="varchar" MaxLength="10" />
           <Property Name="user_areas" Type="varchar" MaxLength="10" />
+          <Property Name="user_status" Type="varchar" MaxLength="20" />
+          <Property Name="user_route" Type="char" MaxLength="1" />
           <Property Name="cosmetic_license_num" Type="int" />
           <Property Name="cosmetic_businessName" Type="varchar" MaxLength="50" />
+          <Property Name="cosmetic_speciality" Type="varchar" MaxLength="50" />
           <Property Name="cosmetic_address" Type="varchar" MaxLength="50" />
           <Property Name="cosmetic_city" Type="varchar" MaxLength="50" />
-          <Property Name="LatLng" Type="int" />
-          <Property Name="cosmetic_speciality" Type="varchar" MaxLength="50" />
-          <Property Name="cosmetic_status" Type="varchar" MaxLength="20" />
+          <Property Name="lng" Type="varchar" MaxLength="50" />
+          <Property Name="lat" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Products">
           <Key>
@@ -78,7 +79,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SkinPlan_Products1">
+        <Association Name="FK_SkinPlan_Products">
           <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
           <End Role="SkinPlan" Type="Self.SkinPlan" Multiplicity="*" />
           <ReferentialConstraint>
@@ -98,7 +99,7 @@
             <End Role="AppUsers" EntitySet="AppUsers" />
             <End Role="SkinPlan" EntitySet="SkinPlan" />
           </AssociationSet>
-          <AssociationSet Name="FK_SkinPlan_Products1" Association="Self.FK_SkinPlan_Products1">
+          <AssociationSet Name="FK_SkinPlan_Products" Association="Self.FK_SkinPlan_Products">
             <End Role="Products" EntitySet="Products" />
             <End Role="SkinPlan" EntitySet="SkinPlan" />
           </AssociationSet>
@@ -115,14 +116,13 @@
           <Property Name="appUser_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="username" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="user_password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="user_firstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="user_lastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="full_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="user_gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Name="user_birth" Type="DateTime" Precision="0" />
           <Property Name="picture" Type="Binary" MaxLength="50" FixedLength="false" />
           <Property Name="user_picsprocess" Type="Binary" MaxLength="50" FixedLength="false" />
-          <Property Name="user_role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="user_role" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="user_skinType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="user_skinProblem" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="user_cheek" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
@@ -134,13 +134,15 @@
           <Property Name="user_currentProducts" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="user_sensitive" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="user_areas" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="user_status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="user_route" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Name="cosmetic_license_num" Type="Int32" />
           <Property Name="cosmetic_businessName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cosmetic_speciality" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="cosmetic_address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="cosmetic_city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="LatLng" Type="Int32" />
-          <Property Name="cosmetic_speciality" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="cosmetic_status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="lng" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="lat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="SkinPlans" Relationship="Self.FK_SkinPlan_AppUsers" FromRole="AppUsers" ToRole="SkinPlan" />
         </EntityType>
         <EntityType Name="Product">
@@ -157,7 +159,7 @@
           <Property Name="prod_sizeType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="prod_size" Type="Int32" />
           <Property Name="prod_status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="SkinPlans" Relationship="Self.FK_SkinPlan_Products1" FromRole="Products" ToRole="SkinPlan" />
+          <NavigationProperty Name="SkinPlans" Relationship="Self.FK_SkinPlan_Products" FromRole="Products" ToRole="SkinPlan" />
         </EntityType>
         <EntityType Name="SkinPlan">
           <Key>
@@ -171,7 +173,7 @@
           <Property Name="plan_date" Type="DateTime" Precision="0" />
           <Property Name="notes" Type="String" MaxLength="2500" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="AppUser" Relationship="Self.FK_SkinPlan_AppUsers" FromRole="SkinPlan" ToRole="AppUsers" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_SkinPlan_Products1" FromRole="SkinPlan" ToRole="Products" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_SkinPlan_Products" FromRole="SkinPlan" ToRole="Products" />
         </EntityType>
         <Association Name="FK_SkinPlan_AppUsers">
           <End Role="AppUsers" Type="Self.AppUser" Multiplicity="0..1" />
@@ -185,7 +187,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SkinPlan_Products1">
+        <Association Name="FK_SkinPlan_Products">
           <End Role="Products" Type="Self.Product" Multiplicity="0..1" />
           <End Role="SkinPlan" Type="Self.SkinPlan" Multiplicity="*" />
           <ReferentialConstraint>
@@ -197,7 +199,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="bgroup90_SkinmeDbContext" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="bgroup90_test2Entities3" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AppUsers" EntityType="Self.AppUser" />
           <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="SkinPlans" EntityType="Self.SkinPlan" />
@@ -205,7 +207,7 @@
             <End Role="AppUsers" EntitySet="AppUsers" />
             <End Role="SkinPlan" EntitySet="SkinPlans" />
           </AssociationSet>
-          <AssociationSet Name="FK_SkinPlan_Products1" Association="Self.FK_SkinPlan_Products1">
+          <AssociationSet Name="FK_SkinPlan_Products" Association="Self.FK_SkinPlan_Products">
             <End Role="Products" EntitySet="Products" />
             <End Role="SkinPlan" EntitySet="SkinPlans" />
           </AssociationSet>
@@ -215,15 +217,14 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="bgroup90_test2ModelStoreContainer" CdmEntityContainer="bgroup90_SkinmeDbContext">
+        <EntityContainerMapping StorageEntityContainer="bgroup90_test2ModelStoreContainer" CdmEntityContainer="bgroup90_test2Entities3">
           <EntitySetMapping Name="AppUsers">
             <EntityTypeMapping TypeName="bgroup90_test2Model.AppUser">
               <MappingFragment StoreEntitySet="AppUsers">
                 <ScalarProperty Name="appUser_id" ColumnName="appUser_id" />
                 <ScalarProperty Name="username" ColumnName="username" />
                 <ScalarProperty Name="user_password" ColumnName="user_password" />
-                <ScalarProperty Name="user_firstName" ColumnName="user_firstName" />
-                <ScalarProperty Name="user_lastName" ColumnName="user_lastName" />
+                <ScalarProperty Name="full_name" ColumnName="full_name" />
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="user_gender" ColumnName="user_gender" />
                 <ScalarProperty Name="user_birth" ColumnName="user_birth" />
@@ -241,13 +242,15 @@
                 <ScalarProperty Name="user_currentProducts" ColumnName="user_currentProducts" />
                 <ScalarProperty Name="user_sensitive" ColumnName="user_sensitive" />
                 <ScalarProperty Name="user_areas" ColumnName="user_areas" />
+                <ScalarProperty Name="user_status" ColumnName="user_status" />
+                <ScalarProperty Name="user_route" ColumnName="user_route" />
                 <ScalarProperty Name="cosmetic_license_num" ColumnName="cosmetic_license_num" />
                 <ScalarProperty Name="cosmetic_businessName" ColumnName="cosmetic_businessName" />
+                <ScalarProperty Name="cosmetic_speciality" ColumnName="cosmetic_speciality" />
                 <ScalarProperty Name="cosmetic_address" ColumnName="cosmetic_address" />
                 <ScalarProperty Name="cosmetic_city" ColumnName="cosmetic_city" />
-                <ScalarProperty Name="LatLng" ColumnName="LatLng" />
-                <ScalarProperty Name="cosmetic_speciality" ColumnName="cosmetic_speciality" />
-                <ScalarProperty Name="cosmetic_status" ColumnName="cosmetic_status" />
+                <ScalarProperty Name="lng" ColumnName="lng" />
+                <ScalarProperty Name="lat" ColumnName="lat" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

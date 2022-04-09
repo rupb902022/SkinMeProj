@@ -13,10 +13,8 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ProductsController : ApiController
     {
-        bgroup90_SkinmeDbContext db = new bgroup90_SkinmeDbContext();
+        bgroup90_test2Entities3 db = new bgroup90_test2Entities3();
 
-        [HttpGet]
-        [Route ("api/Products")]
         public IHttpActionResult Get()
         {
             try
@@ -29,63 +27,7 @@ namespace SkinMeApp.Controllers
 
             }
         }
-        public IHttpActionResult Get(string status = "Approved") // get only approved products 
-        {
-            try
-            {
-                List<Product> prod = db.Products.Where(x => x.prod_status == status).ToList();
-
-                if (prod != null)
-                {
-                    foreach (Product p in prod)
-                    {
-                        Console.WriteLine(p.prod_id);
-                    }
-                    return Content(HttpStatusCode.OK, prod);
-
-
-                }
-                return Content(HttpStatusCode.NotFound,
-                    $"no approved products found");
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
-        [HttpGet]
-        [Route("api/Products/oilyskin")]
-
-        public IHttpActionResult OilySkin(string goodfor = "oily") // get only products for oily skin 
-        {
-            try
-            {
-                List<Product> prod = db.Products.Where(x => x.prod_type == goodfor).ToList();
-
-                if (prod != null)
-                {
-                    foreach (Product p in prod)
-                    {
-                        Console.WriteLine(p.prod_id);
-                    }
-                    return Content(HttpStatusCode.OK, prod);
-
-
-                }
-                return Content(HttpStatusCode.NotFound,
-                    $"no product found");
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
-
         [HttpPost]
-        [Route("api/Products/Create")]
-
         public IHttpActionResult Post([FromBody] Product value)
         {
             try
@@ -100,9 +42,28 @@ namespace SkinMeApp.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        
-       
-        public IHttpActionResult Put (int id, [FromBody] UpdateProduct prod ) // can update only manual / instructions
+        //public IHttpActionResult Put(int id, [FromBody] Product value) 
+        //{
+        //    try
+        //    {
+        //        Product p = db.Products.SingleOrDefault(x => x.prod_id == id);
+        //        if (p != null)
+        //        {
+        //            p.prod_description = value.prod_description;
+        //            p.prod_manual = value.prod_manual;
+        //            return Ok(p);
+        //        }
+        //        return Content(HttpStatusCode.NotFound,
+        //            $"Product with id={id} was not found.");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
+        [HttpPut]
+        [Route("api/Products")]
+        public IHttpActionResult Update(int id, [FromBody] AddProduct prod ) // can uptade only manual / instructions
         {
             try
             {
@@ -110,10 +71,8 @@ namespace SkinMeApp.Controllers
                 if (p != null)
                 {
                     p.prod_manual = prod.prod_manual;
-                    db.SaveChanges();
-                
+                   
                     return Ok(p);
-                    
                 }
                 return Content(HttpStatusCode.NotFound,
                     $"Product with id={id} was not found.");
@@ -131,8 +90,6 @@ namespace SkinMeApp.Controllers
                 if (prod != null)
                 {
                     db.Products.Remove(prod);
-                    db.SaveChanges();
-
                     return Ok();
                 }
                 return Content(HttpStatusCode.NotFound,

@@ -13,11 +13,7 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CosController : ApiController
     {
-        bgroup90_SkinmeDbContext db = new bgroup90_SkinmeDbContext();
-
-        
-       
-        
+        bgroup90_test2Entities3 db = new bgroup90_test2Entities3();
         public IHttpActionResult Get(string userrole = "Cosmetologist") // get only cosmetologist
         {
             try
@@ -28,7 +24,7 @@ namespace SkinMeApp.Controllers
                 {
                     foreach (AppUser u in users)
                     {
-                        Console.WriteLine(u.user_firstName + u.cosmetic_address + u.cosmetic_city);
+                        Console.WriteLine(u.full_name + u.cosmetic_address + u.cosmetic_city);
                     }
                     return Content(HttpStatusCode.OK, users);
 
@@ -43,21 +39,18 @@ namespace SkinMeApp.Controllers
                 throw;
             }
         }
+        public IHttpActionResult Get() // Get all תוכניות טיפוח
+        {
+            try
+            {
+                return Ok(db.SkinPlans);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
 
-        //[HttpGet]
-        //[Route ("api/Cos/allskinplans")]
-        //public IHttpActionResult Get() // Get all תוכניות טיפוח
-        //{
-        //    try
-        //    {
-        //        return Ok(db.SkinPlans);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-
-        //    }
-        //}
+            }
+        }
 
         [HttpPost]
         public IHttpActionResult Post([FromBody] SkinPlan value) // add plan
@@ -109,7 +102,7 @@ namespace SkinMeApp.Controllers
                     s.plan_date = value.plan_date;
                     s.notes = value.notes;
                     List<Product> products = db.Products.ToList(); /// ? how to change products from the plan
-                    db.SaveChanges();
+
                     return Ok(s);
                 }
                 return Content(HttpStatusCode.NotFound,
@@ -128,7 +121,6 @@ namespace SkinMeApp.Controllers
                 if (s != null)
                 {
                     db.SkinPlans.Remove(s);
-                    db.SaveChanges();
                     return Ok();
                 }
                 return Content(HttpStatusCode.NotFound,
@@ -140,29 +132,51 @@ namespace SkinMeApp.Controllers
             }
         }
 
-        public IHttpActionResult Put(int id, [FromBody] MapAddress value) // Add Address for cosmetic business
-        {
-            try
-            {
-                AppUser s = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
-                if (s != null)
-                {
-                    s.cosmetic_address = value.cosmetic_address;
-                    s.cosmetic_city = value.cosmetic_city;
-                    db.SaveChanges();
-                    return Ok(s);
-                }
-                return Content(HttpStatusCode.NotFound,
-                    $"Cosmetic with id={id} was not found.");
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+        //public IHttpActionResult Put(int id, [FromBody] AddAddress value) // Add Address for cosmetic business
+        //{
+        //    try
+        //    {
+        //        AppUser s = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
+        //        if (s != null)
+        //        {
+        //            s.cosmetic_address = value.cosmetic_address;
+        //            s.cosmetic_city = value.cosmetic_city;
+
+        //            return Ok(s);
+        //        }
+        //        return Content(HttpStatusCode.NotFound,
+        //            $"Cosmetic with id={id} was not found.");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
+
+        //public IHttpActionResult Get() // Get all תוכניות טיפוח
+        //{
+        //    try
+        //    {
+        //        return Ok(db.SkinPlans);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+
+        //    }
+        //}
+
+        [HttpPost]
+        [Route("api/Cos/GetDepending")]
+        //public IHttpActionResult GetDepending()
+        //{
+
+        //}
 
 
-
+        //    [HttpPost]
+        //[Route("api/Cos/GetClients")]
+        //public
 
 
 

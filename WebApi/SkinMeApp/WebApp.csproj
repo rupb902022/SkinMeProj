@@ -233,6 +233,7 @@
     <Compile Include="DTO\RegisterUser.cs" />
     <Compile Include="DTO\UpdateProduct.cs" />
     <Compile Include="DTO\Admin.cs" />
+    <Compile Include="DTO\DependingUsers.cs" />
     <Compile Include="DTO\Logincheck.cs" />
     <Compile Include="DTO\MapAddress.cs" />
     <Compile Include="DTO\PlanUpdate.cs" />
