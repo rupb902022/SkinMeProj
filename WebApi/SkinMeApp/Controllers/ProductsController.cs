@@ -27,6 +27,63 @@ namespace SkinMeApp.Controllers
 
             }
         }
+<<<<<<< Updated upstream
+=======
+        public IHttpActionResult Get(string status = "Approved") // get only approved products 
+        {
+            try
+            {
+                List<Product> prod = db.Products.Where(x => x.prod_status == status).ToList();
+
+                if (prod != null)
+                {
+                    foreach (Product p in prod)
+                    {
+                        Console.WriteLine(p.prod_id);
+                    }
+                    return Content(HttpStatusCode.OK, prod);
+
+
+                }
+                return Content(HttpStatusCode.NotFound,
+                    $"no approved products found");
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [HttpGet]
+        [Route("api/Products/oilyskin")]
+
+        public IHttpActionResult OilySkin(string goodfor = "oily day") // get only products for oily skin 
+        {
+            try
+            {
+                List<Product> prod = db.Products.Where(x => x.prod_type == goodfor).Take(3).ToList();
+
+                if (prod != null)
+                {
+                    foreach (Product p in prod)
+                    {
+                        Console.WriteLine(p.prod_id);
+                    }
+                    return Content(HttpStatusCode.OK, prod);
+
+
+                }
+                return Content(HttpStatusCode.NotFound,
+                    $"no product found");
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+>>>>>>> Stashed changes
         [HttpPost]
         public IHttpActionResult Post([FromBody] Product value)
         {
