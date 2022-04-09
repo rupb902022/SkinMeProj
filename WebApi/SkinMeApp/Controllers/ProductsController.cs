@@ -27,8 +27,7 @@ namespace SkinMeApp.Controllers
 
             }
         }
-<<<<<<< Updated upstream
-=======
+
         public IHttpActionResult Get(string status = "Approved") // get only approved products 
         {
             try
@@ -83,7 +82,7 @@ namespace SkinMeApp.Controllers
             }
         }
 
->>>>>>> Stashed changes
+
         [HttpPost]
         public IHttpActionResult Post([FromBody] Product value)
         {
@@ -120,7 +119,7 @@ namespace SkinMeApp.Controllers
         //}
         [HttpPut]
         [Route("api/Products")]
-        public IHttpActionResult Update(int id, [FromBody] AddProduct prod ) // can uptade only manual / instructions
+        public IHttpActionResult Update(int id, [FromBody] UpdateProduct prod ) // can uptade only manual / instructions
         {
             try
             {
