@@ -140,10 +140,10 @@ namespace SkinMeApp.Controllers
                 if (user != null)
                 {
                     
-                    user.email = up.user_email;
+                    user.email = up.email;
                     user.username = up.username;
                     user.user_password = up.user_password;
-                    user.picture = up.user_profilepic;
+                    user.picture = up.picture;
 
                     return Ok(user);
                 }
@@ -167,7 +167,7 @@ namespace SkinMeApp.Controllers
                 if (user != null)
                 {
                     
-                    user.email = up.user_email;
+                    user.email = up.email;
                     user.username = up.username;
                     user.user_password = up.user_password;
                     user.cosmetic_license_num = up.cosmetic_license_num;
