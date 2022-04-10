@@ -10,12 +10,14 @@ using System.Web.Http.Cors;
 
 namespace SkinMeApp.Controllers
 {
+
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ProductsController : ApiController
     {
-        bgroup90_test2Entities4ofek db = new bgroup90_test2Entities4ofek();
+        bgroup90_DbContext db = new bgroup90_DbContext();
 
-
+        [HttpGet]
+        [Route("api/Products/")]
         public IHttpActionResult Get()
         {
             try
@@ -29,8 +31,8 @@ namespace SkinMeApp.Controllers
             }
         }
         [HttpGet]
-        [Route("api/Products/approved")]
-        public IHttpActionResult Get(string status = "Approved") // get only approved products 
+        [Route("api/Products/status")]
+        public IHttpActionResult ApprovedProducts(string status = "Approved") // get only approved products 
         {
             try
             {
@@ -55,6 +57,9 @@ namespace SkinMeApp.Controllers
                 throw;
             }
         }
+
+
+
         [HttpGet]
         [Route("api/Products/oilyskin")]
 
@@ -120,20 +125,20 @@ namespace SkinMeApp.Controllers
         //    }
         //}
         [HttpPut]
-        [Route("api/Products")]
-        public IHttpActionResult Update(int id, [FromBody] UpdateProduct prod ) // can uptade only manual / instructions
+        [Route("api/Products/update")]
+        public IHttpActionResult Update(string name,string company , [FromBody] UpdateProduct prod ) // can update only manual / instructions
         {
             try
             {
-                Product p = db.Products.SingleOrDefault(x => x.prod_id == id);
+                Product p = db.Products.SingleOrDefault(x => x.prod_name == name && x.prod_company==company);
                 if (p != null)
                 {
                     p.prod_manual = prod.prod_manual;
-                   
+                    db.SaveChanges();
                     return Ok(p);
                 }
                 return Content(HttpStatusCode.NotFound,
-                    $"Product with id={id} was not found.");
+                    $"Product with those details was not found.");
             }
             catch (Exception ex)
             {
