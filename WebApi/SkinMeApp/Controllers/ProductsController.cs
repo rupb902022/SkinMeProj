@@ -14,7 +14,7 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ProductsController : ApiController
     {
-        bgroup90_DbContext db = new bgroup90_DbContext();
+        bgroup90_test2Entities5 db = new bgroup90_test2Entities5();
 
         [HttpGet]
         [Route("api/Products/")]
@@ -36,11 +36,11 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                List<Product> prod = db.Products.Where(x => x.prod_status == status).ToList();
+                List<Products> prod = db.Products.Where(x => x.prod_status == status).ToList();
 
                 if (prod != null)
                 {
-                    foreach (Product p in prod)
+                    foreach (Products p in prod)
                     {
                         Console.WriteLine(p.prod_id);
                     }
@@ -67,11 +67,11 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                List<Product> prod = db.Products.Where(x => x.prod_type == goodfor).Take(3).ToList();
+                List<Products> prod = db.Products.Where(x => x.prod_type == goodfor).Take(3).ToList();
 
                 if (prod != null)
                 {
-                    foreach (Product p in prod)
+                    foreach (Products p in prod)
                     {
                         Console.WriteLine(p.prod_id);
                     }
@@ -91,7 +91,7 @@ namespace SkinMeApp.Controllers
 
 
         [HttpPost]
-        public IHttpActionResult Post([FromBody] Product value)
+        public IHttpActionResult Post([FromBody] Products value)
         {
             try
             {
@@ -126,11 +126,11 @@ namespace SkinMeApp.Controllers
         //}
         [HttpPut]
         [Route("api/Products/update")]
-        public IHttpActionResult Update(string name,string company , [FromBody] UpdateProduct prod ) // can update only manual / instructions
+        public IHttpActionResult Update(string name, string company, [FromBody] UpdateProduct prod) // can update only manual / instructions
         {
             try
             {
-                Product p = db.Products.SingleOrDefault(x => x.prod_name == name && x.prod_company==company);
+                Products p = db.Products.SingleOrDefault(x => x.prod_name == name && x.prod_company == company);
                 if (p != null)
                 {
                     p.prod_manual = prod.prod_manual;
@@ -145,11 +145,11 @@ namespace SkinMeApp.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        public IHttpActionResult Delete(int id) 
+        public IHttpActionResult Delete(int id)
         {
             try
             {
-                Product prod = db.Products.SingleOrDefault(x => x.prod_id == id);
+                Products prod = db.Products.SingleOrDefault(x => x.prod_id == id);
                 if (prod != null)
                 {
                     db.Products.Remove(prod);
@@ -162,6 +162,31 @@ namespace SkinMeApp.Controllers
             catch (Exception ex)
             {
                 return Content(HttpStatusCode.BadRequest, ex);
+            }
+        }
+
+        [HttpGet]
+        [Route("api/Products/GetProdForPlan")]
+        public IHttpActionResult GetProductsForPlan(int plan_id) // get products for skin plan
+        {
+            try
+            {
+                List<Products_for_plan> productsForPlan = db.Products_for_plan.Where(x => x.plan_id == plan_id).ToList();
+
+                if (productsForPlan != null)
+                {
+                    foreach (Products_for_plan p in productsForPlan)
+                    {
+                        Console.WriteLine(p.prod_id);
+                    }
+                    return Content(HttpStatusCode.OK, productsForPlan);
+                }
+                return Content(HttpStatusCode.NotFound,
+                    $"no products for plan found");
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
     }

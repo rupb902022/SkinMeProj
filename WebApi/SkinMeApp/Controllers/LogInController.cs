@@ -14,7 +14,7 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class LogInController : ApiController
     {
-        bgroup90_DbContext db = new bgroup90_DbContext();
+        bgroup90_test2Entities5 db = new bgroup90_test2Entities5();
 
         public IHttpActionResult Get()
         {
@@ -37,7 +37,7 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                AppUser log = db.AppUsers.FirstOrDefault
+                AppUsers log = db.AppUsers.FirstOrDefault
                     (x => x.username == login.userName && x.user_password == login.password);
 
                 if (log != null)
@@ -60,7 +60,7 @@ namespace SkinMeApp.Controllers
         [HttpPost]
         [Route("api/LogIn/register")]
 
-        public IHttpActionResult Post([FromBody] AppUser value)
+        public IHttpActionResult Post([FromBody] AppUsers value)
 
         {
             try
@@ -83,7 +83,7 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                AppUser social = new AppUser();
+                AppUsers social = new AppUsers();
                 if (social.appUser_id == 0)
                 {
                     social.first_name = value.first_name;
@@ -136,7 +136,7 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                AppUser user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
+                AppUsers user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
                 if (user != null)
                 {
                     
@@ -163,7 +163,7 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                AppUser user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
+                AppUsers user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
                 if (user != null)
                 {
                     
@@ -192,7 +192,7 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                AppUser user = db.AppUsers.SingleOrDefault(x => x.username == username);
+                AppUsers user = db.AppUsers.SingleOrDefault(x => x.username == username);
                 if (user != null)
                 {
 

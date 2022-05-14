@@ -14,15 +14,21 @@ namespace DATA
     
     public partial class SkinPlan
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public SkinPlan()
+        {
+            this.Products_for_plan = new HashSet<Products_for_plan>();
+        }
+    
         public int plan_id { get; set; }
         public Nullable<int> cosmetic_license_num { get; set; }
         public Nullable<int> appUser_id { get; set; }
-        public Nullable<int> prod_id { get; set; }
         public string plan_name { get; set; }
         public Nullable<System.DateTime> plan_date { get; set; }
         public string notes { get; set; }
     
-        public virtual AppUser AppUser { get; set; }
-        public virtual Product Product { get; set; }
+        public virtual AppUsers AppUsers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Products_for_plan> Products_for_plan { get; set; }
     }
 }
