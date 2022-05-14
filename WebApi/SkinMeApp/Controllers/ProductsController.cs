@@ -18,7 +18,7 @@ namespace SkinMeApp.Controllers
 
         [HttpGet]
         [Route("api/Products/")]
-        public IHttpActionResult Get()
+        public IHttpActionResult Get() // get all products
         {
             try
             {

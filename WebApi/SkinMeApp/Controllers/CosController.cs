@@ -132,26 +132,7 @@ namespace SkinMeApp.Controllers
             }
         }
 
-        //public IHttpActionResult Put(int id, [FromBody] AddAddress value) // Add Address for cosmetic business
-        //{
-        //    try
-        //    {
-        //        AppUser s = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
-        //        if (s != null)
-        //        {
-        //            s.cosmetic_address = value.cosmetic_address;
-        //            s.cosmetic_city = value.cosmetic_city;
-
-        //            return Ok(s);
-        //        }
-        //        return Content(HttpStatusCode.NotFound,
-        //            $"Cosmetic with id={id} was not found.");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //}
+        
 
         //public IHttpActionResult Get() // Get all תוכניות טיפוח
         //{
