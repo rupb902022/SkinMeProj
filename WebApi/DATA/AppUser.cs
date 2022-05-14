@@ -12,12 +12,12 @@ namespace DATA
     using System;
     using System.Collections.Generic;
     
-    public partial class AppUsers
+    public partial class AppUser
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public AppUsers()
+        public AppUser()
         {
-            this.SkinPlan = new HashSet<SkinPlan>();
+            this.SkinPlans = new HashSet<SkinPlan>();
         }
     
         public int appUser_id { get; set; }
@@ -53,6 +53,6 @@ namespace DATA
         public string lat { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SkinPlan> SkinPlan { get; set; }
+        public virtual ICollection<SkinPlan> SkinPlans { get; set; }
     }
 }

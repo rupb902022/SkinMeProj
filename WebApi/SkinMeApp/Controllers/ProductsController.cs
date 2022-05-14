@@ -14,7 +14,7 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ProductsController : ApiController
     {
-        bgroup90_test2Entities5 db = new bgroup90_test2Entities5();
+        bgroup90_Db db = new bgroup90_Db();
 
         [HttpGet]
         [Route("api/Products/")]
@@ -36,11 +36,11 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                List<Products> prod = db.Products.Where(x => x.prod_status == status).ToList();
+                List<Product> prod = db.Products.Where(x => x.prod_status == status).ToList();
 
                 if (prod != null)
                 {
-                    foreach (Products p in prod)
+                    foreach (Product p in prod)
                     {
                         Console.WriteLine(p.prod_id);
                     }
@@ -67,11 +67,11 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                List<Products> prod = db.Products.Where(x => x.prod_type == goodfor).Take(3).ToList();
+                List<Product> prod = db.Products.Where(x => x.prod_type == goodfor).Take(3).ToList();
 
                 if (prod != null)
                 {
-                    foreach (Products p in prod)
+                    foreach (Product p in prod)
                     {
                         Console.WriteLine(p.prod_id);
                     }
@@ -91,7 +91,7 @@ namespace SkinMeApp.Controllers
 
 
         [HttpPost]
-        public IHttpActionResult Post([FromBody] Products value)
+        public IHttpActionResult Post([FromBody] Product value)
         {
             try
             {
@@ -130,7 +130,7 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                Products p = db.Products.SingleOrDefault(x => x.prod_name == name && x.prod_company == company);
+                Product p = db.Products.SingleOrDefault(x => x.prod_name == name && x.prod_company == company);
                 if (p != null)
                 {
                     p.prod_manual = prod.prod_manual;
@@ -149,7 +149,7 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                Products prod = db.Products.SingleOrDefault(x => x.prod_id == id);
+                Product prod = db.Products.SingleOrDefault(x => x.prod_id == id);
                 if (prod != null)
                 {
                     db.Products.Remove(prod);

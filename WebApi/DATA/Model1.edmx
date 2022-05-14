@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="bgroup90_test2Model1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="bgroup90_test2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AppUsers">
           <Key>
             <PropertyRef Name="appUser_id" />
@@ -121,7 +121,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="bgroup90_test2Model1StoreContainer">
+        <EntityContainer Name="bgroup90_test2ModelStoreContainer">
           <EntitySet Name="AppUsers" EntityType="Self.AppUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AutoPlans" EntityType="Self.AutoPlans" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
@@ -144,8 +144,8 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="bgroup90_test2Model1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="AppUsers">
+      <Schema Namespace="bgroup90_test2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AppUser">
           <Key>
             <PropertyRef Name="appUser_id" />
           </Key>
@@ -180,9 +180,9 @@
           <Property Name="cosmetic_city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="lng" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="lat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="SkinPlan" Relationship="Self.FK_SkinPlan_AppUsers" FromRole="AppUsers" ToRole="SkinPlan" />
+          <NavigationProperty Name="SkinPlans" Relationship="Self.FK_SkinPlan_AppUsers" FromRole="AppUsers" ToRole="SkinPlan" />
         </EntityType>
-        <EntityType Name="AutoPlans">
+        <EntityType Name="AutoPlan">
           <Key>
             <PropertyRef Name="autoplan_id" />
           </Key>
@@ -192,7 +192,7 @@
           <Property Name="product_id" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="autoplan_manual" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="Products">
+        <EntityType Name="Product">
           <Key>
             <PropertyRef Name="prod_id" />
           </Key>
@@ -215,7 +215,7 @@
           <Property Name="pfp_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="prod_id" Type="Int32" />
           <Property Name="plan_id" Type="Int32" />
-          <NavigationProperty Name="Products" Relationship="Self.FK_Products_for_plan_Products" FromRole="Products_for_plan" ToRole="Products" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Products_for_plan_Products" FromRole="Products_for_plan" ToRole="Products" />
           <NavigationProperty Name="SkinPlan" Relationship="Self.FK_Products_for_plan_SkinPlan" FromRole="Products_for_plan" ToRole="SkinPlan" />
         </EntityType>
         <EntityType Name="SkinPlan">
@@ -228,11 +228,11 @@
           <Property Name="plan_name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="plan_date" Type="DateTime" Precision="0" />
           <Property Name="notes" Type="String" MaxLength="2500" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="AppUsers" Relationship="Self.FK_SkinPlan_AppUsers" FromRole="SkinPlan" ToRole="AppUsers" />
+          <NavigationProperty Name="AppUser" Relationship="Self.FK_SkinPlan_AppUsers" FromRole="SkinPlan" ToRole="AppUsers" />
           <NavigationProperty Name="Products_for_plan" Relationship="Self.FK_Products_for_plan_SkinPlan" FromRole="SkinPlan" ToRole="Products_for_plan" />
         </EntityType>
         <Association Name="FK_SkinPlan_AppUsers">
-          <End Role="AppUsers" Type="Self.AppUsers" Multiplicity="0..1" />
+          <End Role="AppUsers" Type="Self.AppUser" Multiplicity="0..1" />
           <End Role="SkinPlan" Type="Self.SkinPlan" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AppUsers">
@@ -244,7 +244,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Products_for_plan_Products">
-          <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+          <End Role="Products" Type="Self.Product" Multiplicity="0..1" />
           <End Role="Products_for_plan" Type="Self.Products_for_plan" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Products">
@@ -267,22 +267,22 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="bgroup90_test2Entities5" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="AppUsers" EntityType="Self.AppUsers" />
-          <EntitySet Name="AutoPlans" EntityType="Self.AutoPlans" />
-          <EntitySet Name="Products" EntityType="Self.Products" />
+        <EntityContainer Name="bgroup90_Db" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AppUsers" EntityType="Self.AppUser" />
+          <EntitySet Name="AutoPlans" EntityType="Self.AutoPlan" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="Products_for_plan" EntityType="Self.Products_for_plan" />
-          <EntitySet Name="SkinPlan" EntityType="Self.SkinPlan" />
+          <EntitySet Name="SkinPlans" EntityType="Self.SkinPlan" />
           <AssociationSet Name="FK_SkinPlan_AppUsers" Association="Self.FK_SkinPlan_AppUsers">
             <End Role="AppUsers" EntitySet="AppUsers" />
-            <End Role="SkinPlan" EntitySet="SkinPlan" />
+            <End Role="SkinPlan" EntitySet="SkinPlans" />
           </AssociationSet>
           <AssociationSet Name="FK_Products_for_plan_Products" Association="Self.FK_Products_for_plan_Products">
             <End Role="Products" EntitySet="Products" />
             <End Role="Products_for_plan" EntitySet="Products_for_plan" />
           </AssociationSet>
           <AssociationSet Name="FK_Products_for_plan_SkinPlan" Association="Self.FK_Products_for_plan_SkinPlan">
-            <End Role="SkinPlan" EntitySet="SkinPlan" />
+            <End Role="SkinPlan" EntitySet="SkinPlans" />
             <End Role="Products_for_plan" EntitySet="Products_for_plan" />
           </AssociationSet>
         </EntityContainer>
@@ -291,9 +291,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="bgroup90_test2Model1StoreContainer" CdmEntityContainer="bgroup90_test2Entities5">
+        <EntityContainerMapping StorageEntityContainer="bgroup90_test2ModelStoreContainer" CdmEntityContainer="bgroup90_Db">
           <EntitySetMapping Name="AppUsers">
-            <EntityTypeMapping TypeName="bgroup90_test2Model1.AppUsers">
+            <EntityTypeMapping TypeName="bgroup90_test2Model.AppUser">
               <MappingFragment StoreEntitySet="AppUsers">
                 <ScalarProperty Name="appUser_id" ColumnName="appUser_id" />
                 <ScalarProperty Name="username" ColumnName="username" />
@@ -330,7 +330,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AutoPlans">
-            <EntityTypeMapping TypeName="bgroup90_test2Model1.AutoPlans">
+            <EntityTypeMapping TypeName="bgroup90_test2Model.AutoPlan">
               <MappingFragment StoreEntitySet="AutoPlans">
                 <ScalarProperty Name="autoplan_id" ColumnName="autoplan_id" />
                 <ScalarProperty Name="autoplan_name" ColumnName="autoplan_name" />
@@ -341,7 +341,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Products">
-            <EntityTypeMapping TypeName="bgroup90_test2Model1.Products">
+            <EntityTypeMapping TypeName="bgroup90_test2Model.Product">
               <MappingFragment StoreEntitySet="Products">
                 <ScalarProperty Name="prod_id" ColumnName="prod_id" />
                 <ScalarProperty Name="prod_name" ColumnName="prod_name" />
@@ -357,7 +357,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Products_for_plan">
-            <EntityTypeMapping TypeName="bgroup90_test2Model1.Products_for_plan">
+            <EntityTypeMapping TypeName="bgroup90_test2Model.Products_for_plan">
               <MappingFragment StoreEntitySet="Products_for_plan">
                 <ScalarProperty Name="pfp_id" ColumnName="pfp_id" />
                 <ScalarProperty Name="prod_id" ColumnName="prod_id" />
@@ -365,8 +365,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SkinPlan">
-            <EntityTypeMapping TypeName="bgroup90_test2Model1.SkinPlan">
+          <EntitySetMapping Name="SkinPlans">
+            <EntityTypeMapping TypeName="bgroup90_test2Model.SkinPlan">
               <MappingFragment StoreEntitySet="SkinPlan">
                 <ScalarProperty Name="plan_id" ColumnName="plan_id" />
                 <ScalarProperty Name="cosmetic_license_num" ColumnName="cosmetic_license_num" />
@@ -391,7 +391,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

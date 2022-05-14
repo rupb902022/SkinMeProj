@@ -7,6 +7,8 @@ namespace SkinMeApp.DTO
 {
     public class ProductInfo
     {
+
+        public int prod_id { get; set; }
         public string prod_description { get; set; }
         public string prod_manual { get; set; }
     }

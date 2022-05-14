@@ -14,17 +14,17 @@ namespace SkinMeApp.Controllers
     public class UsersController : ApiController
     {
 
-        bgroup90_test2Entities5 db = new bgroup90_test2Entities5();
+        bgroup90_Db db = new bgroup90_Db();
 
         public IHttpActionResult Get(string userrole = "user") // get only cosmetologist
         {
             try
             {
-                List<AppUsers> users = db.AppUsers.Where(x => x.user_role == userrole).ToList();
+                List<AppUser> users = db.AppUsers.Where(x => x.user_role == userrole).ToList();
 
                 if (users != null)
                 {
-                    foreach (AppUsers u in users)
+                    foreach (AppUser u in users)
                     {
                         Console.WriteLine(u.first_name);
                     }

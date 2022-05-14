@@ -13,16 +13,16 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CosController : ApiController
     {
-        bgroup90_test2Entities5 db = new bgroup90_test2Entities5();
+        bgroup90_Db db = new bgroup90_Db();
         public IHttpActionResult Get(string userrole = "Cosmetologist") // get only cosmetologist
         {
             try
             {
-                List<AppUsers> users = db.AppUsers.Where(x => x.user_role == userrole).ToList();
+                List<AppUser> users = db.AppUsers.Where(x => x.user_role == userrole).ToList();
 
                 if (users != null)
                 {
-                    foreach (AppUsers u in users)
+                    foreach (AppUser u in users)
                     {
                         Console.WriteLine(u.first_name + u.cosmetic_address + u.cosmetic_city);
                     }
@@ -43,7 +43,7 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                return Ok(db.SkinPlan);
+                return Ok(db.SkinPlans);
             }
             catch (Exception ex)
             {
@@ -57,7 +57,7 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                db.SkinPlan.Add(value);
+                db.SkinPlans.Add(value);
                 db.SaveChanges();
                 return Created(new Uri(Request.RequestUri.AbsoluteUri + value.plan_id), value);
 
@@ -95,13 +95,13 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                SkinPlan s = db.SkinPlan.SingleOrDefault(x => x.plan_id == id);
+                SkinPlan s = db.SkinPlans.SingleOrDefault(x => x.plan_id == id);
                 if (s != null)
                 {
                     s.plan_name = value.plan_name;
                     s.plan_date = value.plan_date;
                     s.notes = value.notes;
-                    List<Products> products = db.Products.ToList(); /// ? how to change products from the plan
+                    List<Product> products = db.Products.ToList(); /// ? how to change products from the plan
 
                     return Ok(s);
                 }
@@ -117,10 +117,10 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                SkinPlan s = db.SkinPlan.SingleOrDefault(x => x.plan_id == id);
+                SkinPlan s = db.SkinPlans.SingleOrDefault(x => x.plan_id == id);
                 if (s != null)
                 {
-                    db.SkinPlan.Remove(s);
+                    db.SkinPlans.Remove(s);
                     return Ok();
                 }
                 return Content(HttpStatusCode.NotFound,
@@ -153,11 +153,11 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                List<AppUsers> users = db.AppUsers.Where(x => x.user_status == status && x.user_route != "1").ToList();
+                List<AppUser> users = db.AppUsers.Where(x => x.user_status == status && x.user_route != "1").ToList();
 
                 if (users != null)
                 {
-                    foreach (AppUsers u in users)
+                    foreach (AppUser u in users)
                     {   
                         Console.WriteLine(u.appUser_id + u.first_name + u.user_route);
                     }

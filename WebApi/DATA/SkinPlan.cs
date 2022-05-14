@@ -27,7 +27,7 @@ namespace DATA
         public Nullable<System.DateTime> plan_date { get; set; }
         public string notes { get; set; }
     
-        public virtual AppUsers AppUsers { get; set; }
+        public virtual AppUser AppUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Products_for_plan> Products_for_plan { get; set; }
     }
