@@ -43,7 +43,7 @@ namespace SkinMeApp.Controllers
                 if (log != null)
                 {
                     return Content(HttpStatusCode.OK,
-                        $"Valid user ");
+                        $"Valid user, username: { log.username}");
                 }
                 return Content(HttpStatusCode.NotFound,
                     $"username or password were not found");

@@ -171,15 +171,17 @@ namespace SkinMeApp.Controllers
         {
             try
             {
+                //SkinPlan s = db.SkinPlans.SingleOrDefault(x => x.plan_id == plan_id);
                 List<Products_for_plan> productsForPlan = db.Products_for_plan.Where(x => x.plan_id == plan_id).ToList();
 
                 if (productsForPlan != null)
                 {
                     foreach (Products_for_plan p in productsForPlan)
                     {
-                        Console.WriteLine(p.prod_id);
+                        return Content(HttpStatusCode.OK, productsForPlan);
+
                     }
-                    return Content(HttpStatusCode.OK, productsForPlan);
+                    
                 }
                 return Content(HttpStatusCode.NotFound,
                     $"no products for plan found");
