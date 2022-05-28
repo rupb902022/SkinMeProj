@@ -12,14 +12,8 @@ namespace DATA
     using System;
     using System.Collections.Generic;
     
-    public partial class Product
+    public partial class Products
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Product()
-        {
-            this.Products_for_plan = new HashSet<Products_for_plan>();
-        }
-    
         public int prod_id { get; set; }
         public string prod_name { get; set; }
         public string prod_type { get; set; }
@@ -30,8 +24,5 @@ namespace DATA
         public string prod_sizeType { get; set; }
         public Nullable<int> prod_size { get; set; }
         public string prod_status { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Products_for_plan> Products_for_plan { get; set; }
     }
 }

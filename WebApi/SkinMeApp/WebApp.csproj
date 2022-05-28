@@ -220,6 +220,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Class1.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -232,6 +233,7 @@
     <Compile Include="DTO\ProductInfo.cs" />
     <Compile Include="DTO\RegisterCos.cs" />
     <Compile Include="DTO\RegisterUser.cs" />
+    <Compile Include="DTO\SendMail.cs" />
     <Compile Include="DTO\UpdateProduct.cs" />
     <Compile Include="DTO\Admin.cs" />
     <Compile Include="DTO\DependingUsers.cs" />

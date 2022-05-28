@@ -4,15 +4,13 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="40476e9cd7af45b389900e208dd008fd" Name="Diagram1" ZoomLevel="94">
-        <EntityTypeShape EntityType="bgroup90_test2Model.AppUser" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="bgroup90_test2Model.AutoPlan" Width="1.5" PointX="5.75" PointY="2.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="bgroup90_test2Model.Product" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="bgroup90_test2Model.Products_for_plan" Width="1.5" PointX="5.25" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="bgroup90_test2Model.SkinPlan" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
-        <AssociationConnector Association="bgroup90_test2Model.FK_SkinPlan_AppUsers" ManuallyRouted="false" />
-        <AssociationConnector Association="bgroup90_test2Model.FK_Products_for_plan_Products" ManuallyRouted="false" />
-        <AssociationConnector Association="bgroup90_test2Model.FK_Products_for_plan_SkinPlan" ManuallyRouted="false" />
+      <Diagram DiagramId="6c4478c55e6c4ab98ff3a168ccbca9c5" Name="Diagram1">
+        <EntityTypeShape EntityType="bgroup90_test2Model.AppCosmetologists" Width="1.5" PointX="0.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup90_test2Model.AppUsers" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup90_test2Model.AutoPlans" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup90_test2Model.Products" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup90_test2Model.SkinPlan" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="bgroup90_test2Model.FK_AppUsers_AppCosmetologists" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

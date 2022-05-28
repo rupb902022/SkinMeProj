@@ -5,6 +5,26 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="bgroup90_test2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AppCosmetologists">
+          <Key>
+            <PropertyRef Name="cosmetologist_id" />
+          </Key>
+          <Property Name="cosmetologist_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cosmetologist_user_name" Type="varchar" MaxLength="20" />
+          <Property Name="cosmetologist_user_password" Type="varchar" MaxLength="50" />
+          <Property Name="cosmetologist_first_name" Type="varchar" MaxLength="50" />
+          <Property Name="cosmetologist_last_name" Type="varchar" MaxLength="50" />
+          <Property Name="cosmetologist_email" Type="varchar" MaxLength="50" />
+          <Property Name="cosmetologist_gender" Type="char" MaxLength="1" />
+          <Property Name="cosmetologist_birth" Type="date" />
+          <Property Name="cosmetic_license_num" Type="int" />
+          <Property Name="cosmetic_businessName" Type="varchar" MaxLength="50" />
+          <Property Name="cosmetic_speciality" Type="varchar" MaxLength="50" />
+          <Property Name="cosmetic_address" Type="varchar" MaxLength="50" />
+          <Property Name="cosmetic_city" Type="varchar" MaxLength="50" />
+          <Property Name="lng" Type="varchar" MaxLength="50" />
+          <Property Name="lat" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="AppUsers">
           <Key>
             <PropertyRef Name="appUser_id" />
@@ -19,27 +39,20 @@
           <Property Name="user_birth" Type="date" />
           <Property Name="picture" Type="varbinary" MaxLength="50" />
           <Property Name="user_picsprocess" Type="varbinary" MaxLength="50" />
-          <Property Name="user_role" Type="varchar" MaxLength="20" />
-          <Property Name="user_skinType" Type="varchar" MaxLength="20" />
-          <Property Name="user_skinProblem" Type="varchar" MaxLength="10" />
-          <Property Name="user_cheek" Type="varchar" MaxLength="10" />
-          <Property Name="user_Tzone" Type="varchar" MaxLength="10" />
-          <Property Name="user_sunExposure" Type="varchar" MaxLength="10" />
-          <Property Name="user_stress" Type="varchar" MaxLength="10" />
-          <Property Name="user_period" Type="varchar" MaxLength="10" />
+          <Property Name="user_skinType" Type="varchar" MaxLength="50" />
+          <Property Name="user_skinProblem" Type="varchar" MaxLength="50" />
+          <Property Name="user_cheek" Type="varchar" MaxLength="50" />
+          <Property Name="user_Tzone" Type="varchar" MaxLength="50" />
+          <Property Name="user_sunExposure" Type="varchar" MaxLength="50" />
+          <Property Name="user_stress" Type="varchar" MaxLength="50" />
+          <Property Name="user_period" Type="varchar" MaxLength="50" />
           <Property Name="user_dermatology" Type="char" MaxLength="1" />
-          <Property Name="user_currentProducts" Type="varchar" MaxLength="10" />
-          <Property Name="user_sensitive" Type="varchar" MaxLength="10" />
-          <Property Name="user_areas" Type="varchar" MaxLength="10" />
-          <Property Name="user_status" Type="varchar" MaxLength="20" />
+          <Property Name="user_currentProducts" Type="varchar" MaxLength="100" />
+          <Property Name="user_sensitive" Type="varchar" MaxLength="50" />
+          <Property Name="user_areas" Type="varchar" MaxLength="50" />
+          <Property Name="user_status" Type="varchar" MaxLength="50" />
           <Property Name="user_route" Type="char" MaxLength="1" />
-          <Property Name="cosmetic_license_num" Type="int" />
-          <Property Name="cosmetic_businessName" Type="varchar" MaxLength="50" />
-          <Property Name="cosmetic_speciality" Type="varchar" MaxLength="50" />
-          <Property Name="cosmetic_address" Type="varchar" MaxLength="50" />
-          <Property Name="cosmetic_city" Type="varchar" MaxLength="50" />
-          <Property Name="lng" Type="varchar" MaxLength="50" />
-          <Property Name="lat" Type="varchar" MaxLength="50" />
+          <Property Name="cosmetologist_id" Type="int" />
         </EntityType>
         <EntityType Name="AutoPlans">
           <Key>
@@ -66,14 +79,12 @@
           <Property Name="prod_size" Type="int" />
           <Property Name="prod_status" Type="varchar" MaxLength="20" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'bgroup90_test2.dbo.Products_for_plan' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
         <EntityType Name="Products_for_plan">
-          <Key>
-            <PropertyRef Name="pfp_id" />
-          </Key>
-          <Property Name="pfp_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="prod_id" Type="int" />
           <Property Name="plan_id" Type="int" />
-        </EntityType>
+        </EntityType>-->
         <EntityType Name="SkinPlan">
           <Key>
             <PropertyRef Name="plan_id" />
@@ -85,59 +96,27 @@
           <Property Name="plan_date" Type="date" />
           <Property Name="notes" Type="varchar" MaxLength="2500" />
         </EntityType>
-        <Association Name="FK_Products_for_plan_Products">
-          <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
-          <End Role="Products_for_plan" Type="Self.Products_for_plan" Multiplicity="*" />
+        <Association Name="FK_AppUsers_AppCosmetologists">
+          <End Role="AppCosmetologists" Type="Self.AppCosmetologists" Multiplicity="0..1" />
+          <End Role="AppUsers" Type="Self.AppUsers" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Products">
-              <PropertyRef Name="prod_id" />
+            <Principal Role="AppCosmetologists">
+              <PropertyRef Name="cosmetologist_id" />
             </Principal>
-            <Dependent Role="Products_for_plan">
-              <PropertyRef Name="prod_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Products_for_plan_SkinPlan">
-          <End Role="SkinPlan" Type="Self.SkinPlan" Multiplicity="0..1" />
-          <End Role="Products_for_plan" Type="Self.Products_for_plan" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SkinPlan">
-              <PropertyRef Name="plan_id" />
-            </Principal>
-            <Dependent Role="Products_for_plan">
-              <PropertyRef Name="plan_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SkinPlan_AppUsers">
-          <End Role="AppUsers" Type="Self.AppUsers" Multiplicity="0..1" />
-          <End Role="SkinPlan" Type="Self.SkinPlan" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AppUsers">
-              <PropertyRef Name="appUser_id" />
-            </Principal>
-            <Dependent Role="SkinPlan">
-              <PropertyRef Name="appUser_id" />
+            <Dependent Role="AppUsers">
+              <PropertyRef Name="cosmetologist_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="bgroup90_test2ModelStoreContainer">
+          <EntitySet Name="AppCosmetologists" EntityType="Self.AppCosmetologists" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AppUsers" EntityType="Self.AppUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AutoPlans" EntityType="Self.AutoPlans" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Products_for_plan" EntityType="Self.Products_for_plan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SkinPlan" EntityType="Self.SkinPlan" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Products_for_plan_Products" Association="Self.FK_Products_for_plan_Products">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="Products_for_plan" EntitySet="Products_for_plan" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Products_for_plan_SkinPlan" Association="Self.FK_Products_for_plan_SkinPlan">
-            <End Role="SkinPlan" EntitySet="SkinPlan" />
-            <End Role="Products_for_plan" EntitySet="Products_for_plan" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SkinPlan_AppUsers" Association="Self.FK_SkinPlan_AppUsers">
+          <AssociationSet Name="FK_AppUsers_AppCosmetologists" Association="Self.FK_AppUsers_AppCosmetologists">
+            <End Role="AppCosmetologists" EntitySet="AppCosmetologists" />
             <End Role="AppUsers" EntitySet="AppUsers" />
-            <End Role="SkinPlan" EntitySet="SkinPlan" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -145,7 +124,28 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="bgroup90_test2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="AppUser">
+        <EntityType Name="AppCosmetologists">
+          <Key>
+            <PropertyRef Name="cosmetologist_id" />
+          </Key>
+          <Property Name="cosmetologist_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cosmetologist_user_name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="cosmetologist_user_password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cosmetologist_first_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cosmetologist_last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cosmetologist_email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cosmetologist_gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="cosmetologist_birth" Type="DateTime" Precision="0" />
+          <Property Name="cosmetic_license_num" Type="Int32" />
+          <Property Name="cosmetic_businessName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cosmetic_speciality" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cosmetic_address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cosmetic_city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="lng" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="lat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AppUsers" Relationship="Self.FK_AppUsers_AppCosmetologists" FromRole="AppCosmetologists" ToRole="AppUsers" />
+        </EntityType>
+        <EntityType Name="AppUsers">
           <Key>
             <PropertyRef Name="appUser_id" />
           </Key>
@@ -159,30 +159,23 @@
           <Property Name="user_birth" Type="DateTime" Precision="0" />
           <Property Name="picture" Type="Binary" MaxLength="50" FixedLength="false" />
           <Property Name="user_picsprocess" Type="Binary" MaxLength="50" FixedLength="false" />
-          <Property Name="user_role" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="user_skinType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="user_skinProblem" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="user_cheek" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="user_Tzone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="user_sunExposure" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="user_stress" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="user_period" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="user_skinType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="user_skinProblem" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="user_cheek" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="user_Tzone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="user_sunExposure" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="user_stress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="user_period" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="user_dermatology" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Name="user_currentProducts" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="user_sensitive" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="user_areas" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="user_status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="user_currentProducts" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="user_sensitive" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="user_areas" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="user_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="user_route" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Name="cosmetic_license_num" Type="Int32" />
-          <Property Name="cosmetic_businessName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="cosmetic_speciality" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="cosmetic_address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="cosmetic_city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="lng" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="lat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="SkinPlans" Relationship="Self.FK_SkinPlan_AppUsers" FromRole="AppUsers" ToRole="SkinPlan" />
+          <Property Name="cosmetologist_id" Type="Int32" />
+          <NavigationProperty Name="AppCosmetologists" Relationship="Self.FK_AppUsers_AppCosmetologists" FromRole="AppUsers" ToRole="AppCosmetologists" />
         </EntityType>
-        <EntityType Name="AutoPlan">
+        <EntityType Name="AutoPlans">
           <Key>
             <PropertyRef Name="autoplan_id" />
           </Key>
@@ -192,7 +185,7 @@
           <Property Name="product_id" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="autoplan_manual" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="Product">
+        <EntityType Name="Products">
           <Key>
             <PropertyRef Name="prod_id" />
           </Key>
@@ -206,17 +199,6 @@
           <Property Name="prod_sizeType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="prod_size" Type="Int32" />
           <Property Name="prod_status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Products_for_plan" Relationship="Self.FK_Products_for_plan_Products" FromRole="Products" ToRole="Products_for_plan" />
-        </EntityType>
-        <EntityType Name="Products_for_plan">
-          <Key>
-            <PropertyRef Name="pfp_id" />
-          </Key>
-          <Property Name="pfp_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="prod_id" Type="Int32" />
-          <Property Name="plan_id" Type="Int32" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_Products_for_plan_Products" FromRole="Products_for_plan" ToRole="Products" />
-          <NavigationProperty Name="SkinPlan" Relationship="Self.FK_Products_for_plan_SkinPlan" FromRole="Products_for_plan" ToRole="SkinPlan" />
         </EntityType>
         <EntityType Name="SkinPlan">
           <Key>
@@ -228,62 +210,28 @@
           <Property Name="plan_name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="plan_date" Type="DateTime" Precision="0" />
           <Property Name="notes" Type="String" MaxLength="2500" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="AppUser" Relationship="Self.FK_SkinPlan_AppUsers" FromRole="SkinPlan" ToRole="AppUsers" />
-          <NavigationProperty Name="Products_for_plan" Relationship="Self.FK_Products_for_plan_SkinPlan" FromRole="SkinPlan" ToRole="Products_for_plan" />
         </EntityType>
-        <Association Name="FK_SkinPlan_AppUsers">
-          <End Role="AppUsers" Type="Self.AppUser" Multiplicity="0..1" />
-          <End Role="SkinPlan" Type="Self.SkinPlan" Multiplicity="*" />
+        <Association Name="FK_AppUsers_AppCosmetologists">
+          <End Role="AppCosmetologists" Type="Self.AppCosmetologists" Multiplicity="0..1" />
+          <End Role="AppUsers" Type="Self.AppUsers" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="AppUsers">
-              <PropertyRef Name="appUser_id" />
+            <Principal Role="AppCosmetologists">
+              <PropertyRef Name="cosmetologist_id" />
             </Principal>
-            <Dependent Role="SkinPlan">
-              <PropertyRef Name="appUser_id" />
+            <Dependent Role="AppUsers">
+              <PropertyRef Name="cosmetologist_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Products_for_plan_Products">
-          <End Role="Products" Type="Self.Product" Multiplicity="0..1" />
-          <End Role="Products_for_plan" Type="Self.Products_for_plan" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Products">
-              <PropertyRef Name="prod_id" />
-            </Principal>
-            <Dependent Role="Products_for_plan">
-              <PropertyRef Name="prod_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Products_for_plan_SkinPlan">
-          <End Role="SkinPlan" Type="Self.SkinPlan" Multiplicity="0..1" />
-          <End Role="Products_for_plan" Type="Self.Products_for_plan" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SkinPlan">
-              <PropertyRef Name="plan_id" />
-            </Principal>
-            <Dependent Role="Products_for_plan">
-              <PropertyRef Name="plan_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="bgroup90_Db" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="AppUsers" EntityType="Self.AppUser" />
-          <EntitySet Name="AutoPlans" EntityType="Self.AutoPlan" />
-          <EntitySet Name="Products" EntityType="Self.Product" />
-          <EntitySet Name="Products_for_plan" EntityType="Self.Products_for_plan" />
-          <EntitySet Name="SkinPlans" EntityType="Self.SkinPlan" />
-          <AssociationSet Name="FK_SkinPlan_AppUsers" Association="Self.FK_SkinPlan_AppUsers">
+        <EntityContainer Name="bgroup90SkinMe" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AppCosmetologists" EntityType="Self.AppCosmetologists" />
+          <EntitySet Name="AppUsers" EntityType="Self.AppUsers" />
+          <EntitySet Name="AutoPlans" EntityType="Self.AutoPlans" />
+          <EntitySet Name="Products" EntityType="Self.Products" />
+          <EntitySet Name="SkinPlan" EntityType="Self.SkinPlan" />
+          <AssociationSet Name="FK_AppUsers_AppCosmetologists" Association="Self.FK_AppUsers_AppCosmetologists">
+            <End Role="AppCosmetologists" EntitySet="AppCosmetologists" />
             <End Role="AppUsers" EntitySet="AppUsers" />
-            <End Role="SkinPlan" EntitySet="SkinPlans" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Products_for_plan_Products" Association="Self.FK_Products_for_plan_Products">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="Products_for_plan" EntitySet="Products_for_plan" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Products_for_plan_SkinPlan" Association="Self.FK_Products_for_plan_SkinPlan">
-            <End Role="SkinPlan" EntitySet="SkinPlans" />
-            <End Role="Products_for_plan" EntitySet="Products_for_plan" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -291,9 +239,30 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="bgroup90_test2ModelStoreContainer" CdmEntityContainer="bgroup90_Db">
+        <EntityContainerMapping StorageEntityContainer="bgroup90_test2ModelStoreContainer" CdmEntityContainer="bgroup90SkinMe">
+          <EntitySetMapping Name="AppCosmetologists">
+            <EntityTypeMapping TypeName="bgroup90_test2Model.AppCosmetologists">
+              <MappingFragment StoreEntitySet="AppCosmetologists">
+                <ScalarProperty Name="cosmetologist_id" ColumnName="cosmetologist_id" />
+                <ScalarProperty Name="cosmetologist_user_name" ColumnName="cosmetologist_user_name" />
+                <ScalarProperty Name="cosmetologist_user_password" ColumnName="cosmetologist_user_password" />
+                <ScalarProperty Name="cosmetologist_first_name" ColumnName="cosmetologist_first_name" />
+                <ScalarProperty Name="cosmetologist_last_name" ColumnName="cosmetologist_last_name" />
+                <ScalarProperty Name="cosmetologist_email" ColumnName="cosmetologist_email" />
+                <ScalarProperty Name="cosmetologist_gender" ColumnName="cosmetologist_gender" />
+                <ScalarProperty Name="cosmetologist_birth" ColumnName="cosmetologist_birth" />
+                <ScalarProperty Name="cosmetic_license_num" ColumnName="cosmetic_license_num" />
+                <ScalarProperty Name="cosmetic_businessName" ColumnName="cosmetic_businessName" />
+                <ScalarProperty Name="cosmetic_speciality" ColumnName="cosmetic_speciality" />
+                <ScalarProperty Name="cosmetic_address" ColumnName="cosmetic_address" />
+                <ScalarProperty Name="cosmetic_city" ColumnName="cosmetic_city" />
+                <ScalarProperty Name="lng" ColumnName="lng" />
+                <ScalarProperty Name="lat" ColumnName="lat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="AppUsers">
-            <EntityTypeMapping TypeName="bgroup90_test2Model.AppUser">
+            <EntityTypeMapping TypeName="bgroup90_test2Model.AppUsers">
               <MappingFragment StoreEntitySet="AppUsers">
                 <ScalarProperty Name="appUser_id" ColumnName="appUser_id" />
                 <ScalarProperty Name="username" ColumnName="username" />
@@ -305,7 +274,6 @@
                 <ScalarProperty Name="user_birth" ColumnName="user_birth" />
                 <ScalarProperty Name="picture" ColumnName="picture" />
                 <ScalarProperty Name="user_picsprocess" ColumnName="user_picsprocess" />
-                <ScalarProperty Name="user_role" ColumnName="user_role" />
                 <ScalarProperty Name="user_skinType" ColumnName="user_skinType" />
                 <ScalarProperty Name="user_skinProblem" ColumnName="user_skinProblem" />
                 <ScalarProperty Name="user_cheek" ColumnName="user_cheek" />
@@ -319,18 +287,12 @@
                 <ScalarProperty Name="user_areas" ColumnName="user_areas" />
                 <ScalarProperty Name="user_status" ColumnName="user_status" />
                 <ScalarProperty Name="user_route" ColumnName="user_route" />
-                <ScalarProperty Name="cosmetic_license_num" ColumnName="cosmetic_license_num" />
-                <ScalarProperty Name="cosmetic_businessName" ColumnName="cosmetic_businessName" />
-                <ScalarProperty Name="cosmetic_speciality" ColumnName="cosmetic_speciality" />
-                <ScalarProperty Name="cosmetic_address" ColumnName="cosmetic_address" />
-                <ScalarProperty Name="cosmetic_city" ColumnName="cosmetic_city" />
-                <ScalarProperty Name="lng" ColumnName="lng" />
-                <ScalarProperty Name="lat" ColumnName="lat" />
+                <ScalarProperty Name="cosmetologist_id" ColumnName="cosmetologist_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AutoPlans">
-            <EntityTypeMapping TypeName="bgroup90_test2Model.AutoPlan">
+            <EntityTypeMapping TypeName="bgroup90_test2Model.AutoPlans">
               <MappingFragment StoreEntitySet="AutoPlans">
                 <ScalarProperty Name="autoplan_id" ColumnName="autoplan_id" />
                 <ScalarProperty Name="autoplan_name" ColumnName="autoplan_name" />
@@ -341,7 +303,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Products">
-            <EntityTypeMapping TypeName="bgroup90_test2Model.Product">
+            <EntityTypeMapping TypeName="bgroup90_test2Model.Products">
               <MappingFragment StoreEntitySet="Products">
                 <ScalarProperty Name="prod_id" ColumnName="prod_id" />
                 <ScalarProperty Name="prod_name" ColumnName="prod_name" />
@@ -356,16 +318,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Products_for_plan">
-            <EntityTypeMapping TypeName="bgroup90_test2Model.Products_for_plan">
-              <MappingFragment StoreEntitySet="Products_for_plan">
-                <ScalarProperty Name="pfp_id" ColumnName="pfp_id" />
-                <ScalarProperty Name="prod_id" ColumnName="prod_id" />
-                <ScalarProperty Name="plan_id" ColumnName="plan_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SkinPlans">
+          <EntitySetMapping Name="SkinPlan">
             <EntityTypeMapping TypeName="bgroup90_test2Model.SkinPlan">
               <MappingFragment StoreEntitySet="SkinPlan">
                 <ScalarProperty Name="plan_id" ColumnName="plan_id" />
@@ -391,7 +344,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
