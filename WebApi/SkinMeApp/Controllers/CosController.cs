@@ -13,7 +13,7 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CosController : ApiController
     {
-        bgroup90_eliseofek db = new bgroup90_eliseofek();
+        bgroup90_S db = new bgroup90_S();
         //public IHttpActionResult Get(string userrole = "Cosmetologist") // get only cosmetologist
         //{
         //    try
@@ -39,6 +39,21 @@ namespace SkinMeApp.Controllers
         //        throw;
         //    }
         //}
+        [HttpGet]
+        [Route("api/map")]
+        public IHttpActionResult allcos() // Get all estheticians 
+        {
+            try
+            {
+                return Ok(db.AppCosmetologists);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+        }
+
         public IHttpActionResult Get() // Get all תוכניות טיפוח
         {
             try

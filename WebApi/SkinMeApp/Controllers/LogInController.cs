@@ -15,7 +15,7 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class LogInController : ApiController
     {
-        bgroup90_eliseofek db = new bgroup90_eliseofek();
+        bgroup90_S db = new bgroup90_S();
 
         public IHttpActionResult Get()
         {

@@ -64,6 +64,15 @@
           <Property Name="product_id" Type="varchar" MaxLength="100" />
           <Property Name="autoplan_manual" Type="varchar" MaxLength="1500" />
         </EntityType>
+        <EntityType Name="Locations">
+          <Key>
+            <PropertyRef Name="location_id" />
+          </Key>
+          <Property Name="location_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="address_cosmetician" Type="varchar" MaxLength="250" />
+          <Property Name="latitude" Type="varchar" MaxLength="50" />
+          <Property Name="longitude" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Products">
           <Key>
             <PropertyRef Name="prod_id" />
@@ -112,6 +121,7 @@ warning 6013: The table/view 'bgroup90_test2.dbo.Products_for_plan' does not hav
           <EntitySet Name="AppCosmetologists" EntityType="Self.AppCosmetologists" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AppUsers" EntityType="Self.AppUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AutoPlans" EntityType="Self.AutoPlans" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Locations" EntityType="Self.Locations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SkinPlan" EntityType="Self.SkinPlan" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_AppUsers_AppCosmetologists" Association="Self.FK_AppUsers_AppCosmetologists">
@@ -185,6 +195,15 @@ warning 6013: The table/view 'bgroup90_test2.dbo.Products_for_plan' does not hav
           <Property Name="product_id" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="autoplan_manual" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="Locations">
+          <Key>
+            <PropertyRef Name="location_id" />
+          </Key>
+          <Property Name="location_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="address_cosmetician" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="latitude" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="longitude" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="Products">
           <Key>
             <PropertyRef Name="prod_id" />
@@ -223,10 +242,11 @@ warning 6013: The table/view 'bgroup90_test2.dbo.Products_for_plan' does not hav
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="bgroup90SkinMe" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="bgroup90_S" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AppCosmetologists" EntityType="Self.AppCosmetologists" />
           <EntitySet Name="AppUsers" EntityType="Self.AppUsers" />
           <EntitySet Name="AutoPlans" EntityType="Self.AutoPlans" />
+          <EntitySet Name="Locations" EntityType="Self.Locations" />
           <EntitySet Name="Products" EntityType="Self.Products" />
           <EntitySet Name="SkinPlan" EntityType="Self.SkinPlan" />
           <AssociationSet Name="FK_AppUsers_AppCosmetologists" Association="Self.FK_AppUsers_AppCosmetologists">
@@ -239,7 +259,7 @@ warning 6013: The table/view 'bgroup90_test2.dbo.Products_for_plan' does not hav
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="bgroup90_test2ModelStoreContainer" CdmEntityContainer="bgroup90SkinMe">
+        <EntityContainerMapping StorageEntityContainer="bgroup90_test2ModelStoreContainer" CdmEntityContainer="bgroup90_S">
           <EntitySetMapping Name="AppCosmetologists">
             <EntityTypeMapping TypeName="bgroup90_test2Model.AppCosmetologists">
               <MappingFragment StoreEntitySet="AppCosmetologists">
@@ -299,6 +319,16 @@ warning 6013: The table/view 'bgroup90_test2.dbo.Products_for_plan' does not hav
                 <ScalarProperty Name="autoplan_skinType" ColumnName="autoplan_skinType" />
                 <ScalarProperty Name="product_id" ColumnName="product_id" />
                 <ScalarProperty Name="autoplan_manual" ColumnName="autoplan_manual" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Locations">
+            <EntityTypeMapping TypeName="bgroup90_test2Model.Locations">
+              <MappingFragment StoreEntitySet="Locations">
+                <ScalarProperty Name="location_id" ColumnName="location_id" />
+                <ScalarProperty Name="address_cosmetician" ColumnName="address_cosmetician" />
+                <ScalarProperty Name="latitude" ColumnName="latitude" />
+                <ScalarProperty Name="longitude" ColumnName="longitude" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

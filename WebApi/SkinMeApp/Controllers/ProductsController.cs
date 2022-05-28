@@ -15,7 +15,7 @@ namespace SkinMeApp.Controllers
 
     public class ProductsController : ApiController
     {
-        bgroup90_eliseofek db = new bgroup90_eliseofek();
+        bgroup90_S db = new bgroup90_S();
 
         [HttpGet]
         [Route("api/Products/")]
@@ -259,32 +259,32 @@ namespace SkinMeApp.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("api/Products/GetProdForPlan")]
-        public IHttpActionResult GetProductsForPlan(int plan_id) // get products for skin plan
-        {
-            try
-            {
+        //[HttpGet]
+        //[Route("api/Products/GetProdForPlan")]
+        //public IHttpActionResult GetProductsForPlan(int plan_id) // get products for skin plan
+        //{
+        //    try
+        //    {
                 
-                List<Products_for_plan> productsForPlan = db.Products_for_plan.Where(x => x.plan_id == plan_id).ToList();
+        //        List<Products_for_plan> productsForPlan = db.Products_for_plan.Where(x => x.plan_id == plan_id).ToList();
 
-                if (productsForPlan != null)
-                {
-                    foreach (Products_for_plan p in productsForPlan)
-                    {
-                        return Content(HttpStatusCode.OK, $" {p.prod_id }");
+        //        if (productsForPlan != null)
+        //        {
+        //            foreach (Products_for_plan p in productsForPlan)
+        //            {
+        //                return Content(HttpStatusCode.OK, $" {p.prod_id }");
 
-                    }
+        //            }
 
                     
-                }
-                return Content(HttpStatusCode.NotFound,
-                    $"no products for plan found");
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+        //        }
+        //        return Content(HttpStatusCode.NotFound,
+        //            $"no products for plan found");
+        //    }
+        //    catch (Exception)
+        //    {
+        //        throw;
+        //    }
+        //}
     }
 }

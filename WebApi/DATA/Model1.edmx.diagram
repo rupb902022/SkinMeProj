@@ -4,11 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="6c4478c55e6c4ab98ff3a168ccbca9c5" Name="Diagram1">
+      <Diagram DiagramId="d6e9153454524c798d21f2ea9410ca4c" Name="Diagram1">
         <EntityTypeShape EntityType="bgroup90_test2Model.AppCosmetologists" Width="1.5" PointX="0.75" PointY="2" IsExpanded="true" />
         <EntityTypeShape EntityType="bgroup90_test2Model.AppUsers" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="bgroup90_test2Model.AutoPlans" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="bgroup90_test2Model.Products" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup90_test2Model.Locations" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup90_test2Model.Products" Width="1.5" PointX="5.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="bgroup90_test2Model.SkinPlan" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="bgroup90_test2Model.FK_AppUsers_AppCosmetologists" ManuallyRouted="false" />
       </Diagram>
