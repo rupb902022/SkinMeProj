@@ -22,6 +22,7 @@
           <Property Name="cosmetic_speciality" Type="varchar" MaxLength="50" />
           <Property Name="cosmetic_address" Type="varchar" MaxLength="50" />
           <Property Name="cosmetic_city" Type="varchar" MaxLength="50" />
+          <Property Name="cosmetic_status" Type="varchar" MaxLength="50" />
           <Property Name="lng" Type="varchar" MaxLength="50" />
           <Property Name="lat" Type="varchar" MaxLength="50" />
         </EntityType>
@@ -80,31 +81,72 @@
           <Property Name="prod_status" Type="varchar" MaxLength="20" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6013: The table/view 'bgroup90_test2.dbo.Products_for_plan' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+warning 6002: The table/view 'bgroup90_test2.dbo.Products_for_plan' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Products_for_plan">
+          <Key>
+            <PropertyRef Name="pfp_id" />
+          </Key>
+          <Property Name="pfp_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="prod_id" Type="int" />
           <Property Name="plan_id" Type="int" />
-        </EntityType>-->
+        </EntityType>
         <EntityType Name="SkinPlan">
           <Key>
             <PropertyRef Name="plan_id" />
           </Key>
           <Property Name="plan_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="cosmetic_license_num" Type="int" />
+          <Property Name="cosmetologist_id" Type="int" />
           <Property Name="appUser_id" Type="int" />
+          <Property Name="prod_id" Type="int" />
           <Property Name="plan_name" Type="varchar" MaxLength="20" />
           <Property Name="plan_date" Type="date" />
           <Property Name="notes" Type="varchar" MaxLength="2500" />
         </EntityType>
-        <Association Name="FK_AppUsers_AppCosmetologists">
+        <Association Name="FK_Products_for_plan_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+          <End Role="Products_for_plan" Type="Self.Products_for_plan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="prod_id" />
+            </Principal>
+            <Dependent Role="Products_for_plan">
+              <PropertyRef Name="prod_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_for_plan_SkinPlan">
+          <End Role="SkinPlan" Type="Self.SkinPlan" Multiplicity="0..1" />
+          <End Role="Products_for_plan" Type="Self.Products_for_plan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SkinPlan">
+              <PropertyRef Name="plan_id" />
+            </Principal>
+            <Dependent Role="Products_for_plan">
+              <PropertyRef Name="plan_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SkinPlan_AppCosmetologists">
           <End Role="AppCosmetologists" Type="Self.AppCosmetologists" Multiplicity="0..1" />
-          <End Role="AppUsers" Type="Self.AppUsers" Multiplicity="*" />
+          <End Role="SkinPlan" Type="Self.SkinPlan" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AppCosmetologists">
               <PropertyRef Name="cosmetologist_id" />
             </Principal>
-            <Dependent Role="AppUsers">
+            <Dependent Role="SkinPlan">
               <PropertyRef Name="cosmetologist_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SkinPlan_AppUsers">
+          <End Role="AppUsers" Type="Self.AppUsers" Multiplicity="0..1" />
+          <End Role="SkinPlan" Type="Self.SkinPlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUsers">
+              <PropertyRef Name="appUser_id" />
+            </Principal>
+            <Dependent Role="SkinPlan">
+              <PropertyRef Name="appUser_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -114,9 +156,28 @@ warning 6013: The table/view 'bgroup90_test2.dbo.Products_for_plan' does not hav
           <EntitySet Name="AutoPlans" EntityType="Self.AutoPlans" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SkinPlan" EntityType="Self.SkinPlan" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_AppUsers_AppCosmetologists" Association="Self.FK_AppUsers_AppCosmetologists">
+          <EntitySet Name="Products_for_plan" EntityType="Self.Products_for_plan" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Products_for_plan].[pfp_id] AS [pfp_id], 
+    [Products_for_plan].[prod_id] AS [prod_id], 
+    [Products_for_plan].[plan_id] AS [plan_id]
+    FROM [dbo].[Products_for_plan] AS [Products_for_plan]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Products_for_plan_Products" Association="Self.FK_Products_for_plan_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Products_for_plan" EntitySet="Products_for_plan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_for_plan_SkinPlan" Association="Self.FK_Products_for_plan_SkinPlan">
+            <End Role="SkinPlan" EntitySet="SkinPlan" />
+            <End Role="Products_for_plan" EntitySet="Products_for_plan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SkinPlan_AppCosmetologists" Association="Self.FK_SkinPlan_AppCosmetologists">
             <End Role="AppCosmetologists" EntitySet="AppCosmetologists" />
+            <End Role="SkinPlan" EntitySet="SkinPlan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SkinPlan_AppUsers" Association="Self.FK_SkinPlan_AppUsers">
             <End Role="AppUsers" EntitySet="AppUsers" />
+            <End Role="SkinPlan" EntitySet="SkinPlan" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -141,9 +202,10 @@ warning 6013: The table/view 'bgroup90_test2.dbo.Products_for_plan' does not hav
           <Property Name="cosmetic_speciality" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="cosmetic_address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="cosmetic_city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cosmetic_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="lng" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="lat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="AppUsers" Relationship="Self.FK_AppUsers_AppCosmetologists" FromRole="AppCosmetologists" ToRole="AppUsers" />
+          <NavigationProperty Name="SkinPlan" Relationship="Self.FK_SkinPlan_AppCosmetologists" FromRole="AppCosmetologists" ToRole="SkinPlan" />
         </EntityType>
         <EntityType Name="AppUsers">
           <Key>
@@ -173,7 +235,7 @@ warning 6013: The table/view 'bgroup90_test2.dbo.Products_for_plan' does not hav
           <Property Name="user_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="user_route" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Name="cosmetologist_id" Type="Int32" />
-          <NavigationProperty Name="AppCosmetologists" Relationship="Self.FK_AppUsers_AppCosmetologists" FromRole="AppUsers" ToRole="AppCosmetologists" />
+          <NavigationProperty Name="SkinPlan" Relationship="Self.FK_SkinPlan_AppUsers" FromRole="AppUsers" ToRole="SkinPlan" />
         </EntityType>
         <EntityType Name="AutoPlans">
           <Key>
@@ -199,39 +261,103 @@ warning 6013: The table/view 'bgroup90_test2.dbo.Products_for_plan' does not hav
           <Property Name="prod_sizeType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="prod_size" Type="Int32" />
           <Property Name="prod_status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Products_for_plan" Relationship="Self.FK_Products_for_plan_Products" FromRole="Products" ToRole="Products_for_plan" />
         </EntityType>
         <EntityType Name="SkinPlan">
           <Key>
             <PropertyRef Name="plan_id" />
           </Key>
           <Property Name="plan_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="cosmetic_license_num" Type="Int32" />
+          <Property Name="cosmetologist_id" Type="Int32" />
           <Property Name="appUser_id" Type="Int32" />
+          <Property Name="prod_id" Type="Int32" />
           <Property Name="plan_name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="plan_date" Type="DateTime" Precision="0" />
           <Property Name="notes" Type="String" MaxLength="2500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AppCosmetologists" Relationship="Self.FK_SkinPlan_AppCosmetologists" FromRole="SkinPlan" ToRole="AppCosmetologists" />
+          <NavigationProperty Name="AppUsers" Relationship="Self.FK_SkinPlan_AppUsers" FromRole="SkinPlan" ToRole="AppUsers" />
+          <NavigationProperty Name="Products_for_plan" Relationship="Self.FK_Products_for_plan_SkinPlan" FromRole="SkinPlan" ToRole="Products_for_plan" />
         </EntityType>
-        <Association Name="FK_AppUsers_AppCosmetologists">
+        <EntityType Name="Products_for_plan">
+          <Key>
+            <PropertyRef Name="pfp_id" />
+          </Key>
+          <Property Name="pfp_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="prod_id" Type="Int32" />
+          <Property Name="plan_id" Type="Int32" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_Products_for_plan_Products" FromRole="Products_for_plan" ToRole="Products" />
+          <NavigationProperty Name="SkinPlan" Relationship="Self.FK_Products_for_plan_SkinPlan" FromRole="Products_for_plan" ToRole="SkinPlan" />
+        </EntityType>
+        <Association Name="FK_SkinPlan_AppCosmetologists">
           <End Role="AppCosmetologists" Type="Self.AppCosmetologists" Multiplicity="0..1" />
-          <End Role="AppUsers" Type="Self.AppUsers" Multiplicity="*" />
+          <End Role="SkinPlan" Type="Self.SkinPlan" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AppCosmetologists">
               <PropertyRef Name="cosmetologist_id" />
             </Principal>
-            <Dependent Role="AppUsers">
+            <Dependent Role="SkinPlan">
               <PropertyRef Name="cosmetologist_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="bgroup90_skinme" annotation:LazyLoadingEnabled="true">
+        <Association Name="FK_SkinPlan_AppUsers">
+          <End Role="AppUsers" Type="Self.AppUsers" Multiplicity="0..1" />
+          <End Role="SkinPlan" Type="Self.SkinPlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUsers">
+              <PropertyRef Name="appUser_id" />
+            </Principal>
+            <Dependent Role="SkinPlan">
+              <PropertyRef Name="appUser_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_for_plan_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+          <End Role="Products_for_plan" Type="Self.Products_for_plan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="prod_id" />
+            </Principal>
+            <Dependent Role="Products_for_plan">
+              <PropertyRef Name="prod_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_for_plan_SkinPlan">
+          <End Role="SkinPlan" Type="Self.SkinPlan" Multiplicity="0..1" />
+          <End Role="Products_for_plan" Type="Self.Products_for_plan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SkinPlan">
+              <PropertyRef Name="plan_id" />
+            </Principal>
+            <Dependent Role="Products_for_plan">
+              <PropertyRef Name="plan_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="bgroup90_test2Entities6" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AppCosmetologists" EntityType="Self.AppCosmetologists" />
           <EntitySet Name="AppUsers" EntityType="Self.AppUsers" />
           <EntitySet Name="AutoPlans" EntityType="Self.AutoPlans" />
           <EntitySet Name="Products" EntityType="Self.Products" />
           <EntitySet Name="SkinPlan" EntityType="Self.SkinPlan" />
-          <AssociationSet Name="FK_AppUsers_AppCosmetologists" Association="Self.FK_AppUsers_AppCosmetologists">
+          <EntitySet Name="Products_for_plan" EntityType="Self.Products_for_plan" />
+          <AssociationSet Name="FK_SkinPlan_AppCosmetologists" Association="Self.FK_SkinPlan_AppCosmetologists">
             <End Role="AppCosmetologists" EntitySet="AppCosmetologists" />
+            <End Role="SkinPlan" EntitySet="SkinPlan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SkinPlan_AppUsers" Association="Self.FK_SkinPlan_AppUsers">
             <End Role="AppUsers" EntitySet="AppUsers" />
+            <End Role="SkinPlan" EntitySet="SkinPlan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_for_plan_Products" Association="Self.FK_Products_for_plan_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Products_for_plan" EntitySet="Products_for_plan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_for_plan_SkinPlan" Association="Self.FK_Products_for_plan_SkinPlan">
+            <End Role="SkinPlan" EntitySet="SkinPlan" />
+            <End Role="Products_for_plan" EntitySet="Products_for_plan" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -239,7 +365,7 @@ warning 6013: The table/view 'bgroup90_test2.dbo.Products_for_plan' does not hav
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="bgroup90_test2ModelStoreContainer" CdmEntityContainer="bgroup90_skinme">
+        <EntityContainerMapping StorageEntityContainer="bgroup90_test2ModelStoreContainer" CdmEntityContainer="bgroup90_test2Entities6">
           <EntitySetMapping Name="AppCosmetologists">
             <EntityTypeMapping TypeName="bgroup90_test2Model.AppCosmetologists">
               <MappingFragment StoreEntitySet="AppCosmetologists">
@@ -256,6 +382,7 @@ warning 6013: The table/view 'bgroup90_test2.dbo.Products_for_plan' does not hav
                 <ScalarProperty Name="cosmetic_speciality" ColumnName="cosmetic_speciality" />
                 <ScalarProperty Name="cosmetic_address" ColumnName="cosmetic_address" />
                 <ScalarProperty Name="cosmetic_city" ColumnName="cosmetic_city" />
+                <ScalarProperty Name="cosmetic_status" ColumnName="cosmetic_status" />
                 <ScalarProperty Name="lng" ColumnName="lng" />
                 <ScalarProperty Name="lat" ColumnName="lat" />
               </MappingFragment>
@@ -322,11 +449,21 @@ warning 6013: The table/view 'bgroup90_test2.dbo.Products_for_plan' does not hav
             <EntityTypeMapping TypeName="bgroup90_test2Model.SkinPlan">
               <MappingFragment StoreEntitySet="SkinPlan">
                 <ScalarProperty Name="plan_id" ColumnName="plan_id" />
-                <ScalarProperty Name="cosmetic_license_num" ColumnName="cosmetic_license_num" />
+                <ScalarProperty Name="cosmetologist_id" ColumnName="cosmetologist_id" />
                 <ScalarProperty Name="appUser_id" ColumnName="appUser_id" />
+                <ScalarProperty Name="prod_id" ColumnName="prod_id" />
                 <ScalarProperty Name="plan_name" ColumnName="plan_name" />
                 <ScalarProperty Name="plan_date" ColumnName="plan_date" />
                 <ScalarProperty Name="notes" ColumnName="notes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products_for_plan">
+            <EntityTypeMapping TypeName="bgroup90_test2Model.Products_for_plan">
+              <MappingFragment StoreEntitySet="Products_for_plan">
+                <ScalarProperty Name="pfp_id" ColumnName="pfp_id" />
+                <ScalarProperty Name="prod_id" ColumnName="prod_id" />
+                <ScalarProperty Name="plan_id" ColumnName="plan_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
