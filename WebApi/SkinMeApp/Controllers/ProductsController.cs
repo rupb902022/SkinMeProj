@@ -15,7 +15,7 @@ namespace SkinMeApp.Controllers
 
     public class ProductsController : ApiController
     {
-        bgroup90_S db = new bgroup90_S();
+        bgroup90_test2Entities6 db = new bgroup90_test2Entities6();
 
         [HttpGet]
         [Route("api/Products/")]

@@ -13,7 +13,7 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CosController : ApiController
     {
-        bgroup90_S db = new bgroup90_S();
+        bgroup90_test2Entities6 db = new bgroup90_test2Entities6();
         //public IHttpActionResult Get(string userrole = "Cosmetologist") // get only cosmetologist
         //{
         //    try
@@ -189,33 +189,34 @@ namespace SkinMeApp.Controllers
                 throw;
             }
         }
-        //[HttpGet]
-        //[Route("api/Cos/GetClients")]
-        //public IHttpActionResult GetClients(string role = "User") // get clients for cosmetologist
-        //{
-        //    try
-        //    {
-        //        List<AppUser> users = db.AppUsers.Where(x => x.user_role == role && x.skin != "1").ToList();
 
-        //        if (users != null)
-        //        {
-        //            foreach (AppUser u in users)
-        //            {
-        //                Console.WriteLine(u.appUser_id + u.first_name + u.user_route);
-        //            }
-        //            return Content(HttpStatusCode.OK, users);
+        [HttpGet]
+        [Route("api/Cos/GetClients")]
+        public IHttpActionResult GetClients(int cosmetologist_id) // get clients for cosmetologist
+        {
+            try
+            {
+                List<AppUsers> users = db.AppUsers.Where(x => x.cosmetologist_id == cosmetologist_id).ToList();
+
+                if (users != null)
+                {
+                    foreach (AppUsers u in users)
+                    {
+                        Console.WriteLine(u.appUser_id + u.first_name + u.user_route);
+                    }
+                    return Content(HttpStatusCode.OK, users);
 
 
-        //        }
-        //        return Content(HttpStatusCode.NotFound,
-        //            $"no waiting users found");
-        //    }
-        //    catch (Exception)
-        //    {
+                }
+                return Content(HttpStatusCode.NotFound,
+                    $"no waiting users found");
+            }
+            catch (Exception)
+            {
 
-        //        throw;
-        //    }
-        //}
+                throw;
+            }
+        }
 
     }
 }
