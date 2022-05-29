@@ -14,32 +14,32 @@ namespace SkinMeApp.Controllers
     public class UsersController : ApiController
     {
 
-        bgroup90_Db db = new bgroup90_Db();
+        //bgroup90 db = new bgroup90();
 
-        public IHttpActionResult Get(string userrole = "user") // get only cosmetologist
-        {
-            try
-            {
-                List<AppUser> users = db.AppUsers.Where(x => x.user_role == userrole).ToList();
+    //    public IHttpActionResult Get(string userrole = "user") // get only cosmetologist
+    //    {
+    //        try
+    //        {
+    //            List<AppUsers> users = db.AppUsers.Where(x => x.user_role == userrole).ToList();
 
-                if (users != null)
-                {
-                    foreach (AppUser u in users)
-                    {
-                        Console.WriteLine(u.first_name);
-                    }
-                    return Content(HttpStatusCode.OK, users);
+    //            if (users != null)
+    //            {
+    //                foreach (AppUsers u in users)
+    //                {
+    //                    Console.WriteLine(u.first_name);
+    //                }
+    //                return Content(HttpStatusCode.OK, users);
 
 
-                }
-                return Content(HttpStatusCode.NotFound,
-                    $"no user found");
-            }
-            catch (Exception)
-            {
+    //            }
+    //            return Content(HttpStatusCode.NotFound,
+    //                $"no user found");
+    //        }
+    //        catch (Exception)
+    //        {
 
-                throw;
-            }
-        }
+    //            throw;
+    //        }
+      //}
     }
 }

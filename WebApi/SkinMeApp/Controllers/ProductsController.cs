@@ -12,9 +12,10 @@ namespace SkinMeApp.Controllers
 {
 
     [EnableCors(origins: "*", headers: "*", methods: "*")]
+
     public class ProductsController : ApiController
     {
-        bgroup90_Db db = new bgroup90_Db();
+        bgroup90_S db = new bgroup90_S();
 
         [HttpGet]
         [Route("api/Products/")]
@@ -36,11 +37,11 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                List<Product> prod = db.Products.Where(x => x.prod_status == status).ToList();
+                List<Products> prod = db.Products.Where(x => x.prod_status == status).ToList();
 
                 if (prod != null)
                 {
-                    foreach (Product p in prod)
+                    foreach (Products p in prod)
                     {
                         Console.WriteLine(p.prod_id);
                     }
@@ -58,29 +59,30 @@ namespace SkinMeApp.Controllers
             }
         }
 
-
-
         [HttpGet]
         [Route("api/Products/oilyskin")]
 
-        public IHttpActionResult OilySkin(string goodfor = "oily day") // get only products for oily skin 
+        public IHttpActionResult OilySkin(string skintype ="oily") // get only products for oily skin 
         {
+
             try
             {
-                List<Product> prod = db.Products.Where(x => x.prod_type == goodfor).Take(3).ToList();
+                    List<Products> prod = db.Products.Where(x => x.prod_type == "oily day").Take(3).ToList();
 
-                if (prod != null)
-                {
-                    foreach (Product p in prod)
+                    if (prod != null)
                     {
-                        Console.WriteLine(p.prod_id);
+                        foreach (Products p in prod)
+                        {
+                            Console.WriteLine(p.prod_id);
+                        }
+                        return Content(HttpStatusCode.OK, prod);
+
+
                     }
-                    return Content(HttpStatusCode.OK, prod);
-
-
-                }
+ 
                 return Content(HttpStatusCode.NotFound,
-                    $"no product found");
+                                   $"no product found");
+
             }
             catch (Exception)
             {
@@ -90,8 +92,100 @@ namespace SkinMeApp.Controllers
         }
 
 
-        [HttpPost]
-        public IHttpActionResult Post([FromBody] Product value)
+
+            //[HttpGet]
+            //[Route("api/Products/oilyskin")]
+
+            //public IHttpActionResult OilySkin(string skintype) // get only products for oily skin 
+            //{
+
+            //    if (skintype == "oily")
+            //    {
+            //        try
+            //        {
+            //            List<Products> prod = db.Products.Where(x => x.prod_type == "oily day").Take(3).ToList();
+
+            //            if (prod != null)
+            //            {
+            //                foreach (Products p in prod)
+            //                {
+            //                    Console.WriteLine(p.prod_id);
+            //                }
+            //                return Content(HttpStatusCode.OK, prod);
+
+
+            //            }
+            //            return Content(HttpStatusCode.NotFound,
+            //                               $"no product found");
+
+            //        }
+            //        catch (Exception)
+            //        {
+
+            //            throw;
+            //        }
+            //    }
+            //    else if (skintype == "regular")
+            //    {
+            //        try
+            //        {
+            //            List<Products> prod = db.Products.Where(x => x.prod_type == "regular").Take(3).ToList();
+
+            //            if (prod != null)
+            //            {
+            //                foreach (Products p in prod)
+            //                {
+            //                    Console.WriteLine(p.prod_id);
+            //                }
+            //                return Content(HttpStatusCode.OK, prod);
+
+
+            //            }
+            //            return Content(HttpStatusCode.NotFound,
+            //                               $"no product found");
+
+
+            //        }
+            //        catch (Exception)
+            //        {
+
+            //            throw;
+            //        }
+            //    }
+            //    else 
+            //    {
+            //        try
+            //        {
+            //            List<Products> prod = db.Products.Where(x => x.prod_type == "dry").Take(3).ToList();
+
+            //            if (prod != null)
+            //            {
+            //                foreach (Products p in prod)
+            //                {
+            //                    Console.WriteLine(p.prod_id);
+            //                }
+            //                return Content(HttpStatusCode.OK, prod);
+
+
+            //            }
+            //            return Content(HttpStatusCode.NotFound,
+            //                               $"no product found");
+
+
+            //        }
+            //        catch (Exception)
+            //        {
+
+            //            throw;
+            //        }
+            //    }
+
+
+            //}
+
+
+            [HttpPost]
+        public IHttpActionResult Post([FromBody] Products value)
         {
             try
             {
@@ -130,7 +224,7 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                Product p = db.Products.SingleOrDefault(x => x.prod_name == name && x.prod_company == company);
+                Products p = db.Products.SingleOrDefault(x => x.prod_name == name && x.prod_company == company);
                 if (p != null)
                 {
                     p.prod_manual = prod.prod_manual;
@@ -149,7 +243,7 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                Product prod = db.Products.SingleOrDefault(x => x.prod_id == id);
+                Products prod = db.Products.SingleOrDefault(x => x.prod_id == id);
                 if (prod != null)
                 {
                     db.Products.Remove(prod);
@@ -165,31 +259,32 @@ namespace SkinMeApp.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("api/Products/GetProdForPlan")]
-        public IHttpActionResult GetProductsForPlan(int plan_id) // get products for skin plan
-        {
-            try
-            {
-                //SkinPlan s = db.SkinPlans.SingleOrDefault(x => x.plan_id == plan_id);
-                List<Products_for_plan> productsForPlan = db.Products_for_plan.Where(x => x.plan_id == plan_id).ToList();
+        //[HttpGet]
+        //[Route("api/Products/GetProdForPlan")]
+        //public IHttpActionResult GetProductsForPlan(int plan_id) // get products for skin plan
+        //{
+        //    try
+        //    {
+                
+        //        List<Products_for_plan> productsForPlan = db.Products_for_plan.Where(x => x.plan_id == plan_id).ToList();
 
-                if (productsForPlan != null)
-                {
-                    foreach (Products_for_plan p in productsForPlan)
-                    {
-                        return Content(HttpStatusCode.OK, productsForPlan);
+        //        if (productsForPlan != null)
+        //        {
+        //            foreach (Products_for_plan p in productsForPlan)
+        //            {
+        //                return Content(HttpStatusCode.OK, $" {p.prod_id }");
 
-                    }
+        //            }
+
                     
-                }
-                return Content(HttpStatusCode.NotFound,
-                    $"no products for plan found");
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+        //        }
+        //        return Content(HttpStatusCode.NotFound,
+        //            $"no products for plan found");
+        //    }
+        //    catch (Exception)
+        //    {
+        //        throw;
+        //    }
+        //}
     }
 }

@@ -12,13 +12,11 @@ namespace DATA
     using System;
     using System.Collections.Generic;
     
-    public partial class Products_for_plan
+    public partial class Locations
     {
-        public int pfp_id { get; set; }
-        public Nullable<int> prod_id { get; set; }
-        public Nullable<int> plan_id { get; set; }
-    
-        public virtual Products Products { get; set; }
-        public virtual SkinPlan SkinPlan { get; set; }
+        public int location_id { get; set; }
+        public string address_cosmetician { get; set; }
+        public string latitude { get; set; }
+        public string longitude { get; set; }
     }
 }

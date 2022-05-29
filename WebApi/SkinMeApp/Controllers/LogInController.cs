@@ -4,6 +4,7 @@ using System.Data.Entity.Validation;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Mail;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using DATA;
@@ -14,7 +15,7 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class LogInController : ApiController
     {
-        bgroup90_Db db = new bgroup90_Db();
+        bgroup90_S db = new bgroup90_S();
 
         public IHttpActionResult Get()
         {
@@ -37,7 +38,7 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                AppUser log = db.AppUsers.FirstOrDefault
+                AppUsers log = db.AppUsers.FirstOrDefault
                     (x => x.username == login.userName && x.user_password == login.password);
 
                 if (log != null)
@@ -60,7 +61,7 @@ namespace SkinMeApp.Controllers
         [HttpPost]
         [Route("api/LogIn/register")]
 
-        public IHttpActionResult Post([FromBody] AppUser value)
+        public IHttpActionResult Post([FromBody] AppUsers value)
 
         {
             try
@@ -83,7 +84,7 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                AppUser social = new AppUser();
+                AppUsers social = new AppUsers();
                 if (social.appUser_id == 0)
                 {
                     social.first_name = value.first_name;
@@ -136,7 +137,7 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                AppUser user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
+                AppUsers user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
                 if (user != null)
                 {
                     
@@ -163,13 +164,13 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                AppUser user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
+                AppCosmetologists user = db.AppCosmetologists.SingleOrDefault(x => x.cosmetologist_id == id);
                 if (user != null)
                 {
                     
-                    user.email = up.email;
-                    user.username = up.username;
-                    user.user_password = up.user_password;
+                    user.cosmetologist_email = up.email;
+                    user.cosmetologist_user_name = up.username;
+                    user.cosmetologist_user_password = up.user_password;
                     user.cosmetic_license_num = up.cosmetic_license_num;
                     user.cosmetic_businessName = up.cosmetic_businessName;
                     user.cosmetic_city = up.cosmetic_city;
@@ -192,7 +193,7 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                AppUser user = db.AppUsers.SingleOrDefault(x => x.username == username);
+                AppUsers user = db.AppUsers.SingleOrDefault(x => x.username == username);
                 if (user != null)
                 {
 
@@ -208,6 +209,8 @@ namespace SkinMeApp.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        
 
 
     }
