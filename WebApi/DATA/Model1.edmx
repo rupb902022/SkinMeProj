@@ -336,7 +336,7 @@ warning 6002: The table/view 'bgroup90_test2.dbo.Products_for_plan' does not hav
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="bgroup90_test2Entities6" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="bgroup90_test2Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AppCosmetologists" EntityType="Self.AppCosmetologists" />
           <EntitySet Name="AppUsers" EntityType="Self.AppUsers" />
           <EntitySet Name="AutoPlans" EntityType="Self.AutoPlans" />
@@ -365,7 +365,7 @@ warning 6002: The table/view 'bgroup90_test2.dbo.Products_for_plan' does not hav
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="bgroup90_test2ModelStoreContainer" CdmEntityContainer="bgroup90_test2Entities6">
+        <EntityContainerMapping StorageEntityContainer="bgroup90_test2ModelStoreContainer" CdmEntityContainer="bgroup90_test2Entities">
           <EntitySetMapping Name="AppCosmetologists">
             <EntityTypeMapping TypeName="bgroup90_test2Model.AppCosmetologists">
               <MappingFragment StoreEntitySet="AppCosmetologists">

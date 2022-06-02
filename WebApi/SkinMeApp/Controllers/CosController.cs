@@ -13,7 +13,7 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CosController : ApiController
     {
-        bgroup90_S db = new bgroup90_S();
+        bgroup90_test2Entities db = new bgroup90_test2Entities();
         //public IHttpActionResult Get(string userrole = "Cosmetologist") // get only cosmetologist
         //{
         //    try

@@ -15,7 +15,7 @@ namespace SkinMeApp.Controllers
 
     public class ProductsController : ApiController
     {
-        bgroup90_S db = new bgroup90_S();
+        bgroup90_test2Entities db = new bgroup90_test2Entities();
 
         [HttpGet]
         [Route("api/Products/")]
@@ -93,98 +93,196 @@ namespace SkinMeApp.Controllers
 
 
 
-            //[HttpGet]
-            //[Route("api/Products/oilyskin")]
+        [HttpPost]
+        [Route("api/Products/byskintypeday")]
+        public IHttpActionResult ProductsbySkinTypeDay([FromBody] GetSkintype skintype) 
+        {
 
-            //public IHttpActionResult OilySkin(string skintype) // get only products for oily skin 
-            //{
+            if (skintype.user_skinType == "oily")
+            {
+                try
+                {
+                    List<Products> prod = db.Products.Where(x => x.prod_type == "oily day").ToList();
 
-            //    if (skintype == "oily")
-            //    {
-            //        try
-            //        {
-            //            List<Products> prod = db.Products.Where(x => x.prod_type == "oily day").Take(3).ToList();
-
-            //            if (prod != null)
-            //            {
-            //                foreach (Products p in prod)
-            //                {
-            //                    Console.WriteLine(p.prod_id);
-            //                }
-            //                return Content(HttpStatusCode.OK, prod);
-
-
-            //            }
-            //            return Content(HttpStatusCode.NotFound,
-            //                               $"no product found");
-
-            //        }
-            //        catch (Exception)
-            //        {
-
-            //            throw;
-            //        }
-            //    }
-            //    else if (skintype == "regular")
-            //    {
-            //        try
-            //        {
-            //            List<Products> prod = db.Products.Where(x => x.prod_type == "regular").Take(3).ToList();
-
-            //            if (prod != null)
-            //            {
-            //                foreach (Products p in prod)
-            //                {
-            //                    Console.WriteLine(p.prod_id);
-            //                }
-            //                return Content(HttpStatusCode.OK, prod);
+                    if (prod != null)
+                    {
+                        foreach (Products p in prod)
+                        {
+                            Console.WriteLine(p.prod_id);
+                            break;
+                        }
+                        return Content(HttpStatusCode.OK, prod);
 
 
-            //            }
-            //            return Content(HttpStatusCode.NotFound,
-            //                               $"no product found");
+                    }
+                    return Content(HttpStatusCode.NotFound,
+                                       $"no product found");
+
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
+            else if (skintype.user_skinType == "regular")
+            {
+                try
+                {
+                    List<Products> prod = db.Products.Where(x => x.prod_type == "regular d").ToList();
+
+                    if (prod != null)
+                    {
+                        foreach (Products p in prod)
+                        {
+                            Console.WriteLine(p.prod_id);
+                            break;
+                        }
+                        return Content(HttpStatusCode.OK, prod);
 
 
-            //        }
-            //        catch (Exception)
-            //        {
-
-            //            throw;
-            //        }
-            //    }
-            //    else 
-            //    {
-            //        try
-            //        {
-            //            List<Products> prod = db.Products.Where(x => x.prod_type == "dry").Take(3).ToList();
-
-            //            if (prod != null)
-            //            {
-            //                foreach (Products p in prod)
-            //                {
-            //                    Console.WriteLine(p.prod_id);
-            //                }
-            //                return Content(HttpStatusCode.OK, prod);
+                    }
+                    return Content(HttpStatusCode.NotFound,
+                                       $"no product found");
 
 
-            //            }
-            //            return Content(HttpStatusCode.NotFound,
-            //                               $"no product found");
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
+            else 
+            {
+                try
+                {
+                    List<Products> prod = db.Products.Where(x => x.prod_type == "dry d").ToList();
+
+                    if (prod != null)
+                    {
+                        foreach (Products p in prod)
+                        {
+                            Console.WriteLine(p.prod_id);
+                            break;
+                        }
+                        return Content(HttpStatusCode.OK, prod);
 
 
-            //        }
-            //        catch (Exception)
-            //        {
-
-            //            throw;
-            //        }
-            //    }
+                    }
+                    return Content(HttpStatusCode.NotFound,
+                                       $"no product found");
 
 
-            //}
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
+           
+
+        }
+
+        [HttpPost]
+        [Route("api/Products/byskintypenight")]
+        public IHttpActionResult ProductsbySkinTypeNight([FromBody] GetSkintype skintype)
+        {
+
+            if (skintype.user_skinType == "oily")
+            {
+                try
+                {
+                    List<Products> prod = db.Products.Where(x => x.prod_type == "oily n").ToList();
+
+                    if (prod != null)
+                    {
+                        foreach (Products p in prod)
+                        {
+                            Console.WriteLine(p.prod_id);
+                            break;
+                        }
+                        return Content(HttpStatusCode.OK, prod);
 
 
-            [HttpPost]
+                    }
+                    return Content(HttpStatusCode.NotFound,
+                                       $"no product found");
+
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
+            else if (skintype.user_skinType == "regular")
+            {
+                try
+                {
+                    List<Products> prod = db.Products.Where(x => x.prod_type == "regular n").ToList();
+
+                    if (prod != null)
+                    {
+                        foreach (Products p in prod)
+                        {
+                            Console.WriteLine(p.prod_id);
+                            break;
+                        }
+                        return Content(HttpStatusCode.OK, prod);
+
+
+                    }
+                    return Content(HttpStatusCode.NotFound,
+                                       $"no product found");
+
+
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
+            else
+            {
+                try
+                {
+                    List<Products> prod = db.Products.Where(x => x.prod_type == "dry n").ToList();
+
+                    if (prod != null)
+                    {
+                        foreach (Products p in prod)
+                        {
+                            Console.WriteLine(p.prod_id);
+                            break;
+                        }
+                        return Content(HttpStatusCode.OK, prod);
+
+
+                    }
+                    return Content(HttpStatusCode.NotFound,
+                                       $"no product found");
+
+
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
+
+
+        }
+
+
+
+
+        [HttpPost]
+        [Route("api/Products/addprod")]
+
         public IHttpActionResult Post([FromBody] Products value)
         {
             try
@@ -259,32 +357,32 @@ namespace SkinMeApp.Controllers
             }
         }
 
-        //[HttpGet]
-        //[Route("api/Products/GetProdForPlan")]
-        //public IHttpActionResult GetProductsForPlan(int plan_id) // get products for skin plan
-        //{
-        //    try
-        //    {
-                
-        //        List<Products_for_plan> productsForPlan = db.Products_for_plan.Where(x => x.plan_id == plan_id).ToList();
+        [HttpGet]
+        [Route("api/Products/GetProdForPlan")]
+        public IHttpActionResult GetProductsForPlan(int plan_id) // get products for skin plan
+        {
+            try
+            {
 
-        //        if (productsForPlan != null)
-        //        {
-        //            foreach (Products_for_plan p in productsForPlan)
-        //            {
-        //                return Content(HttpStatusCode.OK, $" {p.prod_id }");
+                List<Products_for_plan> productsForPlan = db.Products_for_plan.Where(x => x.plan_id == plan_id).ToList();
 
-        //            }
+                if (productsForPlan != null)
+                {
+                    foreach (Products_for_plan p in productsForPlan)
+                    {
+                        return Content(HttpStatusCode.OK, $" {p.prod_id }");
 
-                    
-        //        }
-        //        return Content(HttpStatusCode.NotFound,
-        //            $"no products for plan found");
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw;
-        //    }
-        //}
+                    }
+
+
+                }
+                return Content(HttpStatusCode.NotFound,
+                    $"no products for plan found");
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

@@ -15,8 +15,40 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class LogInController : ApiController
     {
-        bgroup90_S db = new bgroup90_S();
+        bgroup90_test2Entities db = new bgroup90_test2Entities();
 
+        [HttpGet]
+        [Route("api/mail")]
+        public  IHttpActionResult SendMail()
+        {
+            string Projectmail = "rupb902022@gmail.com";
+            string Password = "eliseofek";
+            string Host = "smtp.gmail.com";
+            int Port = 587;
+
+            try
+            {
+                SmtpClient client = new SmtpClient(Host, Port)
+                {
+                    Credentials = new NetworkCredential(Projectmail, Password),
+                    EnableSsl = true,
+
+                };
+
+                string subject = "Change your password ";
+
+                string body = $"Hello elise " ;
+
+                client.Send("rupb902022@gmail.com", "elise.wenger25@gmail.com", subject, body);
+                return Ok("mail sent ");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+
+        }
         public IHttpActionResult Get()
         {
             try
