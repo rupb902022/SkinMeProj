@@ -13,17 +13,10 @@ namespace DATA
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-<<<<<<< Updated upstream
     public partial class bgroup90_test2Entities : DbContext
     {
         public bgroup90_test2Entities()
             : base("name=bgroup90_test2Entities")
-=======
-    public partial class bgroup90_test2Entities7 : DbContext
-    {
-        public bgroup90_test2Entities7()
-            : base("name=bgroup90_test2Entities7")
->>>>>>> Stashed changes
         {
         }
     
