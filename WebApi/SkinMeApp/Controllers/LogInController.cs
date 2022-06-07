@@ -15,7 +15,11 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class LogInController : ApiController
     {
+<<<<<<< Updated upstream
         bgroup90_test2Entities db = new bgroup90_test2Entities();
+=======
+        bgroup90_test2Entities7 db = new bgroup90_test2Entities7();
+>>>>>>> Stashed changes
 
         [HttpGet]
         [Route("api/mail")]
@@ -64,9 +68,8 @@ namespace SkinMeApp.Controllers
         }
 
         [HttpPost]
-        [Route("api/LogIn")]
-
-        public IHttpActionResult LogIn([FromBody] Logincheck login)
+        [Route("api/LogIn/User")]
+        public IHttpActionResult LogInUser([FromBody] Logincheckuser login)
         {
             try
             {
@@ -88,6 +91,33 @@ namespace SkinMeApp.Controllers
                 throw;
             }
         }
+
+        [HttpPost]
+        [Route("api/LogIn/Cos")]
+        public IHttpActionResult LogInCos([FromBody] Logincheckcos login)
+        {
+            try
+            {
+
+                AppCosmetologists logc = db.AppCosmetologists.FirstOrDefault
+                    (x => x.cosmetologist_user_name == login.cosmetologist_user_name && x.cosmetologist_user_password == login.cosmetologist_user_password);
+
+                if (logc != null)
+                {
+                    return Content(HttpStatusCode.OK,
+                        $"Valid user, username: { logc.cosmetologist_user_name}");
+                }
+                return Content(HttpStatusCode.NotFound,
+                    $"username or password were not found");
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
 
 
         [HttpPost]
