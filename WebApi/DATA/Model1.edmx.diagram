@@ -4,7 +4,11 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
+<<<<<<< Updated upstream
       <Diagram DiagramId="c777c685cec14faa83982a702f6cd574" Name="Diagram1">
+=======
+      <Diagram DiagramId="1758c31a2e4940fa918376b600372398" Name="Diagram1" ZoomLevel="81">
+>>>>>>> Stashed changes
         <EntityTypeShape EntityType="bgroup90_test2Model.AppCosmetologists" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="bgroup90_test2Model.AppUsers" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="bgroup90_test2Model.AutoPlans" Width="1.5" PointX="5.75" PointY="5.75" IsExpanded="true" />
