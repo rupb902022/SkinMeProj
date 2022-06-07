@@ -13,7 +13,7 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CosController : ApiController
     {
-        bgroup90_test2Entities6 db = new bgroup90_test2Entities6();
+        bgroup90_test2Entities db = new bgroup90_test2Entities();
         //public IHttpActionResult Get(string userrole = "Cosmetologist") // get only cosmetologist
         //{
         //    try
@@ -54,10 +54,7 @@ namespace SkinMeApp.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("api/Cos/allskinplans")]
-
-        public IHttpActionResult AllSkinPlans() // Get all תוכניות טיפוח
+        public IHttpActionResult Get() // Get all תוכניות טיפוח
         {
             try
             {
@@ -167,7 +164,6 @@ namespace SkinMeApp.Controllers
 
         [HttpGet]
         [Route("api/Cos/GetDepending")]
-
         public IHttpActionResult GetDepending(string status = "waiting") // get users that are waiting for cosmetologist
         {
             try
@@ -194,10 +190,9 @@ namespace SkinMeApp.Controllers
             }
         }
 
-        [HttpPost]
-        [Route("api/Cos/MyClients")]
-
-        public IHttpActionResult PostClients(int cosmetologist_id) // get clients for cosmetologist -- change to post
+        [HttpGet]
+        [Route("api/Cos/GetClients")]
+        public IHttpActionResult GetClients(int cosmetologist_id) // get clients for cosmetologist
         {
             try
             {
@@ -222,23 +217,6 @@ namespace SkinMeApp.Controllers
                 throw;
             }
         }
-
-        // public IHttpActionResult Post([FromBody] SkinPlan value) // add plan
-//        {
-//            try
-//            {
-//                db.SkinPlan.Add(value);
-//                db.SaveChanges();
-//                return Created(new Uri(Request.RequestUri.AbsoluteUri + value.plan_id), value);
-
-//            }
-//            catch (Exception ex)
-//            {
-//                return BadRequest(ex.Message);
-//}
-//        }//
-
-
 
     }
 }

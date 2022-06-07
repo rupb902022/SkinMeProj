@@ -220,6 +220,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Class1.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -229,11 +230,7 @@
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DTO\ForgotPassword.cs" />
     <Compile Include="DTO\GetClients.cs" />
-<<<<<<< Updated upstream
     <Compile Include="DTO\GetSkintype.cs" />
-=======
-    <Compile Include="DTO\Logincheckcos.cs" />
->>>>>>> Stashed changes
     <Compile Include="DTO\Map.cs" />
     <Compile Include="DTO\ProductInfo.cs" />
     <Compile Include="DTO\RegisterCos.cs" />
@@ -242,7 +239,7 @@
     <Compile Include="DTO\UpdateProduct.cs" />
     <Compile Include="DTO\Admin.cs" />
     <Compile Include="DTO\DependingUsers.cs" />
-    <Compile Include="DTO\Logincheckuser.cs" />
+    <Compile Include="DTO\Logincheck.cs" />
     <Compile Include="DTO\MapAddress.cs" />
     <Compile Include="DTO\PlanUpdate.cs" />
     <Compile Include="DTO\SocialMediaLogin.cs" />
