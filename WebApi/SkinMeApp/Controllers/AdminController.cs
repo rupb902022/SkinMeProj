@@ -14,7 +14,11 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class AdminController : ApiController
     {
+<<<<<<< Updated upstream
         bgroup90_test2Entities db = new bgroup90_test2Entities();
+=======
+        bgroup90_test2Entities7 db = new bgroup90_test2Entities7();
+>>>>>>> Stashed changes
 
         //public IHttpActionResult Post ([FromBody] Admin admin)
         //{
