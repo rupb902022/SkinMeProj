@@ -5,7 +5,7 @@ using System.Web;
 
 namespace SkinMeApp.DTO
 {
-    public class Logincheckuser
+    public class Logincheck
     {
         public string userName { get; set; }
         public string password { get; set; }
