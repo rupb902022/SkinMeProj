@@ -62,24 +62,24 @@ namespace SkinMeApp.Controllers
         [HttpGet]
         [Route("api/Products/oilyskin")]
 
-        public IHttpActionResult OilySkin(string skintype ="oily") // get only products for oily skin 
+        public IHttpActionResult OilySkin(string skintype = "oily") // get only products for oily skin 
         {
 
             try
             {
-                    List<Products> prod = db.Products.Where(x => x.prod_type == "oily day").Take(3).ToList();
+                List<Products> prod = db.Products.Where(x => x.prod_type == "oily day").Take(3).ToList();
 
-                    if (prod != null)
+                if (prod != null)
+                {
+                    foreach (Products p in prod)
                     {
-                        foreach (Products p in prod)
-                        {
-                            Console.WriteLine(p.prod_id);
-                        }
-                        return Content(HttpStatusCode.OK, prod);
-
-
+                        Console.WriteLine(p.prod_id);
                     }
- 
+                    return Content(HttpStatusCode.OK, prod);
+
+
+                }
+
                 return Content(HttpStatusCode.NotFound,
                                    $"no product found");
 
@@ -95,7 +95,7 @@ namespace SkinMeApp.Controllers
 
         [HttpPost]
         [Route("api/Products/byskintypeday")]
-        public IHttpActionResult ProductsbySkinTypeDay([FromBody] GetSkintype skintype) 
+        public IHttpActionResult ProductsbySkinTypeDay([FromBody] GetSkintype skintype)
         {
 
             if (skintype.user_skinType == "oily")
@@ -153,7 +153,7 @@ namespace SkinMeApp.Controllers
                     throw;
                 }
             }
-            else 
+            else
             {
                 try
                 {
@@ -181,7 +181,7 @@ namespace SkinMeApp.Controllers
                     throw;
                 }
             }
-           
+
 
         }
 
@@ -381,6 +381,33 @@ namespace SkinMeApp.Controllers
             }
             catch (Exception)
             {
+                throw;
+            }
+        }
+
+        [HttpPost]
+        [Route("api/Products/showproddetails")]
+        public IHttpActionResult ProductDetails([FromBody] ProductInfo prod)
+        {
+
+            try
+            {
+                Products log = db.Products.FirstOrDefault
+                    (x => x.prod_id == prod.prod_id);
+
+                if (log != null)
+                {
+                    return Content(HttpStatusCode.OK,
+                        $"Valid product, ID:{log.prod_id} desc: { log.prod_description}  recommended: {log.prod_manual}");
+                }
+
+                return Content(HttpStatusCode.NotFound,
+                                   $"no product found");
+
+            }
+            catch (Exception)
+            {
+
                 throw;
             }
         }
