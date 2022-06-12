@@ -108,10 +108,10 @@ namespace SkinMeApp.Controllers
                     $"username or password were not found");
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
-                throw;
+                Console.WriteLine(e);
+                return BadRequest(e.Message);
             }
         }
 

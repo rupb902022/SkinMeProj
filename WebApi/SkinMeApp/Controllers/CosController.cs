@@ -149,31 +149,19 @@ namespace SkinMeApp.Controllers
 
 
 
-        //public IHttpActionResult Get() // Get all תוכניות טיפוח
-        //{
-        //    try
-        //    {
-        //        return Ok(db.SkinPlans);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-
-        //    }
-        //}
-
-        [HttpGet]
-        [Route("api/Cos/GetDepending")]
-        public IHttpActionResult GetDepending(string status = "waiting") // get users that are waiting for cosmetologist
+        [HttpPost]
+        [Route("api/Cos/Depending")]
+        public IHttpActionResult GetDepending([FromBody] Depending status) // get users that are waiting for cosmetologist
         {
+
             try
             {
-                List<AppUsers> users = db.AppUsers.Where(x => x.user_status == status && x.user_route != "1").ToList();
+                List<AppUsers> users = db.AppUsers.Where(x => x.user_status == status.user_status).ToList();
 
                 if (users != null)
                 {
                     foreach (AppUsers u in users)
-                    {   
+                    {
                         Console.WriteLine(u.appUser_id + u.first_name + u.user_route);
                     }
                     return Content(HttpStatusCode.OK, users);
@@ -183,14 +171,14 @@ namespace SkinMeApp.Controllers
                 return Content(HttpStatusCode.NotFound,
                     $"no waiting users found");
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
-                throw;
+                Console.WriteLine(e);
+                return BadRequest(e.Message);
             }
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("api/Cos/GetClients")]
         public IHttpActionResult GetClients(int cosmetologist_id) // get clients for cosmetologist
         {
