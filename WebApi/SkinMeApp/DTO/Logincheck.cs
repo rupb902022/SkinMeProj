@@ -7,7 +7,7 @@ namespace SkinMeApp.DTO
 {
     public class Logincheck
     {
-        public string userName { get; set; }
-        public string password { get; set; }
+        public string username { get; set; }
+        public string user_password { get; set; }
     }
 }

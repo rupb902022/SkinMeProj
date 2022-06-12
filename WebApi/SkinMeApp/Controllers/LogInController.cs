@@ -64,14 +64,14 @@ namespace SkinMeApp.Controllers
         }
 
         [HttpPost]
-        [Route("api/LogIn")]
+        [Route("api/LogIn/User")]
 
-        public IHttpActionResult LogIn([FromBody] Logincheck login)
+        public IHttpActionResult LogInUser([FromBody] Logincheck login)
         {
             try
             {
                 AppUsers log = db.AppUsers.FirstOrDefault
-                    (x => x.username == login.userName && x.user_password == login.password);
+                    (x => x.username == login.username && x.user_password == login.user_password);
 
                 if (log != null)
                 {
@@ -89,6 +89,31 @@ namespace SkinMeApp.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("api/LogIn/Cos")]
+
+        public IHttpActionResult LogInCos([FromBody] LogincheckCos loginc)
+        {
+            try
+            {
+                AppCosmetologists logc = db.AppCosmetologists.FirstOrDefault
+                    (x => x.cosmetologist_user_name == loginc.cosmetologist_user_name && x.cosmetologist_user_password == loginc.cosmetologist_user_password);
+
+                if (logc != null)
+                {
+                    return Content(HttpStatusCode.OK,
+                        $"Valid user, cosusername: { logc.cosmetologist_user_name}");
+                }
+                return Content(HttpStatusCode.NotFound,
+                    $"username or password were not found");
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
 
         [HttpPost]
         [Route("api/LogIn/register")]
