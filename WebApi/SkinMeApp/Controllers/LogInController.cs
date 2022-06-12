@@ -15,7 +15,7 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class LogInController : ApiController
     {
-        bgroup90_test2Entities db = new bgroup90_test2Entities();
+        bgroup90_test2Entities8 db = new bgroup90_test2Entities8();
 
         [HttpGet]
         [Route("api/mail")]
@@ -82,10 +82,10 @@ namespace SkinMeApp.Controllers
                     $"username or password were not found");
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
-                throw;
+                Console.WriteLine(e); 
+                return BadRequest(e.Message);
             }
         }
 
