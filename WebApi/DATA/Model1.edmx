@@ -55,16 +55,6 @@
           <Property Name="user_route" Type="char" MaxLength="1" />
           <Property Name="cosmetologist_id" Type="int" />
         </EntityType>
-        <EntityType Name="AutoPlans">
-          <Key>
-            <PropertyRef Name="autoplan_id" />
-          </Key>
-          <Property Name="autoplan_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="autoplan_name" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="autoplan_skinType" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="product_id" Type="varchar" MaxLength="100" />
-          <Property Name="autoplan_manual" Type="varchar" MaxLength="1500" />
-        </EntityType>
         <EntityType Name="Products">
           <Key>
             <PropertyRef Name="prod_id" />
@@ -153,7 +143,6 @@ warning 6002: The table/view 'bgroup90_test2.dbo.Products_for_plan' does not hav
         <EntityContainer Name="bgroup90_test2ModelStoreContainer">
           <EntitySet Name="AppCosmetologists" EntityType="Self.AppCosmetologists" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AppUsers" EntityType="Self.AppUsers" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="AutoPlans" EntityType="Self.AutoPlans" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SkinPlan" EntityType="Self.SkinPlan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products_for_plan" EntityType="Self.Products_for_plan" store:Type="Tables" store:Schema="dbo">
@@ -236,16 +225,6 @@ warning 6002: The table/view 'bgroup90_test2.dbo.Products_for_plan' does not hav
           <Property Name="user_route" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Name="cosmetologist_id" Type="Int32" />
           <NavigationProperty Name="SkinPlan" Relationship="Self.FK_SkinPlan_AppUsers" FromRole="AppUsers" ToRole="SkinPlan" />
-        </EntityType>
-        <EntityType Name="AutoPlans">
-          <Key>
-            <PropertyRef Name="autoplan_id" />
-          </Key>
-          <Property Name="autoplan_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="autoplan_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="autoplan_skinType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="product_id" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="autoplan_manual" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Products">
           <Key>
@@ -336,10 +315,9 @@ warning 6002: The table/view 'bgroup90_test2.dbo.Products_for_plan' does not hav
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="bgroup90_test2Entities8" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="bgroup90_test2Entities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AppCosmetologists" EntityType="Self.AppCosmetologists" />
           <EntitySet Name="AppUsers" EntityType="Self.AppUsers" />
-          <EntitySet Name="AutoPlans" EntityType="Self.AutoPlans" />
           <EntitySet Name="Products" EntityType="Self.Products" />
           <EntitySet Name="SkinPlan" EntityType="Self.SkinPlan" />
           <EntitySet Name="Products_for_plan" EntityType="Self.Products_for_plan" />
@@ -365,7 +343,7 @@ warning 6002: The table/view 'bgroup90_test2.dbo.Products_for_plan' does not hav
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="bgroup90_test2ModelStoreContainer" CdmEntityContainer="bgroup90_test2Entities8">
+        <EntityContainerMapping StorageEntityContainer="bgroup90_test2ModelStoreContainer" CdmEntityContainer="bgroup90_test2Entities1">
           <EntitySetMapping Name="AppCosmetologists">
             <EntityTypeMapping TypeName="bgroup90_test2Model.AppCosmetologists">
               <MappingFragment StoreEntitySet="AppCosmetologists">
@@ -415,17 +393,6 @@ warning 6002: The table/view 'bgroup90_test2.dbo.Products_for_plan' does not hav
                 <ScalarProperty Name="user_status" ColumnName="user_status" />
                 <ScalarProperty Name="user_route" ColumnName="user_route" />
                 <ScalarProperty Name="cosmetologist_id" ColumnName="cosmetologist_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AutoPlans">
-            <EntityTypeMapping TypeName="bgroup90_test2Model.AutoPlans">
-              <MappingFragment StoreEntitySet="AutoPlans">
-                <ScalarProperty Name="autoplan_id" ColumnName="autoplan_id" />
-                <ScalarProperty Name="autoplan_name" ColumnName="autoplan_name" />
-                <ScalarProperty Name="autoplan_skinType" ColumnName="autoplan_skinType" />
-                <ScalarProperty Name="product_id" ColumnName="product_id" />
-                <ScalarProperty Name="autoplan_manual" ColumnName="autoplan_manual" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

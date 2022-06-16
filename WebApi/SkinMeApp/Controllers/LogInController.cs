@@ -15,19 +15,96 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class LogInController : ApiController
     {
-        bgroup90_test2Entities8 db = new bgroup90_test2Entities8();
+        bgroup90_test2Entities1 db = new bgroup90_test2Entities1();
 
-        [HttpGet]
-        [Route("api/mail")]
-        public  IHttpActionResult SendMail()
+        public string GeneratePassword()
         {
+            string PasswordLength = "8";
+            string NewPassword = "";
+
+            string allowedChars = "";
+            allowedChars = "1,2,3,4,5,6,7,8,9,0";
+            allowedChars += "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,";
+            allowedChars += "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,";
+
+
+            char[] sep = {
+            ','
+        };
+            string[] arr = allowedChars.Split(sep);
+
+
+            string IDString = "";
+            string temp = "";
+
+            Random rand = new Random();
+
+            for (int i = 0; i < Convert.ToInt32(PasswordLength); i++)
+            {
+                temp = arr[rand.Next(0, arr.Length)];
+                IDString += temp;
+                NewPassword = IDString;
+
+            }
+            return NewPassword;
+        }
+
+        //[HttpGet]
+        //[Route("api/mail")]
+        //public  IHttpActionResult SendMail()
+        //{
+        //    string strNewPassword = GeneratePassword().ToString();
+
+        //    string Projectmail = "rupb902022@gmail.com";
+        //    string Password = "oqodhdtqfpxmhivc";
+        //    string Host = "smtp.gmail.com";
+        //    int Port = 587;
+
+        //    try
+        //    {
+        //        SmtpClient client = new SmtpClient(Host, Port)
+        //        {
+        //            Credentials = new NetworkCredential(Projectmail, Password),
+        //            EnableSsl = true,
+
+        //        };
+
+        //        string subject = "Reset your password ";
+
+        //        string body = $"Hello , \n" + " \n" +
+        //                      $"This is your temporary password :" + "  " + strNewPassword + "\n" + "\n" +
+        //                      $"In order to reset your password, go back to Skinme login page and enter this temporary password, " +
+        //                      $"after that you will be able to change it for your a password of your choice. " + "\n" + "\n" +
+        //                      "Best Regards,\n Skinme Team ";
+
+
+        //        client.Send("rupb902022@gmail.com", "elise.wenger25@gmail.com", subject, body);
+        //        return Ok("mail sent ");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+
+        //    }
+
+        //}
+
+        [HttpPut]
+        [Route("api/mail/forgotpassword")]
+        public IHttpActionResult UpdateTempPassword(string  mail) 
+        {
+
+            string strNewPassword = GeneratePassword().ToString();
+
             string Projectmail = "rupb902022@gmail.com";
-            string Password = "eliseofek";
+            string Password = "oqodhdtqfpxmhivc";
             string Host = "smtp.gmail.com";
             int Port = 587;
 
             try
             {
+                AppUsers user = db.AppUsers.SingleOrDefault(x => x.email == mail);
+
                 SmtpClient client = new SmtpClient(Host, Port)
                 {
                     Credentials = new NetworkCredential(Projectmail, Password),
@@ -35,19 +112,36 @@ namespace SkinMeApp.Controllers
 
                 };
 
-                string subject = "Change your password ";
+                string subject = "Reset your password ";
 
-                string body = $"Hello elise " ;
+                string body = $"Hello , \n" + " \n" +
+                              $"This is your temporary password :" + "  " + strNewPassword + "\n" + "\n" +
+                              $"In order to reset your password, go back to Skinme login page and enter this temporary password, " +
+                              $"after that you will be able in the settings section to change it for the password of your choice. " + "\n" + "\n" +
+                              "Best Regards,\n Skinme Team ";
 
-                client.Send("rupb902022@gmail.com", "elise.wenger25@gmail.com", subject, body);
-                return Ok("mail sent ");
+                if (user != null)
+                {
+
+
+                    user.user_password= strNewPassword;
+                    db.SaveChanges();
+                    client.Send("rupb902022@gmail.com", mail, subject, body);
+                    return Ok("  mail sent   ");
+
+                }
+                return Content(HttpStatusCode.NotFound,
+                   $" not found.");
+
+
+
+
+
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-
             }
-
         }
         public IHttpActionResult Get()
         {
@@ -76,7 +170,7 @@ namespace SkinMeApp.Controllers
                 if (log != null)
                 {
                     return Content(HttpStatusCode.OK,
-                        $" { log.appUser_id}");
+                        $"{log.appUser_id}");
                 }
                 return Content(HttpStatusCode.NotFound,
                     $"username or password were not found");
@@ -102,7 +196,7 @@ namespace SkinMeApp.Controllers
                 if (logc != null)
                 {
                     return Content(HttpStatusCode.OK,
-                        $"Valid user, cosusername: { logc.cosmetologist_user_name}");
+                        $"Valid user, cosusername: { logc.cosmetologist_id}");
                 }
                 return Content(HttpStatusCode.NotFound,
                     $"username or password were not found");
@@ -245,12 +339,12 @@ namespace SkinMeApp.Controllers
         }
 
         [HttpPut]
-        [Route("api/login/ForgotPassword")]
-        public IHttpActionResult ForgotPassword(string username, [FromBody] ForgotPassword forgot) // update user info dto
+        [Route("api/login/UpdatePassword")]
+        public IHttpActionResult ChangePassword(int id, [FromBody] ForgotPassword forgot) // update user password after temp password 
         {
             try
             {
-                AppUsers user = db.AppUsers.SingleOrDefault(x => x.username == username);
+                AppUsers user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
                 if (user != null)
                 {
 
@@ -259,7 +353,7 @@ namespace SkinMeApp.Controllers
                     return Ok(user);
                 }
                 return Content(HttpStatusCode.NotFound,
-                    $"User with username={username} was not found.");
+                    $"User with username={id} was not found.");
             }
             catch (Exception ex)
             {

@@ -7,6 +7,9 @@ namespace SkinMeApp.DTO
 {
     public class ForgotPassword
     {
+        public string username { get; set; }
         public string user_password { get; set; }
+
+        public string email { get; set; }
     }
 }
