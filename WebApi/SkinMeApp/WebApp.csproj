@@ -230,6 +230,7 @@
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DTO\ForgotPassword.cs" />
     <Compile Include="DTO\GetClients.cs" />
+    <Compile Include="DTO\Depending.cs" />
     <Compile Include="DTO\GetSkintype.cs" />
     <Compile Include="DTO\LogInCheckCos.cs" />
     <Compile Include="DTO\Map.cs" />
