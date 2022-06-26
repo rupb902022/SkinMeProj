@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Net.Mail;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -15,7 +13,7 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class LogInController : ApiController
     {
-        bgroup90_test2Entities1 db = new bgroup90_test2Entities1();
+        bgroup90_test2Entities11 db = new bgroup90_test2Entities11();
 
         public string GeneratePassword()
         {
@@ -196,7 +194,7 @@ namespace SkinMeApp.Controllers
                 if (logc != null)
                 {
                     return Content(HttpStatusCode.OK,
-                        $"Valid user, cosusername: { logc.cosmetologist_id}");
+                        $"{ logc.cosmetologist_id}");
                 }
                 return Content(HttpStatusCode.NotFound,
                     $"username or password were not found");
@@ -347,7 +345,6 @@ namespace SkinMeApp.Controllers
                 AppUsers user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
                 if (user != null)
                 {
-
                     user.user_password = forgot.user_password;
                     db.SaveChanges();
                     return Ok(user);
@@ -361,7 +358,27 @@ namespace SkinMeApp.Controllers
             }
         }
 
-        
+        [HttpPut]
+        [Route("api/login/UpdateCosPassword")]
+        public IHttpActionResult ChangeCosPassword(int id, [FromBody] ForgotCosPassword forgot) // update cos password after temp password 
+        {
+            try
+            {
+                AppCosmetologists cos = db.AppCosmetologists.SingleOrDefault(x => x.cosmetologist_id == id);
+                if (cos != null)
+                {
+                    cos.cosmetologist_user_password = forgot.cosmetologist_user_password;
+                    db.SaveChanges();
+                    return Ok(cos);
+                }
+                return Content(HttpStatusCode.NotFound,
+                    $"Cosmetologist with username={id} was not found.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
 
     }

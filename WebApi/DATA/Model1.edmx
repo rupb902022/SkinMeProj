@@ -54,6 +54,17 @@
           <Property Name="user_status" Type="varchar" MaxLength="50" />
           <Property Name="user_route" Type="char" MaxLength="1" />
           <Property Name="cosmetologist_id" Type="int" />
+          <Property Name="profile_code" Type="int" />
+        </EntityType>
+        <EntityType Name="AutoPlans">
+          <Key>
+            <PropertyRef Name="autoplan_id" />
+          </Key>
+          <Property Name="autoplan_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="autoplan_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="autoplan_skinType" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="product_id" Type="varchar" MaxLength="100" />
+          <Property Name="autoplan_manual" Type="varchar" MaxLength="1500" />
         </EntityType>
         <EntityType Name="Products">
           <Key>
@@ -80,6 +91,24 @@ warning 6002: The table/view 'bgroup90_test2.dbo.Products_for_plan' does not hav
           <Property Name="prod_id" Type="int" />
           <Property Name="plan_id" Type="int" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'bgroup90_test2.dbo.ProductsForProfiles' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ProductsForProfiles">
+          <Key>
+            <PropertyRef Name="pfp_id" />
+          </Key>
+          <Property Name="pfp_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="profile_code" Type="int" />
+          <Property Name="prod_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Profiles">
+          <Key>
+            <PropertyRef Name="profile_code" />
+          </Key>
+          <Property Name="profile_code" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="profile_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="users_count" Type="int" />
+        </EntityType>
         <EntityType Name="SkinPlan">
           <Key>
             <PropertyRef Name="plan_id" />
@@ -92,6 +121,18 @@ warning 6002: The table/view 'bgroup90_test2.dbo.Products_for_plan' does not hav
           <Property Name="plan_date" Type="date" />
           <Property Name="notes" Type="varchar" MaxLength="2500" />
         </EntityType>
+        <Association Name="FK_AppUsers_Profiles">
+          <End Role="Profiles" Type="Self.Profiles" Multiplicity="0..1" />
+          <End Role="AppUsers" Type="Self.AppUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profiles">
+              <PropertyRef Name="profile_code" />
+            </Principal>
+            <Dependent Role="AppUsers">
+              <PropertyRef Name="profile_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Products_for_plan_Products">
           <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
           <End Role="Products_for_plan" Type="Self.Products_for_plan" Multiplicity="*" />
@@ -113,6 +154,30 @@ warning 6002: The table/view 'bgroup90_test2.dbo.Products_for_plan' does not hav
             </Principal>
             <Dependent Role="Products_for_plan">
               <PropertyRef Name="plan_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductsForProfiles_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+          <End Role="ProductsForProfiles" Type="Self.ProductsForProfiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="prod_id" />
+            </Principal>
+            <Dependent Role="ProductsForProfiles">
+              <PropertyRef Name="prod_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductsForProfiles_Profiles">
+          <End Role="Profiles" Type="Self.Profiles" Multiplicity="0..1" />
+          <End Role="ProductsForProfiles" Type="Self.ProductsForProfiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profiles">
+              <PropertyRef Name="profile_code" />
+            </Principal>
+            <Dependent Role="ProductsForProfiles">
+              <PropertyRef Name="profile_code" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -143,7 +208,9 @@ warning 6002: The table/view 'bgroup90_test2.dbo.Products_for_plan' does not hav
         <EntityContainer Name="bgroup90_test2ModelStoreContainer">
           <EntitySet Name="AppCosmetologists" EntityType="Self.AppCosmetologists" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AppUsers" EntityType="Self.AppUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AutoPlans" EntityType="Self.AutoPlans" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Profiles" EntityType="Self.Profiles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SkinPlan" EntityType="Self.SkinPlan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products_for_plan" EntityType="Self.Products_for_plan" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -152,6 +219,17 @@ warning 6002: The table/view 'bgroup90_test2.dbo.Products_for_plan' does not hav
     [Products_for_plan].[plan_id] AS [plan_id]
     FROM [dbo].[Products_for_plan] AS [Products_for_plan]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="ProductsForProfiles" EntityType="Self.ProductsForProfiles" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ProductsForProfiles].[pfp_id] AS [pfp_id], 
+    [ProductsForProfiles].[profile_code] AS [profile_code], 
+    [ProductsForProfiles].[prod_id] AS [prod_id]
+    FROM [dbo].[ProductsForProfiles] AS [ProductsForProfiles]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_AppUsers_Profiles" Association="Self.FK_AppUsers_Profiles">
+            <End Role="Profiles" EntitySet="Profiles" />
+            <End Role="AppUsers" EntitySet="AppUsers" />
+          </AssociationSet>
           <AssociationSet Name="FK_Products_for_plan_Products" Association="Self.FK_Products_for_plan_Products">
             <End Role="Products" EntitySet="Products" />
             <End Role="Products_for_plan" EntitySet="Products_for_plan" />
@@ -159,6 +237,14 @@ warning 6002: The table/view 'bgroup90_test2.dbo.Products_for_plan' does not hav
           <AssociationSet Name="FK_Products_for_plan_SkinPlan" Association="Self.FK_Products_for_plan_SkinPlan">
             <End Role="SkinPlan" EntitySet="SkinPlan" />
             <End Role="Products_for_plan" EntitySet="Products_for_plan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductsForProfiles_Products" Association="Self.FK_ProductsForProfiles_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ProductsForProfiles" EntitySet="ProductsForProfiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductsForProfiles_Profiles" Association="Self.FK_ProductsForProfiles_Profiles">
+            <End Role="Profiles" EntitySet="Profiles" />
+            <End Role="ProductsForProfiles" EntitySet="ProductsForProfiles" />
           </AssociationSet>
           <AssociationSet Name="FK_SkinPlan_AppCosmetologists" Association="Self.FK_SkinPlan_AppCosmetologists">
             <End Role="AppCosmetologists" EntitySet="AppCosmetologists" />
@@ -224,7 +310,19 @@ warning 6002: The table/view 'bgroup90_test2.dbo.Products_for_plan' does not hav
           <Property Name="user_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="user_route" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Name="cosmetologist_id" Type="Int32" />
+          <Property Name="profile_code" Type="Int32" />
+          <NavigationProperty Name="Profiles" Relationship="Self.FK_AppUsers_Profiles" FromRole="AppUsers" ToRole="Profiles" />
           <NavigationProperty Name="SkinPlan" Relationship="Self.FK_SkinPlan_AppUsers" FromRole="AppUsers" ToRole="SkinPlan" />
+        </EntityType>
+        <EntityType Name="AutoPlans">
+          <Key>
+            <PropertyRef Name="autoplan_id" />
+          </Key>
+          <Property Name="autoplan_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="autoplan_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="autoplan_skinType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="product_id" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="autoplan_manual" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Products">
           <Key>
@@ -241,6 +339,17 @@ warning 6002: The table/view 'bgroup90_test2.dbo.Products_for_plan' does not hav
           <Property Name="prod_size" Type="Int32" />
           <Property Name="prod_status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Products_for_plan" Relationship="Self.FK_Products_for_plan_Products" FromRole="Products" ToRole="Products_for_plan" />
+          <NavigationProperty Name="ProductsForProfiles" Relationship="Self.FK_ProductsForProfiles_Products" FromRole="Products" ToRole="ProductsForProfiles" />
+        </EntityType>
+        <EntityType Name="Profiles">
+          <Key>
+            <PropertyRef Name="profile_code" />
+          </Key>
+          <Property Name="profile_code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="profile_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="users_count" Type="Int32" />
+          <NavigationProperty Name="AppUsers" Relationship="Self.FK_AppUsers_Profiles" FromRole="Profiles" ToRole="AppUsers" />
+          <NavigationProperty Name="ProductsForProfiles" Relationship="Self.FK_ProductsForProfiles_Profiles" FromRole="Profiles" ToRole="ProductsForProfiles" />
         </EntityType>
         <EntityType Name="SkinPlan">
           <Key>
@@ -267,6 +376,16 @@ warning 6002: The table/view 'bgroup90_test2.dbo.Products_for_plan' does not hav
           <NavigationProperty Name="Products" Relationship="Self.FK_Products_for_plan_Products" FromRole="Products_for_plan" ToRole="Products" />
           <NavigationProperty Name="SkinPlan" Relationship="Self.FK_Products_for_plan_SkinPlan" FromRole="Products_for_plan" ToRole="SkinPlan" />
         </EntityType>
+        <EntityType Name="ProductsForProfiles">
+          <Key>
+            <PropertyRef Name="pfp_id" />
+          </Key>
+          <Property Name="pfp_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="profile_code" Type="Int32" />
+          <Property Name="prod_id" Type="Int32" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_ProductsForProfiles_Products" FromRole="ProductsForProfiles" ToRole="Products" />
+          <NavigationProperty Name="Profiles" Relationship="Self.FK_ProductsForProfiles_Profiles" FromRole="ProductsForProfiles" ToRole="Profiles" />
+        </EntityType>
         <Association Name="FK_SkinPlan_AppCosmetologists">
           <End Role="AppCosmetologists" Type="Self.AppCosmetologists" Multiplicity="0..1" />
           <End Role="SkinPlan" Type="Self.SkinPlan" Multiplicity="*" />
@@ -276,6 +395,18 @@ warning 6002: The table/view 'bgroup90_test2.dbo.Products_for_plan' does not hav
             </Principal>
             <Dependent Role="SkinPlan">
               <PropertyRef Name="cosmetologist_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AppUsers_Profiles">
+          <End Role="Profiles" Type="Self.Profiles" Multiplicity="0..1" />
+          <End Role="AppUsers" Type="Self.AppUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profiles">
+              <PropertyRef Name="profile_code" />
+            </Principal>
+            <Dependent Role="AppUsers">
+              <PropertyRef Name="profile_code" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -303,6 +434,30 @@ warning 6002: The table/view 'bgroup90_test2.dbo.Products_for_plan' does not hav
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ProductsForProfiles_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+          <End Role="ProductsForProfiles" Type="Self.ProductsForProfiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="prod_id" />
+            </Principal>
+            <Dependent Role="ProductsForProfiles">
+              <PropertyRef Name="prod_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductsForProfiles_Profiles">
+          <End Role="Profiles" Type="Self.Profiles" Multiplicity="0..1" />
+          <End Role="ProductsForProfiles" Type="Self.ProductsForProfiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profiles">
+              <PropertyRef Name="profile_code" />
+            </Principal>
+            <Dependent Role="ProductsForProfiles">
+              <PropertyRef Name="profile_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Products_for_plan_SkinPlan">
           <End Role="SkinPlan" Type="Self.SkinPlan" Multiplicity="0..1" />
           <End Role="Products_for_plan" Type="Self.Products_for_plan" Multiplicity="*" />
@@ -315,15 +470,22 @@ warning 6002: The table/view 'bgroup90_test2.dbo.Products_for_plan' does not hav
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="bgroup90_test2Entities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="bgroup90_test2Entities11" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AppCosmetologists" EntityType="Self.AppCosmetologists" />
           <EntitySet Name="AppUsers" EntityType="Self.AppUsers" />
+          <EntitySet Name="AutoPlans" EntityType="Self.AutoPlans" />
           <EntitySet Name="Products" EntityType="Self.Products" />
+          <EntitySet Name="Profiles" EntityType="Self.Profiles" />
           <EntitySet Name="SkinPlan" EntityType="Self.SkinPlan" />
           <EntitySet Name="Products_for_plan" EntityType="Self.Products_for_plan" />
+          <EntitySet Name="ProductsForProfiles" EntityType="Self.ProductsForProfiles" />
           <AssociationSet Name="FK_SkinPlan_AppCosmetologists" Association="Self.FK_SkinPlan_AppCosmetologists">
             <End Role="AppCosmetologists" EntitySet="AppCosmetologists" />
             <End Role="SkinPlan" EntitySet="SkinPlan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AppUsers_Profiles" Association="Self.FK_AppUsers_Profiles">
+            <End Role="Profiles" EntitySet="Profiles" />
+            <End Role="AppUsers" EntitySet="AppUsers" />
           </AssociationSet>
           <AssociationSet Name="FK_SkinPlan_AppUsers" Association="Self.FK_SkinPlan_AppUsers">
             <End Role="AppUsers" EntitySet="AppUsers" />
@@ -332,6 +494,14 @@ warning 6002: The table/view 'bgroup90_test2.dbo.Products_for_plan' does not hav
           <AssociationSet Name="FK_Products_for_plan_Products" Association="Self.FK_Products_for_plan_Products">
             <End Role="Products" EntitySet="Products" />
             <End Role="Products_for_plan" EntitySet="Products_for_plan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductsForProfiles_Products" Association="Self.FK_ProductsForProfiles_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ProductsForProfiles" EntitySet="ProductsForProfiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductsForProfiles_Profiles" Association="Self.FK_ProductsForProfiles_Profiles">
+            <End Role="Profiles" EntitySet="Profiles" />
+            <End Role="ProductsForProfiles" EntitySet="ProductsForProfiles" />
           </AssociationSet>
           <AssociationSet Name="FK_Products_for_plan_SkinPlan" Association="Self.FK_Products_for_plan_SkinPlan">
             <End Role="SkinPlan" EntitySet="SkinPlan" />
@@ -343,7 +513,7 @@ warning 6002: The table/view 'bgroup90_test2.dbo.Products_for_plan' does not hav
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="bgroup90_test2ModelStoreContainer" CdmEntityContainer="bgroup90_test2Entities1">
+        <EntityContainerMapping StorageEntityContainer="bgroup90_test2ModelStoreContainer" CdmEntityContainer="bgroup90_test2Entities11">
           <EntitySetMapping Name="AppCosmetologists">
             <EntityTypeMapping TypeName="bgroup90_test2Model.AppCosmetologists">
               <MappingFragment StoreEntitySet="AppCosmetologists">
@@ -393,6 +563,18 @@ warning 6002: The table/view 'bgroup90_test2.dbo.Products_for_plan' does not hav
                 <ScalarProperty Name="user_status" ColumnName="user_status" />
                 <ScalarProperty Name="user_route" ColumnName="user_route" />
                 <ScalarProperty Name="cosmetologist_id" ColumnName="cosmetologist_id" />
+                <ScalarProperty Name="profile_code" ColumnName="profile_code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AutoPlans">
+            <EntityTypeMapping TypeName="bgroup90_test2Model.AutoPlans">
+              <MappingFragment StoreEntitySet="AutoPlans">
+                <ScalarProperty Name="autoplan_id" ColumnName="autoplan_id" />
+                <ScalarProperty Name="autoplan_name" ColumnName="autoplan_name" />
+                <ScalarProperty Name="autoplan_skinType" ColumnName="autoplan_skinType" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="autoplan_manual" ColumnName="autoplan_manual" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -409,6 +591,15 @@ warning 6002: The table/view 'bgroup90_test2.dbo.Products_for_plan' does not hav
                 <ScalarProperty Name="prod_sizeType" ColumnName="prod_sizeType" />
                 <ScalarProperty Name="prod_size" ColumnName="prod_size" />
                 <ScalarProperty Name="prod_status" ColumnName="prod_status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Profiles">
+            <EntityTypeMapping TypeName="bgroup90_test2Model.Profiles">
+              <MappingFragment StoreEntitySet="Profiles">
+                <ScalarProperty Name="profile_code" ColumnName="profile_code" />
+                <ScalarProperty Name="profile_name" ColumnName="profile_name" />
+                <ScalarProperty Name="users_count" ColumnName="users_count" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -431,6 +622,15 @@ warning 6002: The table/view 'bgroup90_test2.dbo.Products_for_plan' does not hav
                 <ScalarProperty Name="pfp_id" ColumnName="pfp_id" />
                 <ScalarProperty Name="prod_id" ColumnName="prod_id" />
                 <ScalarProperty Name="plan_id" ColumnName="plan_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductsForProfiles">
+            <EntityTypeMapping TypeName="bgroup90_test2Model.ProductsForProfiles">
+              <MappingFragment StoreEntitySet="ProductsForProfiles">
+                <ScalarProperty Name="pfp_id" ColumnName="pfp_id" />
+                <ScalarProperty Name="profile_code" ColumnName="profile_code" />
+                <ScalarProperty Name="prod_id" ColumnName="prod_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -228,6 +228,8 @@
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="DTO\Clients.cs" />
+    <Compile Include="DTO\ForgotCosPassword.cs" />
     <Compile Include="DTO\ForgotPassword.cs" />
     <Compile Include="DTO\GetClients.cs" />
     <Compile Include="DTO\Depending.cs" />
@@ -249,6 +251,7 @@
     <Compile Include="DTO\UpdateCosInfo.cs" />
     <Compile Include="DTO\UpdateUserInfo.cs" />
     <Compile Include="DTO\UserMaslul.cs" />
+    <Compile Include="DTO\User.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

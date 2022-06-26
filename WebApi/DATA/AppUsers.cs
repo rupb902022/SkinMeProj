@@ -44,7 +44,9 @@ namespace DATA
         public string user_status { get; set; }
         public string user_route { get; set; }
         public Nullable<int> cosmetologist_id { get; set; }
+        public Nullable<int> profile_code { get; set; }
     
+        public virtual Profiles Profiles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SkinPlan> SkinPlan { get; set; }
     }
