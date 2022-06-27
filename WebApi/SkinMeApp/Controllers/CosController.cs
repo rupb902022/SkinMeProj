@@ -165,7 +165,7 @@ namespace SkinMeApp.Controllers
                 {
                     foreach (AppUsers u in users)
                     {
-                        Console.WriteLine(u.appUser_id + u.first_name + u.user_route);
+                        Console.WriteLine(u.appUser_id + u.first_name + u.user_route + u.user_gender + u.user_skinProblem + u.user_skinType);
                     }
                     return Content(HttpStatusCode.OK, users);
                 }
