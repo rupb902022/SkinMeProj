@@ -234,6 +234,7 @@
     <Compile Include="DTO\GetClients.cs" />
     <Compile Include="DTO\Depending.cs" />
     <Compile Include="DTO\GetSkintype.cs" />
+    <Compile Include="DTO\InfoMyCos.cs" />
     <Compile Include="DTO\LogInCheckCos.cs" />
     <Compile Include="DTO\Map.cs" />
     <Compile Include="DTO\Mycos.cs" />

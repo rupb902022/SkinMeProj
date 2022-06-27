@@ -113,5 +113,33 @@ namespace SkinMeApp.Controllers
         //            throw;
         //        }
         //}
+
+        [HttpGet]
+        [Route("api/User/Mycos")]
+        public IHttpActionResult GetMyCos(int id ) 
+        {
+            try
+            {
+
+                AppUsers user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
+
+                if (user != null)
+                {
+                      return Content(HttpStatusCode.OK,
+                          
+                          $"id: {user.cosmetologist_id }");
+
+                    
+
+
+                }
+                return Content(HttpStatusCode.NotFound,
+                    $"no products for plan found");
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

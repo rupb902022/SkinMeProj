@@ -167,6 +167,7 @@ namespace SkinMeApp.Controllers
 
                 if (log != null)
                 {
+                    
                     return Content(HttpStatusCode.OK,
                         $"{log.appUser_id}");
                 }
@@ -221,6 +222,11 @@ namespace SkinMeApp.Controllers
 
             }
             catch (DbEntityValidationException e)
+            {
+                Console.WriteLine(e);
+                return BadRequest(e.Message);
+            }
+            catch (ArgumentNullException e)
             {
                 Console.WriteLine(e);
                 return BadRequest(e.Message);

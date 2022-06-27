@@ -17,6 +17,10 @@ namespace SkinMeApp.Controllers
     {
         bgroup90_test2Entities11 db = new bgroup90_test2Entities11();
 
+       
+
+
+
         [HttpGet]
         [Route("api/Products/")]
         public IHttpActionResult Get() // get all products
