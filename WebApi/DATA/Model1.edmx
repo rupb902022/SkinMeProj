@@ -470,7 +470,7 @@ warning 6002: The table/view 'bgroup90_test2.dbo.ProductsForProfiles' does not h
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="bgroup90_test2Entities11" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="bgroup90_SkinmeDbContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AppCosmetologists" EntityType="Self.AppCosmetologists" />
           <EntitySet Name="AppUsers" EntityType="Self.AppUsers" />
           <EntitySet Name="AutoPlans" EntityType="Self.AutoPlans" />
@@ -513,7 +513,7 @@ warning 6002: The table/view 'bgroup90_test2.dbo.ProductsForProfiles' does not h
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="bgroup90_test2ModelStoreContainer" CdmEntityContainer="bgroup90_test2Entities11">
+        <EntityContainerMapping StorageEntityContainer="bgroup90_test2ModelStoreContainer" CdmEntityContainer="bgroup90_SkinmeDbContext">
           <EntitySetMapping Name="AppCosmetologists">
             <EntityTypeMapping TypeName="bgroup90_test2Model.AppCosmetologists">
               <MappingFragment StoreEntitySet="AppCosmetologists">
