@@ -15,7 +15,7 @@ namespace SkinMeApp.Controllers
     public class UsersController : ApiController
     {
 
-        bgroup90_test2Entities11 db = new bgroup90_test2Entities11();
+        bgroup90_test2Entities9 db = new bgroup90_test2Entities9();
 
         [HttpPut]
         [Route("api/Users/addroute")]
@@ -23,7 +23,7 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                AppUsers user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id );
+                AppUser user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id );
                 if (user!= null)
                 {
                     user.user_route = maslul.user_route;
@@ -45,7 +45,7 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                AppUsers user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
+                AppUser user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
                 if (user != null)
                 {
                     user.user_route = maslul.user_route;
@@ -72,7 +72,7 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                AppUsers user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
+                AppUser user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
                 if (user != null)
                 {
                     user.cosmetologist_id = cos.cosmetologist_id;
@@ -121,7 +121,7 @@ namespace SkinMeApp.Controllers
             try
             {
 
-                AppUsers user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
+                AppUser user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
 
                 if (user != null)
                 {

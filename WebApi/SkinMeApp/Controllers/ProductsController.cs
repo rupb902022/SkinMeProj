@@ -15,7 +15,7 @@ namespace SkinMeApp.Controllers
 
     public class ProductsController : ApiController
     {
-        bgroup90_test2Entities11 db = new bgroup90_test2Entities11();
+        bgroup90_test2Entities9 db = new bgroup90_test2Entities9();
 
        
 
@@ -41,11 +41,11 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                List<Products> prod = db.Products.Where(x => x.prod_status == status).ToList();
+                List<Product> prod = db.Products.Where(x => x.prod_status == status).ToList();
 
                 if (prod != null)
                 {
-                    foreach (Products p in prod)
+                    foreach (Product p in prod)
                     {
                         Console.WriteLine(p.prod_id);
                     }
@@ -71,11 +71,11 @@ namespace SkinMeApp.Controllers
 
             try
             {
-                List<Products> prod = db.Products.Where(x => x.prod_type == "oily day").Take(3).ToList();
+                List<Product> prod = db.Products.Where(x => x.prod_type == "oily day").Take(3).ToList();
 
                 if (prod != null)
                 {
-                    foreach (Products p in prod)
+                    foreach (Product p in prod)
                     {
                         Console.WriteLine(p.prod_id);
                     }
@@ -106,11 +106,11 @@ namespace SkinMeApp.Controllers
             {
                 try
                 {
-                    List<Products> prod = db.Products.Where(x => x.prod_type == "oily day").ToList();
+                    List<Product> prod = db.Products.Where(x => x.prod_type == "oily day").ToList();
 
                     if (prod != null)
                     {
-                        foreach (Products p in prod)
+                        foreach (Product p in prod)
                         {
                             Console.WriteLine(p.prod_id);
                             break;
@@ -133,11 +133,11 @@ namespace SkinMeApp.Controllers
             {
                 try
                 {
-                    List<Products> prod = db.Products.Where(x => x.prod_type == "regular d").ToList();
+                    List<Product> prod = db.Products.Where(x => x.prod_type == "regular d").ToList();
 
                     if (prod != null)
                     {
-                        foreach (Products p in prod)
+                        foreach (Product p in prod)
                         {
                             Console.WriteLine(p.prod_id);
                             break;
@@ -161,11 +161,11 @@ namespace SkinMeApp.Controllers
             {
                 try
                 {
-                    List<Products> prod = db.Products.Where(x => x.prod_type == "dry d").ToList();
+                    List<Product> prod = db.Products.Where(x => x.prod_type == "dry d").ToList();
 
                     if (prod != null)
                     {
-                        foreach (Products p in prod)
+                        foreach (Product p in prod)
                         {
                             Console.WriteLine(p.prod_id);
                             break;
@@ -198,11 +198,11 @@ namespace SkinMeApp.Controllers
             {
                 try
                 {
-                    List<Products> prod = db.Products.Where(x => x.prod_type == "oily n").ToList();
+                    List<Product> prod = db.Products.Where(x => x.prod_type == "oily n").ToList();
 
                     if (prod != null)
                     {
-                        foreach (Products p in prod)
+                        foreach (Product p in prod)
                         {
                             Console.WriteLine(p.prod_id);
                             break;
@@ -225,11 +225,11 @@ namespace SkinMeApp.Controllers
             {
                 try
                 {
-                    List<Products> prod = db.Products.Where(x => x.prod_type == "regular n").ToList();
+                    List<Product> prod = db.Products.Where(x => x.prod_type == "regular n").ToList();
 
                     if (prod != null)
                     {
-                        foreach (Products p in prod)
+                        foreach (Product p in prod)
                         {
                             Console.WriteLine(p.prod_id);
                             break;
@@ -253,11 +253,11 @@ namespace SkinMeApp.Controllers
             {
                 try
                 {
-                    List<Products> prod = db.Products.Where(x => x.prod_type == "dry n").ToList();
+                    List<Product> prod = db.Products.Where(x => x.prod_type == "dry n").ToList();
 
                     if (prod != null)
                     {
-                        foreach (Products p in prod)
+                        foreach (Product p in prod)
                         {
                             Console.WriteLine(p.prod_id);
                             break;
@@ -287,7 +287,7 @@ namespace SkinMeApp.Controllers
         [HttpPost]
         [Route("api/Products/addprod")]
 
-        public IHttpActionResult Post([FromBody] Products value)
+        public IHttpActionResult Post([FromBody] Product value)
         {
             try
             {
@@ -326,7 +326,7 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                Products p = db.Products.SingleOrDefault(x => x.prod_name == name && x.prod_company == company);
+                Product p = db.Products.SingleOrDefault(x => x.prod_name == name && x.prod_company == company);
                 if (p != null)
                 {
                     p.prod_manual = prod.prod_manual;
@@ -345,7 +345,7 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                Products prod = db.Products.SingleOrDefault(x => x.prod_id == id);
+                Product prod = db.Products.SingleOrDefault(x => x.prod_id == id);
                 if (prod != null)
                 {
                     db.Products.Remove(prod);
@@ -396,7 +396,7 @@ namespace SkinMeApp.Controllers
 
             try
             {
-                Products log = db.Products.FirstOrDefault
+                Product log = db.Products.FirstOrDefault
                     (x => x.prod_id == prod.prod_id);
 
                 if (log != null)

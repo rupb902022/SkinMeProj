@@ -107,7 +107,6 @@ warning 6002: The table/view 'bgroup90_test2.dbo.ProductsForProfiles' does not h
           </Key>
           <Property Name="profile_code" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="profile_name" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="users_count" Type="int" />
         </EntityType>
         <EntityType Name="SkinPlan">
           <Key>
@@ -121,6 +120,13 @@ warning 6002: The table/view 'bgroup90_test2.dbo.ProductsForProfiles' does not h
           <Property Name="plan_date" Type="date" />
           <Property Name="notes" Type="varchar" MaxLength="2500" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'bgroup90_test2.dbo.UsersImages' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="UsersImages">
+          <Property Name="img_url" Type="varchar" MaxLength="2500" />
+          <Property Name="appUser_id" Type="int" />
+          <Property Name="upload_date" Type="date" />
+        </EntityType>-->
         <Association Name="FK_AppUsers_Profiles">
           <End Role="Profiles" Type="Self.Profiles" Multiplicity="0..1" />
           <End Role="AppUsers" Type="Self.AppUsers" Multiplicity="*" />
@@ -260,7 +266,7 @@ warning 6002: The table/view 'bgroup90_test2.dbo.ProductsForProfiles' does not h
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="bgroup90_test2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="AppCosmetologists">
+        <EntityType Name="AppCosmetologist">
           <Key>
             <PropertyRef Name="cosmetologist_id" />
           </Key>
@@ -280,9 +286,9 @@ warning 6002: The table/view 'bgroup90_test2.dbo.ProductsForProfiles' does not h
           <Property Name="cosmetic_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="lng" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="lat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="SkinPlan" Relationship="Self.FK_SkinPlan_AppCosmetologists" FromRole="AppCosmetologists" ToRole="SkinPlan" />
+          <NavigationProperty Name="SkinPlans" Relationship="Self.FK_SkinPlan_AppCosmetologists" FromRole="AppCosmetologists" ToRole="SkinPlan" />
         </EntityType>
-        <EntityType Name="AppUsers">
+        <EntityType Name="AppUser">
           <Key>
             <PropertyRef Name="appUser_id" />
           </Key>
@@ -311,10 +317,10 @@ warning 6002: The table/view 'bgroup90_test2.dbo.ProductsForProfiles' does not h
           <Property Name="user_route" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Name="cosmetologist_id" Type="Int32" />
           <Property Name="profile_code" Type="Int32" />
-          <NavigationProperty Name="Profiles" Relationship="Self.FK_AppUsers_Profiles" FromRole="AppUsers" ToRole="Profiles" />
-          <NavigationProperty Name="SkinPlan" Relationship="Self.FK_SkinPlan_AppUsers" FromRole="AppUsers" ToRole="SkinPlan" />
+          <NavigationProperty Name="Profile" Relationship="Self.FK_AppUsers_Profiles" FromRole="AppUsers" ToRole="Profiles" />
+          <NavigationProperty Name="SkinPlans" Relationship="Self.FK_SkinPlan_AppUsers" FromRole="AppUsers" ToRole="SkinPlan" />
         </EntityType>
-        <EntityType Name="AutoPlans">
+        <EntityType Name="AutoPlan">
           <Key>
             <PropertyRef Name="autoplan_id" />
           </Key>
@@ -324,7 +330,7 @@ warning 6002: The table/view 'bgroup90_test2.dbo.ProductsForProfiles' does not h
           <Property Name="product_id" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="autoplan_manual" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="Products">
+        <EntityType Name="Product">
           <Key>
             <PropertyRef Name="prod_id" />
           </Key>
@@ -341,13 +347,12 @@ warning 6002: The table/view 'bgroup90_test2.dbo.ProductsForProfiles' does not h
           <NavigationProperty Name="Products_for_plan" Relationship="Self.FK_Products_for_plan_Products" FromRole="Products" ToRole="Products_for_plan" />
           <NavigationProperty Name="ProductsForProfiles" Relationship="Self.FK_ProductsForProfiles_Products" FromRole="Products" ToRole="ProductsForProfiles" />
         </EntityType>
-        <EntityType Name="Profiles">
+        <EntityType Name="Profile">
           <Key>
             <PropertyRef Name="profile_code" />
           </Key>
           <Property Name="profile_code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="profile_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="users_count" Type="Int32" />
           <NavigationProperty Name="AppUsers" Relationship="Self.FK_AppUsers_Profiles" FromRole="Profiles" ToRole="AppUsers" />
           <NavigationProperty Name="ProductsForProfiles" Relationship="Self.FK_ProductsForProfiles_Profiles" FromRole="Profiles" ToRole="ProductsForProfiles" />
         </EntityType>
@@ -362,8 +367,8 @@ warning 6002: The table/view 'bgroup90_test2.dbo.ProductsForProfiles' does not h
           <Property Name="plan_name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="plan_date" Type="DateTime" Precision="0" />
           <Property Name="notes" Type="String" MaxLength="2500" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="AppCosmetologists" Relationship="Self.FK_SkinPlan_AppCosmetologists" FromRole="SkinPlan" ToRole="AppCosmetologists" />
-          <NavigationProperty Name="AppUsers" Relationship="Self.FK_SkinPlan_AppUsers" FromRole="SkinPlan" ToRole="AppUsers" />
+          <NavigationProperty Name="AppCosmetologist" Relationship="Self.FK_SkinPlan_AppCosmetologists" FromRole="SkinPlan" ToRole="AppCosmetologists" />
+          <NavigationProperty Name="AppUser" Relationship="Self.FK_SkinPlan_AppUsers" FromRole="SkinPlan" ToRole="AppUsers" />
           <NavigationProperty Name="Products_for_plan" Relationship="Self.FK_Products_for_plan_SkinPlan" FromRole="SkinPlan" ToRole="Products_for_plan" />
         </EntityType>
         <EntityType Name="Products_for_plan">
@@ -373,21 +378,21 @@ warning 6002: The table/view 'bgroup90_test2.dbo.ProductsForProfiles' does not h
           <Property Name="pfp_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="prod_id" Type="Int32" />
           <Property Name="plan_id" Type="Int32" />
-          <NavigationProperty Name="Products" Relationship="Self.FK_Products_for_plan_Products" FromRole="Products_for_plan" ToRole="Products" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Products_for_plan_Products" FromRole="Products_for_plan" ToRole="Products" />
           <NavigationProperty Name="SkinPlan" Relationship="Self.FK_Products_for_plan_SkinPlan" FromRole="Products_for_plan" ToRole="SkinPlan" />
         </EntityType>
-        <EntityType Name="ProductsForProfiles">
+        <EntityType Name="ProductsForProfile">
           <Key>
             <PropertyRef Name="pfp_id" />
           </Key>
           <Property Name="pfp_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="profile_code" Type="Int32" />
           <Property Name="prod_id" Type="Int32" />
-          <NavigationProperty Name="Products" Relationship="Self.FK_ProductsForProfiles_Products" FromRole="ProductsForProfiles" ToRole="Products" />
-          <NavigationProperty Name="Profiles" Relationship="Self.FK_ProductsForProfiles_Profiles" FromRole="ProductsForProfiles" ToRole="Profiles" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_ProductsForProfiles_Products" FromRole="ProductsForProfiles" ToRole="Products" />
+          <NavigationProperty Name="Profile" Relationship="Self.FK_ProductsForProfiles_Profiles" FromRole="ProductsForProfiles" ToRole="Profiles" />
         </EntityType>
         <Association Name="FK_SkinPlan_AppCosmetologists">
-          <End Role="AppCosmetologists" Type="Self.AppCosmetologists" Multiplicity="0..1" />
+          <End Role="AppCosmetologists" Type="Self.AppCosmetologist" Multiplicity="0..1" />
           <End Role="SkinPlan" Type="Self.SkinPlan" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AppCosmetologists">
@@ -399,8 +404,8 @@ warning 6002: The table/view 'bgroup90_test2.dbo.ProductsForProfiles' does not h
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AppUsers_Profiles">
-          <End Role="Profiles" Type="Self.Profiles" Multiplicity="0..1" />
-          <End Role="AppUsers" Type="Self.AppUsers" Multiplicity="*" />
+          <End Role="Profiles" Type="Self.Profile" Multiplicity="0..1" />
+          <End Role="AppUsers" Type="Self.AppUser" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Profiles">
               <PropertyRef Name="profile_code" />
@@ -411,7 +416,7 @@ warning 6002: The table/view 'bgroup90_test2.dbo.ProductsForProfiles' does not h
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SkinPlan_AppUsers">
-          <End Role="AppUsers" Type="Self.AppUsers" Multiplicity="0..1" />
+          <End Role="AppUsers" Type="Self.AppUser" Multiplicity="0..1" />
           <End Role="SkinPlan" Type="Self.SkinPlan" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AppUsers">
@@ -423,7 +428,7 @@ warning 6002: The table/view 'bgroup90_test2.dbo.ProductsForProfiles' does not h
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Products_for_plan_Products">
-          <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+          <End Role="Products" Type="Self.Product" Multiplicity="0..1" />
           <End Role="Products_for_plan" Type="Self.Products_for_plan" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Products">
@@ -435,8 +440,8 @@ warning 6002: The table/view 'bgroup90_test2.dbo.ProductsForProfiles' does not h
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ProductsForProfiles_Products">
-          <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
-          <End Role="ProductsForProfiles" Type="Self.ProductsForProfiles" Multiplicity="*" />
+          <End Role="Products" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="ProductsForProfiles" Type="Self.ProductsForProfile" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Products">
               <PropertyRef Name="prod_id" />
@@ -447,8 +452,8 @@ warning 6002: The table/view 'bgroup90_test2.dbo.ProductsForProfiles' does not h
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ProductsForProfiles_Profiles">
-          <End Role="Profiles" Type="Self.Profiles" Multiplicity="0..1" />
-          <End Role="ProductsForProfiles" Type="Self.ProductsForProfiles" Multiplicity="*" />
+          <End Role="Profiles" Type="Self.Profile" Multiplicity="0..1" />
+          <End Role="ProductsForProfiles" Type="Self.ProductsForProfile" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Profiles">
               <PropertyRef Name="profile_code" />
@@ -470,18 +475,18 @@ warning 6002: The table/view 'bgroup90_test2.dbo.ProductsForProfiles' does not h
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="bgroup90_test2Entities11" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="AppCosmetologists" EntityType="Self.AppCosmetologists" />
-          <EntitySet Name="AppUsers" EntityType="Self.AppUsers" />
-          <EntitySet Name="AutoPlans" EntityType="Self.AutoPlans" />
-          <EntitySet Name="Products" EntityType="Self.Products" />
-          <EntitySet Name="Profiles" EntityType="Self.Profiles" />
-          <EntitySet Name="SkinPlan" EntityType="Self.SkinPlan" />
+        <EntityContainer Name="bgroup90_test2Entities9" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AppCosmetologists" EntityType="Self.AppCosmetologist" />
+          <EntitySet Name="AppUsers" EntityType="Self.AppUser" />
+          <EntitySet Name="AutoPlans" EntityType="Self.AutoPlan" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="Profiles" EntityType="Self.Profile" />
+          <EntitySet Name="SkinPlans" EntityType="Self.SkinPlan" />
           <EntitySet Name="Products_for_plan" EntityType="Self.Products_for_plan" />
-          <EntitySet Name="ProductsForProfiles" EntityType="Self.ProductsForProfiles" />
+          <EntitySet Name="ProductsForProfiles" EntityType="Self.ProductsForProfile" />
           <AssociationSet Name="FK_SkinPlan_AppCosmetologists" Association="Self.FK_SkinPlan_AppCosmetologists">
             <End Role="AppCosmetologists" EntitySet="AppCosmetologists" />
-            <End Role="SkinPlan" EntitySet="SkinPlan" />
+            <End Role="SkinPlan" EntitySet="SkinPlans" />
           </AssociationSet>
           <AssociationSet Name="FK_AppUsers_Profiles" Association="Self.FK_AppUsers_Profiles">
             <End Role="Profiles" EntitySet="Profiles" />
@@ -489,7 +494,7 @@ warning 6002: The table/view 'bgroup90_test2.dbo.ProductsForProfiles' does not h
           </AssociationSet>
           <AssociationSet Name="FK_SkinPlan_AppUsers" Association="Self.FK_SkinPlan_AppUsers">
             <End Role="AppUsers" EntitySet="AppUsers" />
-            <End Role="SkinPlan" EntitySet="SkinPlan" />
+            <End Role="SkinPlan" EntitySet="SkinPlans" />
           </AssociationSet>
           <AssociationSet Name="FK_Products_for_plan_Products" Association="Self.FK_Products_for_plan_Products">
             <End Role="Products" EntitySet="Products" />
@@ -504,7 +509,7 @@ warning 6002: The table/view 'bgroup90_test2.dbo.ProductsForProfiles' does not h
             <End Role="ProductsForProfiles" EntitySet="ProductsForProfiles" />
           </AssociationSet>
           <AssociationSet Name="FK_Products_for_plan_SkinPlan" Association="Self.FK_Products_for_plan_SkinPlan">
-            <End Role="SkinPlan" EntitySet="SkinPlan" />
+            <End Role="SkinPlan" EntitySet="SkinPlans" />
             <End Role="Products_for_plan" EntitySet="Products_for_plan" />
           </AssociationSet>
         </EntityContainer>
@@ -513,9 +518,9 @@ warning 6002: The table/view 'bgroup90_test2.dbo.ProductsForProfiles' does not h
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="bgroup90_test2ModelStoreContainer" CdmEntityContainer="bgroup90_test2Entities11">
+        <EntityContainerMapping StorageEntityContainer="bgroup90_test2ModelStoreContainer" CdmEntityContainer="bgroup90_test2Entities9">
           <EntitySetMapping Name="AppCosmetologists">
-            <EntityTypeMapping TypeName="bgroup90_test2Model.AppCosmetologists">
+            <EntityTypeMapping TypeName="bgroup90_test2Model.AppCosmetologist">
               <MappingFragment StoreEntitySet="AppCosmetologists">
                 <ScalarProperty Name="cosmetologist_id" ColumnName="cosmetologist_id" />
                 <ScalarProperty Name="cosmetologist_user_name" ColumnName="cosmetologist_user_name" />
@@ -537,7 +542,7 @@ warning 6002: The table/view 'bgroup90_test2.dbo.ProductsForProfiles' does not h
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AppUsers">
-            <EntityTypeMapping TypeName="bgroup90_test2Model.AppUsers">
+            <EntityTypeMapping TypeName="bgroup90_test2Model.AppUser">
               <MappingFragment StoreEntitySet="AppUsers">
                 <ScalarProperty Name="appUser_id" ColumnName="appUser_id" />
                 <ScalarProperty Name="username" ColumnName="username" />
@@ -568,7 +573,7 @@ warning 6002: The table/view 'bgroup90_test2.dbo.ProductsForProfiles' does not h
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AutoPlans">
-            <EntityTypeMapping TypeName="bgroup90_test2Model.AutoPlans">
+            <EntityTypeMapping TypeName="bgroup90_test2Model.AutoPlan">
               <MappingFragment StoreEntitySet="AutoPlans">
                 <ScalarProperty Name="autoplan_id" ColumnName="autoplan_id" />
                 <ScalarProperty Name="autoplan_name" ColumnName="autoplan_name" />
@@ -579,7 +584,7 @@ warning 6002: The table/view 'bgroup90_test2.dbo.ProductsForProfiles' does not h
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Products">
-            <EntityTypeMapping TypeName="bgroup90_test2Model.Products">
+            <EntityTypeMapping TypeName="bgroup90_test2Model.Product">
               <MappingFragment StoreEntitySet="Products">
                 <ScalarProperty Name="prod_id" ColumnName="prod_id" />
                 <ScalarProperty Name="prod_name" ColumnName="prod_name" />
@@ -595,15 +600,14 @@ warning 6002: The table/view 'bgroup90_test2.dbo.ProductsForProfiles' does not h
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Profiles">
-            <EntityTypeMapping TypeName="bgroup90_test2Model.Profiles">
+            <EntityTypeMapping TypeName="bgroup90_test2Model.Profile">
               <MappingFragment StoreEntitySet="Profiles">
                 <ScalarProperty Name="profile_code" ColumnName="profile_code" />
                 <ScalarProperty Name="profile_name" ColumnName="profile_name" />
-                <ScalarProperty Name="users_count" ColumnName="users_count" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SkinPlan">
+          <EntitySetMapping Name="SkinPlans">
             <EntityTypeMapping TypeName="bgroup90_test2Model.SkinPlan">
               <MappingFragment StoreEntitySet="SkinPlan">
                 <ScalarProperty Name="plan_id" ColumnName="plan_id" />
@@ -626,7 +630,7 @@ warning 6002: The table/view 'bgroup90_test2.dbo.ProductsForProfiles' does not h
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ProductsForProfiles">
-            <EntityTypeMapping TypeName="bgroup90_test2Model.ProductsForProfiles">
+            <EntityTypeMapping TypeName="bgroup90_test2Model.ProductsForProfile">
               <MappingFragment StoreEntitySet="ProductsForProfiles">
                 <ScalarProperty Name="pfp_id" ColumnName="pfp_id" />
                 <ScalarProperty Name="profile_code" ColumnName="profile_code" />
@@ -648,7 +652,7 @@ warning 6002: The table/view 'bgroup90_test2.dbo.ProductsForProfiles' does not h
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

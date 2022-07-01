@@ -13,7 +13,7 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CosController : ApiController
     {
-        bgroup90_test2Entities11 db = new bgroup90_test2Entities11();
+        bgroup90_test2Entities9 db = new bgroup90_test2Entities9();
 
         [HttpGet]
         [Route("api/map")]
@@ -34,7 +34,7 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                return Ok(db.SkinPlan);
+                return Ok(db.SkinPlans);
             }
             catch (Exception ex)
             {
@@ -48,7 +48,7 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                db.SkinPlan.Add(value);
+                db.SkinPlans.Add(value);
                 db.SaveChanges();
                 return Created(new Uri(Request.RequestUri.AbsoluteUri + value.plan_id), value);
 
@@ -86,13 +86,13 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                SkinPlan s = db.SkinPlan.SingleOrDefault(x => x.plan_id == id);
+                SkinPlan s = db.SkinPlans.SingleOrDefault(x => x.plan_id == id);
                 if (s != null)
                 {
                     s.plan_name = value.plan_name;
                     s.plan_date = value.plan_date;
                     s.notes = value.notes;
-                    List<Products> products = db.Products.ToList(); /// ? how to change products from the plan
+                    List<Product> products = db.Products.ToList(); /// ? how to change products from the plan
 
                     return Ok(s);
                 }
@@ -108,10 +108,10 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                SkinPlan s = db.SkinPlan.SingleOrDefault(x => x.plan_id == id);
+                SkinPlan s = db.SkinPlans.SingleOrDefault(x => x.plan_id == id);
                 if (s != null)
                 {
-                    db.SkinPlan.Remove(s);
+                    db.SkinPlans.Remove(s);
                     return Ok();
                 }
                 return Content(HttpStatusCode.NotFound,
@@ -131,11 +131,11 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                List<AppUsers> users = db.AppUsers.Where(x => x.user_status == status.user_status).ToList();
+                List<AppUser> users = db.AppUsers.Where(x => x.user_status == status.user_status).ToList();
 
                 if (users != null)
                 {
-                    foreach (AppUsers u in users)
+                    foreach (AppUser u in users)
                     {
                         Console.WriteLine(u.appUser_id + u.first_name + u.user_route);
                     }
@@ -159,11 +159,11 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                List<AppUsers> users = db.AppUsers.Where(x => x.cosmetologist_id == id.cosmetologist_id).ToList();
+                List<AppUser> users = db.AppUsers.Where(x => x.cosmetologist_id == id.cosmetologist_id).ToList();
 
                 if (users != null)
                 {
-                    foreach (AppUsers u in users)
+                    foreach (AppUser u in users)
                     {
                         Console.WriteLine(u.appUser_id + u.first_name + u.user_route + u.user_gender + u.user_skinProblem + u.user_skinType);
                     }
@@ -181,85 +181,92 @@ namespace SkinMeApp.Controllers
 
 
 
-        [HttpPut]
+        [HttpPost]
         [Route("api/Cos/SearchFamiliar")]
-        public IHttpActionResult SearchFamiliar([FromBody] User id) // search familiar users like this 
+        public IHttpActionResult SearchFamiliar(int id) // search familiar users like this 
         {
+            AppUser newUser = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
+
             int smart_count = 0; // this is the smart count that will show us how high is the similarity between 2 users in every check
 
             try
             {
-                List<AppUsers> users = db.AppUsers.ToList();
+                List<AppUser> users = db.AppUsers.ToList();
 
                 if (users != null)
                 {
-                    foreach (AppUsers u in users) // check every characteristic of my person comparing to other users (each user at a time)
+                    foreach (AppUser u in users) // check every characteristic of my person comparing to other users (each user at a time)
                     {
                         string temp_new_profile_name = ""; // will save temp name for new profile. if needed, we will use it at the end of the checks
 
-                        if (u.user_skinType != null && u.user_skinType == id.user_skinType) 
+                        if (u.user_skinType != null && u.user_skinType == newUser.user_skinType)
                         {
                             smart_count++;
-                            temp_new_profile_name += id.user_skinType;
+                            temp_new_profile_name += newUser.user_skinType;
                         }
-                        else if (u.user_skinProblem != null && u.user_skinProblem == id.user_skinProblem)
+                        if (u.user_skinProblem != null && u.user_skinProblem == newUser.user_skinProblem)
                         {
                             smart_count++;
-                            temp_new_profile_name += id.user_skinProblem;
+                            temp_new_profile_name += newUser.user_skinProblem;
 
                         }
-                        else if (u.user_cheek != null && u.user_cheek == id.user_cheek)
+                        if (u.user_cheek != null && u.user_cheek == newUser.user_cheek)
                         {
                             smart_count++;
-                            temp_new_profile_name += id.user_cheek;
+                            temp_new_profile_name += newUser.user_cheek;
 
                         }
-                        else if (u.user_Tzone != null && u.user_Tzone == id.user_Tzone)
+                        if (u.user_Tzone != null && u.user_Tzone == newUser.user_Tzone)
                         {
                             smart_count++;
-                            temp_new_profile_name += id.user_Tzone;
+                            temp_new_profile_name += newUser.user_Tzone;
 
                         }
-                        else if (u.user_sunExposure != null && u.user_sunExposure == id.user_sunExposure)
+                        if (u.user_sunExposure != null && u.user_sunExposure == newUser.user_sunExposure)
                         {
                             smart_count++;
-                            temp_new_profile_name += id.user_sunExposure;
+                            temp_new_profile_name += newUser.user_sunExposure;
 
                         }
-                        else if (u.user_stress != null && u.user_stress == id.user_stress)
+                        if (u.user_stress != null && u.user_stress == newUser.user_stress)
                         {
                             smart_count++;
-                            temp_new_profile_name += id.user_stress;
+                            temp_new_profile_name += newUser.user_stress;
 
                         }
-                        else if (u.user_period != null && u.user_period == id.user_period)
+                        if (u.user_period != null && u.user_period == newUser.user_period)
                         {
                             smart_count++;
-                            temp_new_profile_name += id.user_period;
+                            temp_new_profile_name += newUser.user_period;
 
                         }
 
 
-                        if (smart_count >= 6 && u.profile_code != null) // if the comparing is at high score, so put the same profile code to the new user
+                        if (smart_count >= 7 && u.profile_code != null) // if the comparing is at high score, so put the same profile code to the new user
                         {
-                            id.profile_code = u.profile_code.Value;
+                            newUser.profile_code = u.profile_code.Value;
 
-                            // bring the specific line of this profile (by profile code) and save the profile name
-                            Profiles profile = db.Profiles.SingleOrDefault(x => x.profile_code == id.profile_code);
-                            // add +1 to users_count
-                            profile.users_count++;
+                            //AppUsers newUser = db.AppUsers.SingleOrDefault(x => x.appUser_id == id.appUser_id);
+                            db.SaveChanges();
+
+                            return Ok(newUser);
                         }
-                        else if (smart_count >= 6 && u.profile_code == null) // if the comparing is at high score but there is not profile that exist to these characastics, create new profile
+                        else if (smart_count >= 7 && u.profile_code == null) // if the comparing is at high score but there is not profile that exist to these characastics, create new profile
                         {
-                            //Here we add new profile with the name: temp_new_profile_name
+                            Profile p = new Profile();
+                            p.profile_name = temp_new_profile_name;
+                            db.Profiles.Add(p);
+                            //add the profile_code to the u and for the new_user
+                            db.SaveChanges();
 
+                            //return Created(new Uri(Request.RequestUri.AbsoluteUri + newUser.profile_code), newUser.profile_code);
 
-                            //Profiles profile = db.Profiles.Add() -----not working
-                            //InsertNewProfile(temp_new_profile_name); ------- not working
+                            return Ok(p);
+
                         }
                     }
                 }
-                return Content(HttpStatusCode.OK, users);
+                return Content(HttpStatusCode.OK, "No matcing profile was found");
             }
             catch (Exception e)
             {
@@ -267,18 +274,7 @@ namespace SkinMeApp.Controllers
                 return BadRequest(e.Message);
             }
         }
-
-        //public string InsertNewProfile(string profileName)
-        //{
-        //    Profiles profile = db.Profiles.Add(Profiles.profile_name=profileName);
-
-        //    db.SaveChanges();
-        //    return Created(new Uri(Request.RequestUri.AbsoluteUri + value.appUser_id), value);
-
-        //}
-
     }
-
 }
 
 
