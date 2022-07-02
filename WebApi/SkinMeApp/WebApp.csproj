@@ -229,6 +229,7 @@
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DTO\Clients.cs" />
+    <Compile Include="DTO\Cosmetologist.cs" />
     <Compile Include="DTO\ForgotCosPassword.cs" />
     <Compile Include="DTO\ForgotPassword.cs" />
     <Compile Include="DTO\GetClients.cs" />

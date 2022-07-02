@@ -59,28 +59,6 @@ namespace SkinMeApp.Controllers
             }
         }
 
-        //public IHttpActionResult Put(int id, [FromBody] SkinPlan value) // Update plan 
-        //{
-        //    try
-        //    {
-        //        SkinPlan s = db.SkinPlans.SingleOrDefault(x => x.plan_id == id);
-        //        if (s != null)
-        //        {
-        //            s.plan_name = value.plan_name;
-        //            s.plan_date = value.plan_date;
-        //            s.notes = value.notes;
-        //            s.Product = value.Product;  /// ? how to change products 
-
-        //            return Ok(s);
-        //        }
-        //        return Content(HttpStatusCode.NotFound,
-        //            $"Plan with id={id} was not found.");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //}
 
         public IHttpActionResult Put(int id, [FromBody] PlanUpdate value) // Update plan 
         {
@@ -104,6 +82,7 @@ namespace SkinMeApp.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         public IHttpActionResult Delete(int id) // Delete plan 
         {
             try
@@ -122,8 +101,6 @@ namespace SkinMeApp.Controllers
                 return Content(HttpStatusCode.BadRequest, ex);
             }
         }
-
-
 
         [HttpPost]
         [Route("api/Cos/Depending")]
@@ -187,7 +164,6 @@ namespace SkinMeApp.Controllers
         {
             AppUser newUser = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
 
-            int smart_count = 0; // this is the smart count that will show us how high is the similarity between 2 users in every check
 
             try
             {
@@ -198,6 +174,8 @@ namespace SkinMeApp.Controllers
                     foreach (AppUser u in users) // check every characteristic of my person comparing to other users (each user at a time)
                     {
                         string temp_new_profile_name = ""; // will save temp name for new profile. if needed, we will use it at the end of the checks
+                        int smart_count = 0; // this is the smart count that will show us how high is the similarity between 2 users in every check
+
 
                         if (u.user_skinType != null && u.user_skinType == newUser.user_skinType)
                         {
@@ -241,8 +219,20 @@ namespace SkinMeApp.Controllers
 
                         }
 
+                        if (smart_count >= 7 && u.profile_code == null) // if the comparing is at high score, but there is no profile code to both users: create new profile and give it to both of them
+                        {
+                            Profile p = new Profile();
+                            p.profile_name = temp_new_profile_name;
+                            db.Profiles.Add(p);
+                            db.SaveChanges();
 
-                        if (smart_count >= 7 && u.profile_code != null) // if the comparing is at high score, so put the same profile code to the new user
+                            //add the profile_code to the u and for the new_user
+                            newUser.profile_code = p.profile_code;
+                            u.profile_code = p.profile_code;
+                            db.SaveChanges();
+
+                        }
+                        else if (smart_count >= 7 && u.profile_code != null) // if the comparing is at high score, but the comperd user has code- so put the same profile code to the new user
                         {
                             newUser.profile_code = u.profile_code.Value;
 
@@ -251,27 +241,42 @@ namespace SkinMeApp.Controllers
 
                             return Ok(newUser);
                         }
-                        else if (smart_count >= 7 && u.profile_code == null) // if the comparing is at high score but there is not profile that exist to these characastics, create new profile
-                        {
-                            Profile p = new Profile();
-                            p.profile_name = temp_new_profile_name;
-                            db.Profiles.Add(p);
-                            //add the profile_code to the u and for the new_user
-                            db.SaveChanges();
-
-                            //return Created(new Uri(Request.RequestUri.AbsoluteUri + newUser.profile_code), newUser.profile_code);
-
-                            return Ok(p);
-
-                        }
                     }
                 }
-                return Content(HttpStatusCode.OK, "No matcing profile was found");
+                return Content(HttpStatusCode.OK, "No matching profile was found");
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 return BadRequest(e.Message);
+            }
+        }
+
+
+        [HttpPut]
+        [Route("api/Cos/RateCosmetologist")]
+        public IHttpActionResult RateCosmetologist(int rate, [FromBody] Cosmetologist id) // Rate cosmetologist
+        {
+            try
+            {
+                AppCosmetologist cos = db.AppCosmetologists.SingleOrDefault(x => x.cosmetologist_id == id.cosmetologist_id);
+                if (cos != null)
+                {
+                    
+
+                    //s.plan_name = value.plan_name;
+                    //s.plan_date = value.plan_date;
+                    //s.notes = value.notes;
+                    //List<Product> products = db.Products.ToList(); /// ? how to change products from the plan
+
+                    return Ok(s);
+                }
+                return Content(HttpStatusCode.NotFound,
+                    $"Plan with id={id} was not found.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
             }
         }
     }
