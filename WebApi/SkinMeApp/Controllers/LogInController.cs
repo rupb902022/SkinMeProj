@@ -101,7 +101,7 @@ namespace SkinMeApp.Controllers
 
             try
             {
-                AppUser user = db.AppUsers.SingleOrDefault(x => x.email == mail);
+                AppUsers user = db.AppUsers.SingleOrDefault(x => x.email == mail);
 
                 SmtpClient client = new SmtpClient(Host, Port)
                 {
@@ -162,7 +162,7 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                AppUser log = db.AppUsers.FirstOrDefault
+                AppUsers log = db.AppUsers.FirstOrDefault
                     (x => x.username == login.username && x.user_password == login.user_password);
 
                 if (log != null)
@@ -189,7 +189,7 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                AppCosmetologist logc = db.AppCosmetologists.FirstOrDefault
+                AppCosmetologists logc = db.AppCosmetologists.FirstOrDefault
                     (x => x.cosmetologist_user_name == loginc.cosmetologist_user_name && x.cosmetologist_user_password == loginc.cosmetologist_user_password);
 
                 if (logc != null)
@@ -211,7 +211,7 @@ namespace SkinMeApp.Controllers
         [HttpPost]
         [Route("api/LogIn/register")]
 
-        public IHttpActionResult Post([FromBody] AppUser value)
+        public IHttpActionResult Post([FromBody] AppUsers value)
 
         {
             try
@@ -239,7 +239,7 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                AppUser social = new AppUser();
+                AppUsers social = new AppUsers();
                 if (social.appUser_id == 0)
                 {
                     social.first_name = value.first_name;
@@ -292,7 +292,7 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                AppUser user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
+                AppUsers user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
                 if (user != null)
                 {
                     
@@ -319,7 +319,7 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                AppCosmetologist user = db.AppCosmetologists.SingleOrDefault(x => x.cosmetologist_id == id);
+                AppCosmetologists user = db.AppCosmetologists.SingleOrDefault(x => x.cosmetologist_id == id);
                 if (user != null)
                 {
                     
@@ -348,7 +348,7 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                AppUser user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
+                AppUsers user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
                 if (user != null)
                 {
                     user.user_password = forgot.user_password;
@@ -370,7 +370,7 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                AppCosmetologist cos = db.AppCosmetologists.SingleOrDefault(x => x.cosmetologist_id == id);
+                AppCosmetologists cos = db.AppCosmetologists.SingleOrDefault(x => x.cosmetologist_id == id);
                 if (cos != null)
                 {
                     cos.cosmetologist_user_password = forgot.cosmetologist_user_password;
