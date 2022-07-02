@@ -102,6 +102,9 @@
     <Compile Include="Products_for_plan.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="ProfileImage.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Profiles.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

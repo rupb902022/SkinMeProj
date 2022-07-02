@@ -13,7 +13,7 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CosController : ApiController
     {
-        bgroup90_SkinmeDbContext db = new bgroup90_SkinmeDbContext();
+        bgroup90_DbSkinme db = new bgroup90_DbSkinme();
 
         [HttpGet]
         [Route("api/map")]
@@ -247,7 +247,7 @@ namespace SkinMeApp.Controllers
                             // bring the specific line of this profile (by profile code) and save the profile name
                             Profiles profile = db.Profiles.SingleOrDefault(x => x.profile_code == id.profile_code);
                             // add +1 to users_count
-                            profile.users_count++;
+                           // profile.user_count++;
                         }
                         else if (smart_count >= 6 && u.profile_code == null) // if the comparing is at high score but there is not profile that exist to these characastics, create new profile
                         {

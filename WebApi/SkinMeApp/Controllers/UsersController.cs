@@ -2,6 +2,8 @@
 using SkinMeApp.DTO;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -15,7 +17,96 @@ namespace SkinMeApp.Controllers
     public class UsersController : ApiController
     {
 
-        bgroup90_SkinmeDbContext db = new bgroup90_SkinmeDbContext();
+        bgroup90_DbSkinme db = new bgroup90_DbSkinme();
+        private object openFileDialoge1;
+
+        [HttpGet]
+        [Route("api/getskintype/")]
+        public IHttpActionResult Get(int id) // get skintype
+        {
+            try
+            {
+                AppUsers user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
+               
+                return Ok(user.user_skinType);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+        }
+        public byte[] imageToByteArray(System.Drawing.Image imageIn)
+        {
+            MemoryStream ms = new MemoryStream();
+            imageIn.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+            return ms.ToArray();
+        }
+        [HttpPost]
+        [Route("api/User/ImageProfile")]
+
+        public IHttpActionResult Post([FromBody] ProfileImage value)
+
+        {
+            try
+            {
+                db.ProfileImage.Add(value);
+                db.SaveChanges();
+                return Created(new Uri(Request.RequestUri.AbsoluteUri + value.imgId), value);
+
+            }
+            
+            catch (ArgumentNullException e)
+            {
+                Console.WriteLine(e);
+                return BadRequest(e.Message);
+            }
+        }
+        [HttpGet]
+        [Route("api/getImage/")]
+        public IHttpActionResult GetImage(int id) // get skintype
+        {
+            try
+            {
+                ProfileImage user = db.ProfileImage.SingleOrDefault(x => x.imgId == id);
+
+                return Ok(user.img);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+        }
+
+        [HttpPut]
+        [Route("api/Users/profileImage")]
+        public IHttpActionResult UploadProfilePic(int id, FileUpload fileobj) // upload to existant user profile image
+        {
+
+            try
+            {
+                AppUsers user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
+                if (user != null)
+                {
+                    using (var ms = new MemoryStream())
+                    {
+                        fileobj.file.CopyTo(ms);
+                        var filebytes = ms.ToArray();
+                        user.picture = filebytes;
+
+                        db.SaveChanges();
+                        return Ok(user);
+                    }
+                }
+                return Content(HttpStatusCode.NotFound,
+                    $"User not found");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPut]
         [Route("api/Users/addroute")]
