@@ -13,7 +13,7 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CosController : ApiController
     {
-        bgroup90_test2Entities9 db = new bgroup90_test2Entities9();
+        bgroup90_test2Entities12 db = new bgroup90_test2Entities12();
 
         [HttpGet]
         [Route("api/map")]
@@ -44,7 +44,8 @@ namespace SkinMeApp.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult Post([FromBody] SkinPlan value) // add plan
+        [Route("api/Cos/AddSkinPlan")]
+        public IHttpActionResult AddPlan([FromBody] SkinPlan value) // add plan
         {
             try
             {
@@ -52,6 +53,34 @@ namespace SkinMeApp.Controllers
                 db.SaveChanges();
                 return Created(new Uri(Request.RequestUri.AbsoluteUri + value.plan_id), value);
 
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("api/Cos/AddProdToPlan")]
+        public IHttpActionResult AddPTP(int id, [FromBody] Product value) // add products to skin plan
+        {
+            try
+            {
+                SkinPlan s = db.SkinPlans.SingleOrDefault(x => x.plan_id == id);
+
+                if (s != null)
+                {
+                    //List<Product> products = db.Products.ToList(); /// ? how to change products from the plan
+
+                    Products_for_plan p = new Products_for_plan();
+                    p.prod_id = value.prod_id;
+                    p.plan_id = id;
+                    db.Products_for_plan.Add(p);
+                    db.SaveChanges();
+                    return Ok(s);
+                }
+                return Content(HttpStatusCode.NotFound,
+                    $"Plan with id={id} was not found.");
             }
             catch (Exception ex)
             {
@@ -262,17 +291,15 @@ namespace SkinMeApp.Controllers
                 AppCosmetologist cos = db.AppCosmetologists.SingleOrDefault(x => x.cosmetologist_id == id.cosmetologist_id);
                 if (cos != null)
                 {
-                    
+                    cos.cosmetologist_sumRate += rate;
+                    cos.cosmetologist_numOfRates++;
+                    cos.cosmetologist_rate = cos.cosmetologist_sumRate / cos.cosmetologist_numOfRates++;
+                    db.SaveChanges();
 
-                    //s.plan_name = value.plan_name;
-                    //s.plan_date = value.plan_date;
-                    //s.notes = value.notes;
-                    //List<Product> products = db.Products.ToList(); /// ? how to change products from the plan
-
-                    return Ok(s);
+                    return Ok(cos);
                 }
                 return Content(HttpStatusCode.NotFound,
-                    $"Plan with id={id} was not found.");
+                    $"Cosmetologist with id={id} was not found.");
             }
             catch (Exception ex)
             {
