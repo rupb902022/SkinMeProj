@@ -33,6 +33,6 @@ namespace DATA
         public virtual DbSet<Profiles> Profiles { get; set; }
         public virtual DbSet<SkinPlan> SkinPlan { get; set; }
         public virtual DbSet<Products_for_plan> Products_for_plan { get; set; }
-        public virtual DbSet<ProductsForProfiles> ProductsForProfiles { get; set; }
+        public virtual DbSet<ProductsForProfile> ProductsForProfiles { get; set; }
     }
 }

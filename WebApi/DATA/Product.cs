@@ -12,21 +12,29 @@ namespace DATA
     using System;
     using System.Collections.Generic;
     
-    public partial class Profiles
+    public partial class Product
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Profiles()
+        public Product()
         {
-            this.AppUsers = new HashSet<AppUsers>();
-            this.ProductsForProfiles = new HashSet<ProductsForProfiles>();
+            this.Products_for_plan = new HashSet<Products_for_plan>();
+            this.ProductsForProfiles = new HashSet<ProductsForProfile>();
         }
     
-        public int profile_code { get; set; }
-        public string profile_name { get; set; }
+        public int prod_id { get; set; }
+        public string prod_name { get; set; }
+        public string prod_type { get; set; }
+        public string prod_company { get; set; }
+        public string prod_description { get; set; }
+        public string prod_manual { get; set; }
+        public Nullable<double> prod_rate { get; set; }
+        public string prod_sizeType { get; set; }
+        public Nullable<int> prod_size { get; set; }
+        public string prod_status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AppUsers> AppUsers { get; set; }
+        public virtual ICollection<Products_for_plan> Products_for_plan { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProductsForProfiles> ProductsForProfiles { get; set; }
+        public virtual ICollection<ProductsForProfile> ProductsForProfiles { get; set; }
     }
 }

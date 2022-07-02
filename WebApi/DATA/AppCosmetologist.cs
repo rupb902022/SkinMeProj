@@ -12,12 +12,12 @@ namespace DATA
     using System;
     using System.Collections.Generic;
     
-    public partial class AppCosmetologists
+    public partial class AppCosmetologist
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public AppCosmetologists()
+        public AppCosmetologist()
         {
-            this.SkinPlan = new HashSet<SkinPlan>();
+            this.SkinPlans = new HashSet<SkinPlan>();
         }
     
         public int cosmetologist_id { get; set; }
@@ -38,6 +38,6 @@ namespace DATA
         public string lat { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SkinPlan> SkinPlan { get; set; }
+        public virtual ICollection<SkinPlan> SkinPlans { get; set; }
     }
 }

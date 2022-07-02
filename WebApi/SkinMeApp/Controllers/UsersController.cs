@@ -114,7 +114,7 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                AppUsers user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id );
+                AppUser user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id );
                 if (user!= null)
                 {
                     user.user_route = maslul.user_route;
@@ -136,7 +136,7 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                AppUsers user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
+                AppUser user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
                 if (user != null)
                 {
                     user.user_route = maslul.user_route;
@@ -163,7 +163,7 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                AppUsers user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
+                AppUser user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
                 if (user != null)
                 {
                     user.cosmetologist_id = cos.cosmetologist_id;
@@ -212,7 +212,7 @@ namespace SkinMeApp.Controllers
             try
             {
 
-                AppUsers user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
+                AppUser user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
 
                 if (user != null)
                 {

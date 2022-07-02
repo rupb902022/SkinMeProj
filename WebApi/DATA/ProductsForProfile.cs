@@ -12,12 +12,13 @@ namespace DATA
     using System;
     using System.Collections.Generic;
     
-    public partial class AutoPlans
+    public partial class ProductsForProfile
     {
-        public int autoplan_id { get; set; }
-        public string autoplan_name { get; set; }
-        public string autoplan_skinType { get; set; }
-        public string product_id { get; set; }
-        public string autoplan_manual { get; set; }
+        public int pfp_id { get; set; }
+        public Nullable<int> profile_code { get; set; }
+        public Nullable<int> prod_id { get; set; }
+    
+        public virtual Product Product { get; set; }
+        public virtual Profile Profile { get; set; }
     }
 }
