@@ -17,6 +17,7 @@ namespace DATA
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SkinPlan()
         {
+            this.AppUsers = new HashSet<AppUser>();
             this.Products_for_plan = new HashSet<Products_for_plan>();
         }
     
@@ -29,6 +30,8 @@ namespace DATA
         public string notes { get; set; }
     
         public virtual AppCosmetologist AppCosmetologist { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AppUser> AppUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Products_for_plan> Products_for_plan { get; set; }
     }
