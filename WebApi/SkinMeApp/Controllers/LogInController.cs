@@ -13,7 +13,7 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class LogInController : ApiController
     {
-        bgroup90_test2Entities13 db = new bgroup90_test2Entities13();
+        bgroup90_DbContext db = new bgroup90_DbContext();
 
         public string GeneratePassword()
         {
@@ -231,6 +231,10 @@ namespace SkinMeApp.Controllers
                 Console.WriteLine(e);
                 return BadRequest(e.Message);
             }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
@@ -244,7 +248,7 @@ namespace SkinMeApp.Controllers
                 {
                     social.first_name = value.first_name;
                     social.email = value.user_email;
-                    social.picture = value.user_profilepic;
+                    //social.picture = value.user_profilepic;
 
                     db.AppUsers.Add(social);
                     db.SaveChanges();

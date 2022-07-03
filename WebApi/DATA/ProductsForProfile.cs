@@ -12,13 +12,13 @@ namespace DATA
     using System;
     using System.Collections.Generic;
     
-    public partial class Products_for_plan
+    public partial class ProductsForProfile
     {
         public int pfp_id { get; set; }
+        public Nullable<int> profile_code { get; set; }
         public Nullable<int> prod_id { get; set; }
-        public Nullable<int> plan_id { get; set; }
     
         public virtual Product Product { get; set; }
-        public virtual SkinPlan SkinPlan { get; set; }
+        public virtual Profile Profile { get; set; }
     }
 }

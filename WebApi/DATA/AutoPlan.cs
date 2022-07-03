@@ -12,7 +12,7 @@ namespace DATA
     using System;
     using System.Collections.Generic;
     
-    public partial class AutoPlans
+    public partial class AutoPlan
     {
         public int autoplan_id { get; set; }
         public string autoplan_name { get; set; }
