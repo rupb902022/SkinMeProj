@@ -13,7 +13,7 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class LogInController : ApiController
     {
-        bgroup90_DbSkinme db = new bgroup90_DbSkinme();
+        bgroup90_test2Entities13 db = new bgroup90_test2Entities13();
 
         public string GeneratePassword()
         {
@@ -101,7 +101,7 @@ namespace SkinMeApp.Controllers
 
             try
             {
-                AppUsers user = db.AppUsers.SingleOrDefault(x => x.email == mail);
+                AppUser user = db.AppUsers.SingleOrDefault(x => x.email == mail);
 
                 SmtpClient client = new SmtpClient(Host, Port)
                 {
@@ -162,12 +162,12 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                AppUsers log = db.AppUsers.FirstOrDefault
+                AppUser log = db.AppUsers.FirstOrDefault
                     (x => x.username == login.username && x.user_password == login.user_password);
 
                 if (log != null)
                 {
-                   
+                    
                     return Content(HttpStatusCode.OK,
                         $"{log.appUser_id}");
                 }
@@ -189,7 +189,7 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                AppCosmetologists logc = db.AppCosmetologists.FirstOrDefault
+                AppCosmetologist logc = db.AppCosmetologists.FirstOrDefault
                     (x => x.cosmetologist_user_name == loginc.cosmetologist_user_name && x.cosmetologist_user_password == loginc.cosmetologist_user_password);
 
                 if (logc != null)
@@ -211,7 +211,7 @@ namespace SkinMeApp.Controllers
         [HttpPost]
         [Route("api/LogIn/register")]
 
-        public IHttpActionResult Post([FromBody] AppUsers value)
+        public IHttpActionResult Post([FromBody] AppUser value)
 
         {
             try
@@ -239,7 +239,7 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                AppUsers social = new AppUsers();
+                AppUser social = new AppUser();
                 if (social.appUser_id == 0)
                 {
                     social.first_name = value.first_name;
@@ -292,7 +292,7 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                AppUsers user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
+                AppUser user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
                 if (user != null)
                 {
                     
@@ -319,7 +319,7 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                AppCosmetologists user = db.AppCosmetologists.SingleOrDefault(x => x.cosmetologist_id == id);
+                AppCosmetologist user = db.AppCosmetologists.SingleOrDefault(x => x.cosmetologist_id == id);
                 if (user != null)
                 {
                     
@@ -330,6 +330,7 @@ namespace SkinMeApp.Controllers
                     user.cosmetic_businessName = up.cosmetic_businessName;
                     user.cosmetic_city = up.cosmetic_city;
                     user.cosmetic_address = up.cosmetic_address;
+                    user.cosmetologist_phoneNumber = up.cosmetologist_phoneNumber;
 
                     return Ok(user);
                 }
@@ -348,7 +349,7 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                AppUsers user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
+                AppUser user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
                 if (user != null)
                 {
                     user.user_password = forgot.user_password;
@@ -370,7 +371,7 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                AppCosmetologists cos = db.AppCosmetologists.SingleOrDefault(x => x.cosmetologist_id == id);
+                AppCosmetologist cos = db.AppCosmetologists.SingleOrDefault(x => x.cosmetologist_id == id);
                 if (cos != null)
                 {
                     cos.cosmetologist_user_password = forgot.cosmetologist_user_password;
