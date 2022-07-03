@@ -28,8 +28,8 @@ namespace DATA
         public string email { get; set; }
         public string user_gender { get; set; }
         public Nullable<System.DateTime> user_birth { get; set; }
-        public byte[] picture { get; set; }
-        public byte[] user_picsprocess { get; set; }
+        public string picture { get; set; }
+        public string user_picsprocess { get; set; }
         public string user_skinType { get; set; }
         public string user_skinProblem { get; set; }
         public string user_cheek { get; set; }
