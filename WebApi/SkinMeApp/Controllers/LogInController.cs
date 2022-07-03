@@ -167,7 +167,7 @@ namespace SkinMeApp.Controllers
 
                 if (log != null)
                 {
-                    return Ok(log);
+                    return Content(HttpStatusCode.OK,log);
                 }
                 return Content(HttpStatusCode.NotFound,
                     $"username or password were not found");
@@ -301,7 +301,7 @@ namespace SkinMeApp.Controllers
                     user.email = up.email;
                     user.username = up.username;
                     user.user_password = up.user_password;
-                    user.picture = up.picture;
+                    //user.picture = up.picture;
 
                     return Ok(user);
                 }
