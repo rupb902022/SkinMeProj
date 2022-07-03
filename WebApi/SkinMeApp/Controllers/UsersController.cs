@@ -15,7 +15,7 @@ namespace SkinMeApp.Controllers
     public class UsersController : ApiController
     {
 
-        bgroup90_DbContext db = new bgroup90_DbContext();
+        bgroup90_test2Entities14 db = new bgroup90_test2Entities14();
 
         [HttpPut]
         [Route("api/Users/addroute")]

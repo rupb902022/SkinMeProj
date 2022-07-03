@@ -15,7 +15,7 @@ namespace SkinMeApp.Controllers
 
     public class ProductsController : ApiController
     {
-        bgroup90_DbContext db = new bgroup90_DbContext();
+        bgroup90_test2Entities14 db = new bgroup90_test2Entities14();
 
 
         [HttpGet]
@@ -360,29 +360,27 @@ namespace SkinMeApp.Controllers
 
         [HttpGet]
         [Route("api/Products/GetProdForPlan")]
-        public IHttpActionResult GetProductsForPlan(int plan_id) // get products for skin plan
+        public IHttpActionResult GetProductsForPlan(int id) // get products for skin plan
         {
             try
             {
+                SkinPlan plan = db.SkinPlans.SingleOrDefault(x => x.appUser_id == id); // get the plan for this user
 
-                List<Products_for_plan> productsForPlan = db.Products_for_plan.Where(x => x.plan_id == plan_id).ToList();
+                List<Products_for_plan> productsForPlan = db.Products_for_plan.Where(x => x.plan_id == plan.plan_id).ToList(); //list all the products for this plan id
 
                 if (productsForPlan != null)
                 {
                     foreach (Products_for_plan p in productsForPlan)
                     {
-                        return Content(HttpStatusCode.OK, $" {p.prod_id }");
-
+                        return Ok(p);
                     }
-
-
                 }
                 return Content(HttpStatusCode.NotFound,
-                    $"no products for plan found");
+                    $"Products for plan id={id} was not found.");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                return BadRequest(ex.Message);
             }
         }
 

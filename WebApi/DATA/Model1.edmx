@@ -128,16 +128,6 @@
           <Property Name="plan_date" Type="date" />
           <Property Name="notes" Type="varchar" MaxLength="2500" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
         <!--Errors Found During Generation:
 warning 6013: The table/view 'bgroup90_test2.dbo.UsersImages' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
         <EntityType Name="UsersImages">
@@ -145,6 +135,18 @@ warning 6013: The table/view 'bgroup90_test2.dbo.UsersImages' does not have a pr
           <Property Name="appUser_id" Type="int" />
           <Property Name="upload_date" Type="date" />
         </EntityType>-->
+        <Association Name="FK_AppUsers_AppCosmetologists">
+          <End Role="AppCosmetologists" Type="Self.AppCosmetologists" Multiplicity="0..1" />
+          <End Role="AppUsers" Type="Self.AppUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppCosmetologists">
+              <PropertyRef Name="cosmetologist_id" />
+            </Principal>
+            <Dependent Role="AppUsers">
+              <PropertyRef Name="cosmetologist_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_AppUsers_Profiles">
           <End Role="Profiles" Type="Self.Profiles" Multiplicity="0..1" />
           <End Role="AppUsers" Type="Self.AppUsers" Multiplicity="*" />
@@ -157,9 +159,6 @@ warning 6013: The table/view 'bgroup90_test2.dbo.UsersImages' does not have a pr
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <!--Errors Found During Generation:
-warning 6035: The relationship 'FK_AppUsers_SkinPlan' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
-        <Association Name="FK_AppUsers_SkinPlan" />-->
         <Association Name="FK_Products_for_plan_Products">
           <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
           <End Role="Products_for_plan" Type="Self.Products_for_plan" Multiplicity="*" />
@@ -230,7 +229,10 @@ warning 6035: The relationship 'FK_AppUsers_SkinPlan' has columns that are not p
           <EntitySet Name="ProfileImage" EntityType="Self.ProfileImage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Profiles" EntityType="Self.Profiles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SkinPlan" EntityType="Self.SkinPlan" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AppUsers_AppCosmetologists" Association="Self.FK_AppUsers_AppCosmetologists">
+            <End Role="AppCosmetologists" EntitySet="AppCosmetologists" />
+            <End Role="AppUsers" EntitySet="AppUsers" />
+          </AssociationSet>
           <AssociationSet Name="FK_AppUsers_Profiles" Association="Self.FK_AppUsers_Profiles">
             <End Role="Profiles" EntitySet="Profiles" />
             <End Role="AppUsers" EntitySet="AppUsers" />
@@ -285,6 +287,7 @@ warning 6035: The relationship 'FK_AppUsers_SkinPlan' has columns that are not p
           <Property Name="cosmetologist_numOfRates" Type="Int32" />
           <Property Name="cosmetologist_rate" Type="Int32" />
           <Property Name="cosmetologist_phoneNumber" Type="Int32" />
+          <NavigationProperty Name="AppUsers" Relationship="Self.FK_AppUsers_AppCosmetologists" FromRole="AppCosmetologists" ToRole="AppUsers" />
           <NavigationProperty Name="SkinPlans" Relationship="Self.FK_SkinPlan_AppCosmetologists" FromRole="AppCosmetologists" ToRole="SkinPlan" />
         </EntityType>
         <EntityType Name="AppUser">
@@ -316,6 +319,7 @@ warning 6035: The relationship 'FK_AppUsers_SkinPlan' has columns that are not p
           <Property Name="user_route" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Name="cosmetologist_id" Type="Int32" />
           <Property Name="profile_code" Type="Int32" />
+          <NavigationProperty Name="AppCosmetologist" Relationship="Self.FK_AppUsers_AppCosmetologists" FromRole="AppUsers" ToRole="AppCosmetologists" />
           <NavigationProperty Name="Profile" Relationship="Self.FK_AppUsers_Profiles" FromRole="AppUsers" ToRole="Profiles" />
         </EntityType>
         <EntityType Name="AutoPlan">
@@ -396,16 +400,18 @@ warning 6035: The relationship 'FK_AppUsers_SkinPlan' has columns that are not p
           <NavigationProperty Name="AppCosmetologist" Relationship="Self.FK_SkinPlan_AppCosmetologists" FromRole="SkinPlan" ToRole="AppCosmetologists" />
           <NavigationProperty Name="Products_for_plan" Relationship="Self.FK_Products_for_plan_SkinPlan" FromRole="SkinPlan" ToRole="Products_for_plan" />
         </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
+        <Association Name="FK_AppUsers_AppCosmetologists">
+          <End Role="AppCosmetologists" Type="Self.AppCosmetologist" Multiplicity="0..1" />
+          <End Role="AppUsers" Type="Self.AppUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppCosmetologists">
+              <PropertyRef Name="cosmetologist_id" />
+            </Principal>
+            <Dependent Role="AppUsers">
+              <PropertyRef Name="cosmetologist_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SkinPlan_AppCosmetologists">
           <End Role="AppCosmetologists" Type="Self.AppCosmetologist" Multiplicity="0..1" />
           <End Role="SkinPlan" Type="Self.SkinPlan" Multiplicity="*" />
@@ -478,7 +484,7 @@ warning 6035: The relationship 'FK_AppUsers_SkinPlan' has columns that are not p
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="bgroup90_DbContext" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="bgroup90_test2Entities14" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AppCosmetologists" EntityType="Self.AppCosmetologist" />
           <EntitySet Name="AppUsers" EntityType="Self.AppUser" />
           <EntitySet Name="AutoPlans" EntityType="Self.AutoPlan" />
@@ -488,7 +494,10 @@ warning 6035: The relationship 'FK_AppUsers_SkinPlan' has columns that are not p
           <EntitySet Name="ProfileImages" EntityType="Self.ProfileImage" />
           <EntitySet Name="Profiles" EntityType="Self.Profile" />
           <EntitySet Name="SkinPlans" EntityType="Self.SkinPlan" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <AssociationSet Name="FK_AppUsers_AppCosmetologists" Association="Self.FK_AppUsers_AppCosmetologists">
+            <End Role="AppCosmetologists" EntitySet="AppCosmetologists" />
+            <End Role="AppUsers" EntitySet="AppUsers" />
+          </AssociationSet>
           <AssociationSet Name="FK_SkinPlan_AppCosmetologists" Association="Self.FK_SkinPlan_AppCosmetologists">
             <End Role="AppCosmetologists" EntitySet="AppCosmetologists" />
             <End Role="SkinPlan" EntitySet="SkinPlans" />
@@ -519,7 +528,7 @@ warning 6035: The relationship 'FK_AppUsers_SkinPlan' has columns that are not p
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="bgroup90_test2ModelStoreContainer" CdmEntityContainer="bgroup90_DbContext">
+        <EntityContainerMapping StorageEntityContainer="bgroup90_test2ModelStoreContainer" CdmEntityContainer="bgroup90_test2Entities14">
           <EntitySetMapping Name="AppCosmetologists">
             <EntityTypeMapping TypeName="bgroup90_test2Model.AppCosmetologist">
               <MappingFragment StoreEntitySet="AppCosmetologists">
@@ -649,17 +658,6 @@ warning 6035: The relationship 'FK_AppUsers_SkinPlan' has columns that are not p
                 <ScalarProperty Name="plan_name" ColumnName="plan_name" />
                 <ScalarProperty Name="plan_date" ColumnName="plan_date" />
                 <ScalarProperty Name="notes" ColumnName="notes" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="bgroup90_test2Model.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
