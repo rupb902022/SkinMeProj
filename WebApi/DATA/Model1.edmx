@@ -101,14 +101,6 @@
           <Property Name="profile_code" Type="int" />
           <Property Name="prod_id" Type="int" />
         </EntityType>
-        <EntityType Name="ProfileImage">
-          <Key>
-            <PropertyRef Name="imgId" />
-          </Key>
-          <Property Name="imgId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="imgName" Type="varchar" MaxLength="50" />
-          <Property Name="img" Type="varchar(max)" />
-        </EntityType>
         <EntityType Name="Profiles">
           <Key>
             <PropertyRef Name="profile_code" />
@@ -226,7 +218,6 @@ warning 6013: The table/view 'bgroup90_test2.dbo.UsersImages' does not have a pr
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products_for_plan" EntityType="Self.Products_for_plan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductsForProfiles" EntityType="Self.ProductsForProfiles" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ProfileImage" EntityType="Self.ProfileImage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Profiles" EntityType="Self.Profiles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SkinPlan" EntityType="Self.SkinPlan" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_AppUsers_AppCosmetologists" Association="Self.FK_AppUsers_AppCosmetologists">
@@ -369,14 +360,6 @@ warning 6013: The table/view 'bgroup90_test2.dbo.UsersImages' does not have a pr
           <NavigationProperty Name="Product" Relationship="Self.FK_ProductsForProfiles_Products" FromRole="ProductsForProfiles" ToRole="Products" />
           <NavigationProperty Name="Profile" Relationship="Self.FK_ProductsForProfiles_Profiles" FromRole="ProductsForProfiles" ToRole="Profiles" />
         </EntityType>
-        <EntityType Name="ProfileImage">
-          <Key>
-            <PropertyRef Name="imgId" />
-          </Key>
-          <Property Name="imgId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="imgName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="img" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="Profile">
           <Key>
             <PropertyRef Name="profile_code" />
@@ -484,14 +467,13 @@ warning 6013: The table/view 'bgroup90_test2.dbo.UsersImages' does not have a pr
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="bgroup90_test2Entities14" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="bgroup90_test2Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AppCosmetologists" EntityType="Self.AppCosmetologist" />
           <EntitySet Name="AppUsers" EntityType="Self.AppUser" />
           <EntitySet Name="AutoPlans" EntityType="Self.AutoPlan" />
           <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="Products_for_plan" EntityType="Self.Products_for_plan" />
           <EntitySet Name="ProductsForProfiles" EntityType="Self.ProductsForProfile" />
-          <EntitySet Name="ProfileImages" EntityType="Self.ProfileImage" />
           <EntitySet Name="Profiles" EntityType="Self.Profile" />
           <EntitySet Name="SkinPlans" EntityType="Self.SkinPlan" />
           <AssociationSet Name="FK_AppUsers_AppCosmetologists" Association="Self.FK_AppUsers_AppCosmetologists">
@@ -528,7 +510,7 @@ warning 6013: The table/view 'bgroup90_test2.dbo.UsersImages' does not have a pr
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="bgroup90_test2ModelStoreContainer" CdmEntityContainer="bgroup90_test2Entities14">
+        <EntityContainerMapping StorageEntityContainer="bgroup90_test2ModelStoreContainer" CdmEntityContainer="bgroup90_test2Entities">
           <EntitySetMapping Name="AppCosmetologists">
             <EntityTypeMapping TypeName="bgroup90_test2Model.AppCosmetologist">
               <MappingFragment StoreEntitySet="AppCosmetologists">
@@ -628,15 +610,6 @@ warning 6013: The table/view 'bgroup90_test2.dbo.UsersImages' does not have a pr
                 <ScalarProperty Name="pfp_id" ColumnName="pfp_id" />
                 <ScalarProperty Name="profile_code" ColumnName="profile_code" />
                 <ScalarProperty Name="prod_id" ColumnName="prod_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ProfileImages">
-            <EntityTypeMapping TypeName="bgroup90_test2Model.ProfileImage">
-              <MappingFragment StoreEntitySet="ProfileImage">
-                <ScalarProperty Name="imgId" ColumnName="imgId" />
-                <ScalarProperty Name="imgName" ColumnName="imgName" />
-                <ScalarProperty Name="img" ColumnName="img" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
