@@ -28,6 +28,7 @@
           <Property Name="cosmetologist_sumRate" Type="int" />
           <Property Name="cosmetologist_numOfRates" Type="int" />
           <Property Name="cosmetologist_rate" Type="int" />
+          <Property Name="cosmetologist_phoneNumber" Type="int" />
         </EntityType>
         <EntityType Name="AppUsers">
           <Key>
@@ -285,6 +286,7 @@ warning 6013: The table/view 'bgroup90_test2.dbo.UsersImages' does not have a pr
           <Property Name="cosmetologist_sumRate" Type="Int32" />
           <Property Name="cosmetologist_numOfRates" Type="Int32" />
           <Property Name="cosmetologist_rate" Type="Int32" />
+          <Property Name="cosmetologist_phoneNumber" Type="Int32" />
           <NavigationProperty Name="SkinPlans" Relationship="Self.FK_SkinPlan_AppCosmetologists" FromRole="AppCosmetologists" ToRole="SkinPlan" />
         </EntityType>
         <EntityType Name="AppUser">
@@ -482,7 +484,7 @@ warning 6013: The table/view 'bgroup90_test2.dbo.UsersImages' does not have a pr
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="bgroup90_test2Entities12" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="bgroup90_test2Entities13" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AppCosmetologists" EntityType="Self.AppCosmetologist" />
           <EntitySet Name="AppUsers" EntityType="Self.AppUser" />
           <EntitySet Name="AutoPlans" EntityType="Self.AutoPlan" />
@@ -526,7 +528,7 @@ warning 6013: The table/view 'bgroup90_test2.dbo.UsersImages' does not have a pr
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="bgroup90_test2ModelStoreContainer" CdmEntityContainer="bgroup90_test2Entities12">
+        <EntityContainerMapping StorageEntityContainer="bgroup90_test2ModelStoreContainer" CdmEntityContainer="bgroup90_test2Entities13">
           <EntitySetMapping Name="AppCosmetologists">
             <EntityTypeMapping TypeName="bgroup90_test2Model.AppCosmetologist">
               <MappingFragment StoreEntitySet="AppCosmetologists">
@@ -549,6 +551,7 @@ warning 6013: The table/view 'bgroup90_test2.dbo.UsersImages' does not have a pr
                 <ScalarProperty Name="cosmetologist_sumRate" ColumnName="cosmetologist_sumRate" />
                 <ScalarProperty Name="cosmetologist_numOfRates" ColumnName="cosmetologist_numOfRates" />
                 <ScalarProperty Name="cosmetologist_rate" ColumnName="cosmetologist_rate" />
+                <ScalarProperty Name="cosmetologist_phoneNumber" ColumnName="cosmetologist_phoneNumber" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
