@@ -238,10 +238,13 @@ namespace SkinMeApp.Controllers
 
                 if (user != null)
                 {
-                      return Content(HttpStatusCode.OK,
-                          
-                          $" {user.cosmetologist_id }");
+                    AppCosmetologists cos = db.AppCosmetologists.SingleOrDefault(x => x.cosmetologist_id == user.cosmetologist_id);
 
+                    if (cos != null)
+                    {
+                        return Content(HttpStatusCode.OK,cos);
+
+                    }
 
                 }
                 return Content(HttpStatusCode.NotFound,
