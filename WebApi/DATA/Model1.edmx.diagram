@@ -4,19 +4,19 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d90193b319ec43f992bf5d8cb76bf69d" Name="Diagram1" ZoomLevel="52">
-        <EntityTypeShape EntityType="bgroup90_test2Model.AppCosmetologist" Width="1.5" PointX="3" PointY="14.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="bgroup90_test2Model.AppUser" Width="1.5" PointX="3" PointY="2.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="bgroup90_test2Model.AutoPlan" Width="1.5" PointX="7.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="bgroup90_test2Model.Product" Width="1.5" PointX="3.75" PointY="9.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="bgroup90_test2Model.Products_for_plan" Width="1.5" PointX="7.5" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="bgroup90_test2Model.ProductsForProfile" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="bgroup90_test2Model.ProfileImage" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="bgroup90_test2Model.Profile" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="bgroup90_test2Model.SkinPlan" Width="1.5" PointX="5.25" PointY="4.25" IsExpanded="true" />
+      <Diagram DiagramId="7cfba9c27c524541b7004247c0c8cd2d" Name="Diagram1">
+        <EntityTypeShape EntityType="bgroup90_test2Model.AppCosmetologist" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup90_test2Model.AppUser" Width="1.5" PointX="8" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup90_test2Model.AutoPlan" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup90_test2Model.Product" Width="1.5" PointX="3" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup90_test2Model.Products_for_plan" Width="1.5" PointX="5.25" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup90_test2Model.ProductsForProfile" Width="1.5" PointX="11" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup90_test2Model.ProfileImage" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup90_test2Model.Profile" Width="1.5" PointX="5.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup90_test2Model.SkinPlan" Width="1.5" PointX="3" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup90_test2Model.sysdiagram" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="bgroup90_test2Model.FK_SkinPlan_AppCosmetologists" ManuallyRouted="false" />
         <AssociationConnector Association="bgroup90_test2Model.FK_AppUsers_Profiles" ManuallyRouted="false" />
-        <AssociationConnector Association="bgroup90_test2Model.FK_SkinPlan_AppUsers" ManuallyRouted="false" />
         <AssociationConnector Association="bgroup90_test2Model.FK_Products_for_plan_Products" ManuallyRouted="false" />
         <AssociationConnector Association="bgroup90_test2Model.FK_ProductsForProfiles_Products" ManuallyRouted="false" />
         <AssociationConnector Association="bgroup90_test2Model.FK_Products_for_plan_SkinPlan" ManuallyRouted="false" />

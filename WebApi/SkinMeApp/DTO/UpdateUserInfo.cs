@@ -11,7 +11,7 @@ namespace SkinMeApp.DTO
         public string user_password { get; set; }
         public string email { get; set; }
 
-        public byte[] picture { get; set; }
+        public string picture { get; set; }
 
     }
 }
