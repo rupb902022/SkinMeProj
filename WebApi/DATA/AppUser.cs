@@ -39,8 +39,10 @@ namespace DATA
         public string user_route { get; set; }
         public Nullable<int> cosmetologist_id { get; set; }
         public Nullable<int> profile_code { get; set; }
+        public Nullable<int> plan_id { get; set; }
     
         public virtual AppCosmetologist AppCosmetologist { get; set; }
         public virtual Profile Profile { get; set; }
+        public virtual SkinPlan SkinPlan { get; set; }
     }
 }

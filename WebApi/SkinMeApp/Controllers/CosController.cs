@@ -13,7 +13,7 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CosController : ApiController
     {
-        bgroup90_test2Entities14 db = new bgroup90_test2Entities14();
+        bgroup90_test2Entities15 db = new bgroup90_test2Entities15();
 
         [HttpGet]
         [Route("api/map")]
@@ -260,6 +260,18 @@ namespace SkinMeApp.Controllers
                             u.profile_code = p.profile_code;
                             db.SaveChanges();
 
+                            // find the u skin plan id 
+                            //bring the products for plan of this plan
+                            List<Products_for_plan> productsForPlan = db.Products_for_plan.Where(x => x.plan_id == u.plan_id).ToList();
+
+                            // put these products in our profile 
+                            foreach (Products_for_plan pfp in productsForPlan)
+                            {
+                                ProductsForProfile forProfile = new ProductsForProfile();
+                                forProfile.prod_id = pfp.prod_id;
+                                db.ProductsForProfiles.Add(forProfile);
+                                db.SaveChanges();
+                            }
                         }
                         else if (smart_count >= 7 && u.profile_code != null) // if the comparing is at high score, but the comperd user has code- so put the same profile code to the new user
                         {
@@ -268,6 +280,19 @@ namespace SkinMeApp.Controllers
                             //AppUsers newUser = db.AppUsers.SingleOrDefault(x => x.appUser_id == id.appUser_id);
                             db.SaveChanges();
 
+                            // find the u skin plan id 
+                            //bring the products for plan of this plan
+                            List<Products_for_plan> productsForPlan = db.Products_for_plan.Where(x => x.plan_id == u.plan_id).ToList();
+
+                            // put these products in our profile 
+                            foreach (Products_for_plan pfp in productsForPlan)
+                            {
+                                ProductsForProfile forProfile = new ProductsForProfile();
+                                forProfile.profile_code = u.profile_code;
+                                forProfile.prod_id = pfp.prod_id;
+                                db.ProductsForProfiles.Add(forProfile);
+                                db.SaveChanges();
+                            }
                             return Ok(newUser);
                         }
                     }

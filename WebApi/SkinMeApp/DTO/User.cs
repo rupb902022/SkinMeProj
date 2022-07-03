@@ -16,6 +16,7 @@ namespace SkinMeApp.DTO
         public string user_stress { get; set; }
         public string user_period { get; set; }
         public int profile_code { get; set; }
+        public int plan_id { get; set; }
 
     }
 }
