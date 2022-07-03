@@ -30,6 +30,31 @@ namespace SkinMeApp.Controllers
             }
         }
 
+        //[HttpGet]
+        //[Route("api/mycos")]
+        //public IHttpActionResult MyCos(int id ) // Get my cos  
+        //{
+        //    try
+        //    {
+        //        AppCosmetologists cos = db.AppCosmetologists.SingleOrDefault(x => x.cosmetologist_id == id);
+
+        //        if (cos != null)
+        //        {
+        //            return Content(HttpStatusCode.OK, 
+        //                              $" {cos}");
+
+
+        //        }
+        //        return Content(HttpStatusCode.NotFound,
+        //           $"Cos not found");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+
+        //    }
+        //}
+
         public IHttpActionResult Get() // Get all תוכניות טיפוח
         {
             try

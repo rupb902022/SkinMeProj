@@ -167,7 +167,7 @@ namespace SkinMeApp.Controllers
 
                 if (log != null)
                 {
-                    
+                   
                     return Content(HttpStatusCode.OK,
                         $"{log.appUser_id}");
                 }

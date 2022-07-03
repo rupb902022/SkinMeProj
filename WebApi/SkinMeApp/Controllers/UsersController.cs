@@ -64,7 +64,7 @@ namespace SkinMeApp.Controllers
         }
         [HttpGet]
         [Route("api/getImage/")]
-        public IHttpActionResult GetImage(int id) // get skintype
+        public IHttpActionResult GetImage(int id) 
         {
             try
             {
@@ -98,6 +98,28 @@ namespace SkinMeApp.Controllers
                         db.SaveChanges();
                         return Ok(user);
                     }
+                }
+                return Content(HttpStatusCode.NotFound,
+                    $"User not found");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut]
+        [Route("api/Users/Image")]
+        public IHttpActionResult Image(int id, [FromBody] ImageUpload image) // can update only manual / instructions
+        {
+            try
+            {
+                AppUsers user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
+                if (user != null)
+                {
+                    user.picture = image.picture;
+                    db.SaveChanges();
+                    return Ok(user);
                 }
                 return Content(HttpStatusCode.NotFound,
                     $"User not found");
@@ -207,7 +229,7 @@ namespace SkinMeApp.Controllers
 
         [HttpGet]
         [Route("api/User/Mycos")]
-        public IHttpActionResult GetMyCos(int id ) 
+        public IHttpActionResult GetMyCos(int id) 
         {
             try
             {
@@ -218,9 +240,7 @@ namespace SkinMeApp.Controllers
                 {
                       return Content(HttpStatusCode.OK,
                           
-                          $"id: {user.cosmetologist_id }");
-
-                    
+                          $" {user.cosmetologist_id }");
 
 
                 }

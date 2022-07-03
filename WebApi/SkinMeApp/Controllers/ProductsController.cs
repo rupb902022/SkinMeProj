@@ -102,7 +102,7 @@ namespace SkinMeApp.Controllers
         public IHttpActionResult ProductsbySkinTypeDay([FromBody] GetSkintype skintype)
         {
 
-            if (skintype.user_skinType == "oily")
+            if (skintype.user_skinType == "שומני")
             {
                 try
                 {
@@ -129,7 +129,7 @@ namespace SkinMeApp.Controllers
                     throw;
                 }
             }
-            else if (skintype.user_skinType == "regular")
+            else if (skintype.user_skinType == "מעורב")
             {
                 try
                 {
@@ -194,7 +194,7 @@ namespace SkinMeApp.Controllers
         public IHttpActionResult ProductsbySkinTypeNight([FromBody] GetSkintype skintype)
         {
 
-            if (skintype.user_skinType == "oily")
+            if (skintype.user_skinType == "שומני")
             {
                 try
                 {
@@ -221,7 +221,7 @@ namespace SkinMeApp.Controllers
                     throw;
                 }
             }
-            else if (skintype.user_skinType == "regular")
+            else if (skintype.user_skinType == "מעורב")
             {
                 try
                 {
