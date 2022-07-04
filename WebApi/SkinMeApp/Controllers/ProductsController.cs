@@ -412,5 +412,32 @@ namespace SkinMeApp.Controllers
             }
         }
 
+
+
+        [HttpPut]
+        [Route("api/Products/RateProduct")]
+        public IHttpActionResult RateProduct(int rate, [FromBody] Product id) // Rate product
+        {
+            try
+            {
+                Product prod = db.Products.SingleOrDefault(x => x.prod_id == id.prod_id);
+                if (prod != null)
+                {
+                    prod.prod_sumRate += rate; 
+                    prod.prod_numOfRates++; 
+                    prod.prod_rate = prod.prod_sumRate / prod.prod_numOfRates++; 
+                    db.SaveChanges();
+
+                    return Ok(prod);
+                }
+                return Content(HttpStatusCode.NotFound,
+                    $"Product with id={id} was not found.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
     }
 }

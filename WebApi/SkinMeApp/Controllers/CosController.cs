@@ -314,9 +314,9 @@ namespace SkinMeApp.Controllers
                 AppCosmetologist cos = db.AppCosmetologists.SingleOrDefault(x => x.cosmetologist_id == id.cosmetologist_id);
                 if (cos != null)
                 {
-                    cos.cosmetologist_sumRate += rate; //return null 
-                    cos.cosmetologist_numOfRates++; //return null
-                    cos.cosmetologist_rate = cos.cosmetologist_sumRate / cos.cosmetologist_numOfRates++; //return null
+                    cos.cosmetologist_sumRate += rate; 
+                    cos.cosmetologist_numOfRates++; 
+                    cos.cosmetologist_rate = cos.cosmetologist_sumRate / cos.cosmetologist_numOfRates++; 
                     db.SaveChanges();
 
                     return Ok(cos);
