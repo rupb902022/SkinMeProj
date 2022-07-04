@@ -13,8 +13,8 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class LogInController : ApiController
     {
-        bgroup90_test2Entities db = new bgroup90_test2Entities();
-        bgroup90_test2Entities15 db = new bgroup90_test2Entities15();
+        bgroup90_SkinmeApp db = new bgroup90_SkinmeApp();
+      
 
         public string GeneratePassword()
         {
