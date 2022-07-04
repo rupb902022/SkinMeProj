@@ -14,6 +14,12 @@ namespace DATA
     
     public partial class AppUser
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public AppUser()
+        {
+            this.UserImages = new HashSet<UserImage>();
+        }
+    
         public int appUser_id { get; set; }
         public string username { get; set; }
         public string user_password { get; set; }
@@ -43,5 +49,7 @@ namespace DATA
     
         public virtual Profile Profile { get; set; }
         public virtual SkinPlan SkinPlan { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserImage> UserImages { get; set; }
     }
 }

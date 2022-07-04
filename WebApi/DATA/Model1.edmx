@@ -119,13 +119,15 @@
           <Property Name="plan_date" Type="date" />
           <Property Name="notes" Type="varchar" MaxLength="2500" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'bgroup90_test2.dbo.UsersImages' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="UsersImages">
-          <Property Name="img_url" Type="varchar" MaxLength="2500" />
+        <EntityType Name="UserImages">
+          <Key>
+            <PropertyRef Name="imgId" />
+          </Key>
+          <Property Name="imgId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="appUser_id" Type="int" />
+          <Property Name="imgUrl" Type="nvarchar(max)" />
           <Property Name="upload_date" Type="date" />
-        </EntityType>-->
+        </EntityType>
         <Association Name="FK_AppUsers_Profiles">
           <End Role="Profiles" Type="Self.Profiles" Multiplicity="0..1" />
           <End Role="AppUsers" Type="Self.AppUsers" Multiplicity="*" />
@@ -174,6 +176,18 @@ warning 6013: The table/view 'bgroup90_test2.dbo.UsersImages' does not have a pr
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UserImages_AppUsers">
+          <End Role="AppUsers" Type="Self.AppUsers" Multiplicity="0..1" />
+          <End Role="UserImages" Type="Self.UserImages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUsers">
+              <PropertyRef Name="appUser_id" />
+            </Principal>
+            <Dependent Role="UserImages">
+              <PropertyRef Name="appUser_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="bgroup90_test2ModelStoreContainer">
           <EntitySet Name="AppCosmetologists" EntityType="Self.AppCosmetologists" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AppUsers" EntityType="Self.AppUsers" Schema="dbo" store:Type="Tables" />
@@ -183,6 +197,7 @@ warning 6013: The table/view 'bgroup90_test2.dbo.UsersImages' does not have a pr
           <EntitySet Name="ProfileImage" EntityType="Self.ProfileImage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Profiles" EntityType="Self.Profiles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SkinPlan" EntityType="Self.SkinPlan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserImages" EntityType="Self.UserImages" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_AppUsers_Profiles" Association="Self.FK_AppUsers_Profiles">
             <End Role="Profiles" EntitySet="Profiles" />
             <End Role="AppUsers" EntitySet="AppUsers" />
@@ -198,6 +213,10 @@ warning 6013: The table/view 'bgroup90_test2.dbo.UsersImages' does not have a pr
           <AssociationSet Name="FK_ProductsForProfiles_Profiles" Association="Self.FK_ProductsForProfiles_Profiles">
             <End Role="Profiles" EntitySet="Profiles" />
             <End Role="ProductsForProfiles" EntitySet="ProductsForProfiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserImages_AppUsers" Association="Self.FK_UserImages_AppUsers">
+            <End Role="AppUsers" EntitySet="AppUsers" />
+            <End Role="UserImages" EntitySet="UserImages" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -262,6 +281,7 @@ warning 6013: The table/view 'bgroup90_test2.dbo.UsersImages' does not have a pr
           <Property Name="plan_id" Type="Int32" />
           <NavigationProperty Name="Profile" Relationship="Self.FK_AppUsers_Profiles" FromRole="AppUsers" ToRole="Profiles" />
           <NavigationProperty Name="SkinPlan" Relationship="Self.FK_AppUsers_SkinPlan" FromRole="AppUsers" ToRole="SkinPlan" />
+          <NavigationProperty Name="UserImages" Relationship="Self.FK_UserImages_AppUsers" FromRole="AppUsers" ToRole="UserImages" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -327,6 +347,16 @@ warning 6013: The table/view 'bgroup90_test2.dbo.UsersImages' does not have a pr
           <NavigationProperty Name="AppUsers" Relationship="Self.FK_AppUsers_SkinPlan" FromRole="SkinPlan" ToRole="AppUsers" />
           <NavigationProperty Name="Products_for_plan" Relationship="Self.FK_Products_for_plan_SkinPlan" FromRole="SkinPlan" ToRole="Products_for_plan" />
         </EntityType>
+        <EntityType Name="UserImage">
+          <Key>
+            <PropertyRef Name="imgId" />
+          </Key>
+          <Property Name="imgId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="appUser_id" Type="Int32" />
+          <Property Name="imgUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="upload_date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="AppUser" Relationship="Self.FK_UserImages_AppUsers" FromRole="UserImages" ToRole="AppUsers" />
+        </EntityType>
         <Association Name="FK_AppUsers_Profiles">
           <End Role="Profiles" Type="Self.Profile" Multiplicity="0..1" />
           <End Role="AppUsers" Type="Self.AppUser" Multiplicity="*" />
@@ -348,6 +378,18 @@ warning 6013: The table/view 'bgroup90_test2.dbo.UsersImages' does not have a pr
             </Principal>
             <Dependent Role="AppUsers">
               <PropertyRef Name="plan_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserImages_AppUsers">
+          <End Role="AppUsers" Type="Self.AppUser" Multiplicity="0..1" />
+          <End Role="UserImages" Type="Self.UserImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUsers">
+              <PropertyRef Name="appUser_id" />
+            </Principal>
+            <Dependent Role="UserImages">
+              <PropertyRef Name="appUser_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -375,7 +417,7 @@ warning 6013: The table/view 'bgroup90_test2.dbo.UsersImages' does not have a pr
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="bgroup90_Db" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="bgroup90_test2Entities18" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AppCosmetologists" EntityType="Self.AppCosmetologist" />
           <EntitySet Name="AppUsers" EntityType="Self.AppUser" />
           <EntitySet Name="Products" EntityType="Self.Product" />
@@ -384,6 +426,7 @@ warning 6013: The table/view 'bgroup90_test2.dbo.UsersImages' does not have a pr
           <EntitySet Name="ProfileImages" EntityType="Self.ProfileImage" />
           <EntitySet Name="Profiles" EntityType="Self.Profile" />
           <EntitySet Name="SkinPlans" EntityType="Self.SkinPlan" />
+          <EntitySet Name="UserImages" EntityType="Self.UserImage" />
           <AssociationSet Name="FK_AppUsers_Profiles" Association="Self.FK_AppUsers_Profiles">
             <End Role="Profiles" EntitySet="Profiles" />
             <End Role="AppUsers" EntitySet="AppUsers" />
@@ -391,6 +434,10 @@ warning 6013: The table/view 'bgroup90_test2.dbo.UsersImages' does not have a pr
           <AssociationSet Name="FK_AppUsers_SkinPlan" Association="Self.FK_AppUsers_SkinPlan">
             <End Role="SkinPlan" EntitySet="SkinPlans" />
             <End Role="AppUsers" EntitySet="AppUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserImages_AppUsers" Association="Self.FK_UserImages_AppUsers">
+            <End Role="AppUsers" EntitySet="AppUsers" />
+            <End Role="UserImages" EntitySet="UserImages" />
           </AssociationSet>
           <AssociationSet Name="FK_Products_for_plan_SkinPlan" Association="Self.FK_Products_for_plan_SkinPlan">
             <End Role="SkinPlan" EntitySet="SkinPlans" />
@@ -406,7 +453,7 @@ warning 6013: The table/view 'bgroup90_test2.dbo.UsersImages' does not have a pr
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="bgroup90_test2ModelStoreContainer" CdmEntityContainer="bgroup90_Db">
+        <EntityContainerMapping StorageEntityContainer="bgroup90_test2ModelStoreContainer" CdmEntityContainer="bgroup90_test2Entities18">
           <EntitySetMapping Name="AppCosmetologists">
             <EntityTypeMapping TypeName="bgroup90_test2Model.AppCosmetologist">
               <MappingFragment StoreEntitySet="AppCosmetologists">
@@ -526,6 +573,16 @@ warning 6013: The table/view 'bgroup90_test2.dbo.UsersImages' does not have a pr
                 <ScalarProperty Name="plan_name" ColumnName="plan_name" />
                 <ScalarProperty Name="plan_date" ColumnName="plan_date" />
                 <ScalarProperty Name="notes" ColumnName="notes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserImages">
+            <EntityTypeMapping TypeName="bgroup90_test2Model.UserImage">
+              <MappingFragment StoreEntitySet="UserImages">
+                <ScalarProperty Name="imgId" ColumnName="imgId" />
+                <ScalarProperty Name="appUser_id" ColumnName="appUser_id" />
+                <ScalarProperty Name="imgUrl" ColumnName="imgUrl" />
+                <ScalarProperty Name="upload_date" ColumnName="upload_date" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

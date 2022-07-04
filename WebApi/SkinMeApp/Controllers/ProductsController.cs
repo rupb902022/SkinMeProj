@@ -15,7 +15,7 @@ namespace SkinMeApp.Controllers
 
     public class ProductsController : ApiController
     {
-        bgroup90_Db db = new bgroup90_Db();
+        bgroup90_test2Entities18 db = new bgroup90_test2Entities18();
         
 
 
