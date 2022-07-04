@@ -13,7 +13,7 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CosController : ApiController
     {
-        bgroup90_test2Entities1 db = new bgroup90_test2Entities1();
+        bgroup90_test2EntitiesSkinMe db = new bgroup90_test2EntitiesSkinMe();
         
 
         [HttpGet]
@@ -307,18 +307,20 @@ namespace SkinMeApp.Controllers
 
         [HttpPut]
         [Route("api/Cos/RateCosmetologist")]
-        public IHttpActionResult RateCosmetologist(int rate, [FromBody] Cosmetologist id) // Rate cosmetologist
+        public IHttpActionResult RateCosmetologist(int id, [FromBody] Cosmetologist rating) // Rate cosmetologist
         {
             try
             {
-                AppCosmetologist cos = db.AppCosmetologists.SingleOrDefault(x => x.cosmetologist_id == id.cosmetologist_id);
+                AppCosmetologist cos = db.AppCosmetologists.SingleOrDefault(x => x.cosmetologist_id == id);
+                
+
+
                 if (cos != null)
                 {
-                    cos.cosmetologist_sumRate += rate; //return null 
-                    cos.cosmetologist_numOfRates++; //return null
-                    cos.cosmetologist_rate = cos.cosmetologist_sumRate / cos.cosmetologist_numOfRates++; //return null
+                    cos.cosmetologist_sumRate += rating.cosmetologist_sumRate;
+                    cos.cosmetologist_numOfRates++;
+                    cos.cosmetologist_rate = cos.cosmetologist_sumRate / cos.cosmetologist_numOfRates; 
                     db.SaveChanges();
-
                     return Ok(cos);
                 }
                 return Content(HttpStatusCode.NotFound,
