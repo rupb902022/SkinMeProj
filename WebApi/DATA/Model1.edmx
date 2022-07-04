@@ -25,9 +25,9 @@
           <Property Name="cosmetic_status" Type="varchar" MaxLength="50" />
           <Property Name="lng" Type="varchar" MaxLength="50" />
           <Property Name="lat" Type="varchar" MaxLength="50" />
+          <Property Name="cosmetologist_rate" Type="float" />
           <Property Name="cosmetologist_sumRate" Type="int" />
           <Property Name="cosmetologist_numOfRates" Type="int" />
-          <Property Name="cosmetologist_rate" Type="int" />
           <Property Name="cosmetologist_phoneNumber" Type="int" />
         </EntityType>
         <EntityType Name="AppUsers">
@@ -77,15 +77,14 @@
           </Key>
           <Property Name="prod_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="prod_name" Type="varchar" MaxLength="50" />
-          <Property Name="prod_type" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="prod_type" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="prod_company" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="prod_description" Type="varchar" MaxLength="1000" />
           <Property Name="prod_manual" Type="varchar" MaxLength="1000" Nullable="false" />
-          <Property Name="prod_rate" Type="float" />
-          <Property Name="prod_sizeType" Type="varchar" MaxLength="10" />
-          <Property Name="prod_size" Type="int" />
           <Property Name="prod_status" Type="varchar" MaxLength="20" />
-          <Property Name="prod_time" Type="char" MaxLength="1" />
+          <Property Name="prod_rate" Type="float" />
+          <Property Name="prod_sumRate" Type="int" />
+          <Property Name="prod_numOfRates" Type="int" />
         </EntityType>
         <EntityType Name="Products_for_plan">
           <Key>
@@ -129,18 +128,6 @@ warning 6013: The table/view 'bgroup90_test2.dbo.UsersImages' does not have a pr
           <Property Name="appUser_id" Type="int" />
           <Property Name="upload_date" Type="date" />
         </EntityType>-->
-        <Association Name="FK_AppUsers_AppCosmetologists">
-          <End Role="AppCosmetologists" Type="Self.AppCosmetologists" Multiplicity="0..1" />
-          <End Role="AppUsers" Type="Self.AppUsers" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AppCosmetologists">
-              <PropertyRef Name="cosmetologist_id" />
-            </Principal>
-            <Dependent Role="AppUsers">
-              <PropertyRef Name="cosmetologist_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_AppUsers_Profiles">
           <End Role="Profiles" Type="Self.Profiles" Multiplicity="0..1" />
           <End Role="AppUsers" Type="Self.AppUsers" Multiplicity="*" />
@@ -165,18 +152,6 @@ warning 6013: The table/view 'bgroup90_test2.dbo.UsersImages' does not have a pr
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Products_for_plan_Products">
-          <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
-          <End Role="Products_for_plan" Type="Self.Products_for_plan" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Products">
-              <PropertyRef Name="prod_id" />
-            </Principal>
-            <Dependent Role="Products_for_plan">
-              <PropertyRef Name="prod_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Products_for_plan_SkinPlan">
           <End Role="SkinPlan" Type="Self.SkinPlan" Multiplicity="0..1" />
           <End Role="Products_for_plan" Type="Self.Products_for_plan" Multiplicity="*" />
@@ -186,18 +161,6 @@ warning 6013: The table/view 'bgroup90_test2.dbo.UsersImages' does not have a pr
             </Principal>
             <Dependent Role="Products_for_plan">
               <PropertyRef Name="plan_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ProductsForProfiles_Products">
-          <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
-          <End Role="ProductsForProfiles" Type="Self.ProductsForProfiles" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Products">
-              <PropertyRef Name="prod_id" />
-            </Principal>
-            <Dependent Role="ProductsForProfiles">
-              <PropertyRef Name="prod_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -213,18 +176,6 @@ warning 6013: The table/view 'bgroup90_test2.dbo.UsersImages' does not have a pr
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SkinPlan_AppCosmetologists">
-          <End Role="AppCosmetologists" Type="Self.AppCosmetologists" Multiplicity="0..1" />
-          <End Role="SkinPlan" Type="Self.SkinPlan" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AppCosmetologists">
-              <PropertyRef Name="cosmetologist_id" />
-            </Principal>
-            <Dependent Role="SkinPlan">
-              <PropertyRef Name="cosmetologist_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="bgroup90_test2ModelStoreContainer">
           <EntitySet Name="AppCosmetologists" EntityType="Self.AppCosmetologists" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AppUsers" EntityType="Self.AppUsers" Schema="dbo" store:Type="Tables" />
@@ -234,10 +185,6 @@ warning 6013: The table/view 'bgroup90_test2.dbo.UsersImages' does not have a pr
           <EntitySet Name="ProductsForProfiles" EntityType="Self.ProductsForProfiles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Profiles" EntityType="Self.Profiles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SkinPlan" EntityType="Self.SkinPlan" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_AppUsers_AppCosmetologists" Association="Self.FK_AppUsers_AppCosmetologists">
-            <End Role="AppCosmetologists" EntitySet="AppCosmetologists" />
-            <End Role="AppUsers" EntitySet="AppUsers" />
-          </AssociationSet>
           <AssociationSet Name="FK_AppUsers_Profiles" Association="Self.FK_AppUsers_Profiles">
             <End Role="Profiles" EntitySet="Profiles" />
             <End Role="AppUsers" EntitySet="AppUsers" />
@@ -246,25 +193,13 @@ warning 6013: The table/view 'bgroup90_test2.dbo.UsersImages' does not have a pr
             <End Role="SkinPlan" EntitySet="SkinPlan" />
             <End Role="AppUsers" EntitySet="AppUsers" />
           </AssociationSet>
-          <AssociationSet Name="FK_Products_for_plan_Products" Association="Self.FK_Products_for_plan_Products">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="Products_for_plan" EntitySet="Products_for_plan" />
-          </AssociationSet>
           <AssociationSet Name="FK_Products_for_plan_SkinPlan" Association="Self.FK_Products_for_plan_SkinPlan">
             <End Role="SkinPlan" EntitySet="SkinPlan" />
             <End Role="Products_for_plan" EntitySet="Products_for_plan" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProductsForProfiles_Products" Association="Self.FK_ProductsForProfiles_Products">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="ProductsForProfiles" EntitySet="ProductsForProfiles" />
-          </AssociationSet>
           <AssociationSet Name="FK_ProductsForProfiles_Profiles" Association="Self.FK_ProductsForProfiles_Profiles">
             <End Role="Profiles" EntitySet="Profiles" />
             <End Role="ProductsForProfiles" EntitySet="ProductsForProfiles" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SkinPlan_AppCosmetologists" Association="Self.FK_SkinPlan_AppCosmetologists">
-            <End Role="AppCosmetologists" EntitySet="AppCosmetologists" />
-            <End Role="SkinPlan" EntitySet="SkinPlan" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -292,12 +227,10 @@ warning 6013: The table/view 'bgroup90_test2.dbo.UsersImages' does not have a pr
           <Property Name="cosmetic_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="lng" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="lat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cosmetologist_rate" Type="Double" />
           <Property Name="cosmetologist_sumRate" Type="Int32" />
           <Property Name="cosmetologist_numOfRates" Type="Int32" />
-          <Property Name="cosmetologist_rate" Type="Int32" />
           <Property Name="cosmetologist_phoneNumber" Type="Int32" />
-          <NavigationProperty Name="AppUsers" Relationship="Self.FK_AppUsers_AppCosmetologists" FromRole="AppCosmetologists" ToRole="AppUsers" />
-          <NavigationProperty Name="SkinPlans" Relationship="Self.FK_SkinPlan_AppCosmetologists" FromRole="AppCosmetologists" ToRole="SkinPlan" />
         </EntityType>
         <EntityType Name="AppUser">
           <Key>
@@ -329,7 +262,6 @@ warning 6013: The table/view 'bgroup90_test2.dbo.UsersImages' does not have a pr
           <Property Name="cosmetologist_id" Type="Int32" />
           <Property Name="profile_code" Type="Int32" />
           <Property Name="plan_id" Type="Int32" />
-          <NavigationProperty Name="AppCosmetologist" Relationship="Self.FK_AppUsers_AppCosmetologists" FromRole="AppUsers" ToRole="AppCosmetologists" />
           <NavigationProperty Name="Profile" Relationship="Self.FK_AppUsers_Profiles" FromRole="AppUsers" ToRole="Profiles" />
           <NavigationProperty Name="SkinPlan" Relationship="Self.FK_AppUsers_SkinPlan" FromRole="AppUsers" ToRole="SkinPlan" />
         </EntityType>
@@ -349,17 +281,14 @@ warning 6013: The table/view 'bgroup90_test2.dbo.UsersImages' does not have a pr
           </Key>
           <Property Name="prod_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="prod_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="prod_type" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="prod_type" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="prod_company" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="prod_description" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Name="prod_manual" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="prod_rate" Type="Double" />
-          <Property Name="prod_sizeType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="prod_size" Type="Int32" />
           <Property Name="prod_status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="prod_time" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-          <NavigationProperty Name="Products_for_plan" Relationship="Self.FK_Products_for_plan_Products" FromRole="Products" ToRole="Products_for_plan" />
-          <NavigationProperty Name="ProductsForProfiles" Relationship="Self.FK_ProductsForProfiles_Products" FromRole="Products" ToRole="ProductsForProfiles" />
+          <Property Name="prod_rate" Type="Double" />
+          <Property Name="prod_sumRate" Type="Int32" />
+          <Property Name="prod_numOfRates" Type="Int32" />
         </EntityType>
         <EntityType Name="Products_for_plan">
           <Key>
@@ -368,7 +297,6 @@ warning 6013: The table/view 'bgroup90_test2.dbo.UsersImages' does not have a pr
           <Property Name="pfp_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="prod_id" Type="Int32" />
           <Property Name="plan_id" Type="Int32" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_Products_for_plan_Products" FromRole="Products_for_plan" ToRole="Products" />
           <NavigationProperty Name="SkinPlan" Relationship="Self.FK_Products_for_plan_SkinPlan" FromRole="Products_for_plan" ToRole="SkinPlan" />
         </EntityType>
         <EntityType Name="ProductsForProfile">
@@ -378,7 +306,6 @@ warning 6013: The table/view 'bgroup90_test2.dbo.UsersImages' does not have a pr
           <Property Name="pfp_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="profile_code" Type="Int32" />
           <Property Name="prod_id" Type="Int32" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_ProductsForProfiles_Products" FromRole="ProductsForProfiles" ToRole="Products" />
           <NavigationProperty Name="Profile" Relationship="Self.FK_ProductsForProfiles_Profiles" FromRole="ProductsForProfiles" ToRole="Profiles" />
         </EntityType>
         <EntityType Name="Profile">
@@ -401,34 +328,9 @@ warning 6013: The table/view 'bgroup90_test2.dbo.UsersImages' does not have a pr
           <Property Name="plan_name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="plan_date" Type="DateTime" Precision="0" />
           <Property Name="notes" Type="String" MaxLength="2500" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="AppCosmetologist" Relationship="Self.FK_SkinPlan_AppCosmetologists" FromRole="SkinPlan" ToRole="AppCosmetologists" />
           <NavigationProperty Name="AppUsers" Relationship="Self.FK_AppUsers_SkinPlan" FromRole="SkinPlan" ToRole="AppUsers" />
           <NavigationProperty Name="Products_for_plan" Relationship="Self.FK_Products_for_plan_SkinPlan" FromRole="SkinPlan" ToRole="Products_for_plan" />
         </EntityType>
-        <Association Name="FK_AppUsers_AppCosmetologists">
-          <End Role="AppCosmetologists" Type="Self.AppCosmetologist" Multiplicity="0..1" />
-          <End Role="AppUsers" Type="Self.AppUser" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AppCosmetologists">
-              <PropertyRef Name="cosmetologist_id" />
-            </Principal>
-            <Dependent Role="AppUsers">
-              <PropertyRef Name="cosmetologist_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SkinPlan_AppCosmetologists">
-          <End Role="AppCosmetologists" Type="Self.AppCosmetologist" Multiplicity="0..1" />
-          <End Role="SkinPlan" Type="Self.SkinPlan" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AppCosmetologists">
-              <PropertyRef Name="cosmetologist_id" />
-            </Principal>
-            <Dependent Role="SkinPlan">
-              <PropertyRef Name="cosmetologist_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_AppUsers_Profiles">
           <End Role="Profiles" Type="Self.Profile" Multiplicity="0..1" />
           <End Role="AppUsers" Type="Self.AppUser" Multiplicity="*" />
@@ -450,30 +352,6 @@ warning 6013: The table/view 'bgroup90_test2.dbo.UsersImages' does not have a pr
             </Principal>
             <Dependent Role="AppUsers">
               <PropertyRef Name="plan_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Products_for_plan_Products">
-          <End Role="Products" Type="Self.Product" Multiplicity="0..1" />
-          <End Role="Products_for_plan" Type="Self.Products_for_plan" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Products">
-              <PropertyRef Name="prod_id" />
-            </Principal>
-            <Dependent Role="Products_for_plan">
-              <PropertyRef Name="prod_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ProductsForProfiles_Products">
-          <End Role="Products" Type="Self.Product" Multiplicity="0..1" />
-          <End Role="ProductsForProfiles" Type="Self.ProductsForProfile" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Products">
-              <PropertyRef Name="prod_id" />
-            </Principal>
-            <Dependent Role="ProductsForProfiles">
-              <PropertyRef Name="prod_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -501,7 +379,7 @@ warning 6013: The table/view 'bgroup90_test2.dbo.UsersImages' does not have a pr
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="bgroup90_SkinmeApp" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="bgroup90_Db" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AppCosmetologists" EntityType="Self.AppCosmetologist" />
           <EntitySet Name="AppUsers" EntityType="Self.AppUser" />
           <EntitySet Name="AutoPlans" EntityType="Self.AutoPlan" />
@@ -510,14 +388,6 @@ warning 6013: The table/view 'bgroup90_test2.dbo.UsersImages' does not have a pr
           <EntitySet Name="ProductsForProfiles" EntityType="Self.ProductsForProfile" />
           <EntitySet Name="Profiles" EntityType="Self.Profile" />
           <EntitySet Name="SkinPlans" EntityType="Self.SkinPlan" />
-          <AssociationSet Name="FK_AppUsers_AppCosmetologists" Association="Self.FK_AppUsers_AppCosmetologists">
-            <End Role="AppCosmetologists" EntitySet="AppCosmetologists" />
-            <End Role="AppUsers" EntitySet="AppUsers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SkinPlan_AppCosmetologists" Association="Self.FK_SkinPlan_AppCosmetologists">
-            <End Role="AppCosmetologists" EntitySet="AppCosmetologists" />
-            <End Role="SkinPlan" EntitySet="SkinPlans" />
-          </AssociationSet>
           <AssociationSet Name="FK_AppUsers_Profiles" Association="Self.FK_AppUsers_Profiles">
             <End Role="Profiles" EntitySet="Profiles" />
             <End Role="AppUsers" EntitySet="AppUsers" />
@@ -525,14 +395,6 @@ warning 6013: The table/view 'bgroup90_test2.dbo.UsersImages' does not have a pr
           <AssociationSet Name="FK_AppUsers_SkinPlan" Association="Self.FK_AppUsers_SkinPlan">
             <End Role="SkinPlan" EntitySet="SkinPlans" />
             <End Role="AppUsers" EntitySet="AppUsers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Products_for_plan_Products" Association="Self.FK_Products_for_plan_Products">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="Products_for_plan" EntitySet="Products_for_plan" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProductsForProfiles_Products" Association="Self.FK_ProductsForProfiles_Products">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="ProductsForProfiles" EntitySet="ProductsForProfiles" />
           </AssociationSet>
           <AssociationSet Name="FK_Products_for_plan_SkinPlan" Association="Self.FK_Products_for_plan_SkinPlan">
             <End Role="SkinPlan" EntitySet="SkinPlans" />
@@ -548,7 +410,7 @@ warning 6013: The table/view 'bgroup90_test2.dbo.UsersImages' does not have a pr
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="bgroup90_test2ModelStoreContainer" CdmEntityContainer="bgroup90_SkinmeApp">
+        <EntityContainerMapping StorageEntityContainer="bgroup90_test2ModelStoreContainer" CdmEntityContainer="bgroup90_Db">
           <EntitySetMapping Name="AppCosmetologists">
             <EntityTypeMapping TypeName="bgroup90_test2Model.AppCosmetologist">
               <MappingFragment StoreEntitySet="AppCosmetologists">
@@ -568,9 +430,9 @@ warning 6013: The table/view 'bgroup90_test2.dbo.UsersImages' does not have a pr
                 <ScalarProperty Name="cosmetic_status" ColumnName="cosmetic_status" />
                 <ScalarProperty Name="lng" ColumnName="lng" />
                 <ScalarProperty Name="lat" ColumnName="lat" />
+                <ScalarProperty Name="cosmetologist_rate" ColumnName="cosmetologist_rate" />
                 <ScalarProperty Name="cosmetologist_sumRate" ColumnName="cosmetologist_sumRate" />
                 <ScalarProperty Name="cosmetologist_numOfRates" ColumnName="cosmetologist_numOfRates" />
-                <ScalarProperty Name="cosmetologist_rate" ColumnName="cosmetologist_rate" />
                 <ScalarProperty Name="cosmetologist_phoneNumber" ColumnName="cosmetologist_phoneNumber" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -627,11 +489,10 @@ warning 6013: The table/view 'bgroup90_test2.dbo.UsersImages' does not have a pr
                 <ScalarProperty Name="prod_company" ColumnName="prod_company" />
                 <ScalarProperty Name="prod_description" ColumnName="prod_description" />
                 <ScalarProperty Name="prod_manual" ColumnName="prod_manual" />
-                <ScalarProperty Name="prod_rate" ColumnName="prod_rate" />
-                <ScalarProperty Name="prod_sizeType" ColumnName="prod_sizeType" />
-                <ScalarProperty Name="prod_size" ColumnName="prod_size" />
                 <ScalarProperty Name="prod_status" ColumnName="prod_status" />
-                <ScalarProperty Name="prod_time" ColumnName="prod_time" />
+                <ScalarProperty Name="prod_rate" ColumnName="prod_rate" />
+                <ScalarProperty Name="prod_sumRate" ColumnName="prod_sumRate" />
+                <ScalarProperty Name="prod_numOfRates" ColumnName="prod_numOfRates" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

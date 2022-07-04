@@ -41,7 +41,6 @@ namespace DATA
         public Nullable<int> profile_code { get; set; }
         public Nullable<int> plan_id { get; set; }
     
-        public virtual AppCosmetologist AppCosmetologist { get; set; }
         public virtual Profile Profile { get; set; }
         public virtual SkinPlan SkinPlan { get; set; }
     }

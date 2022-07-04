@@ -18,7 +18,6 @@ namespace DATA
         public Nullable<int> profile_code { get; set; }
         public Nullable<int> prod_id { get; set; }
     
-        public virtual Product Product { get; set; }
         public virtual Profile Profile { get; set; }
     }
 }

@@ -13,7 +13,7 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class LogInController : ApiController
     {
-        bgroup90_SkinmeApp db = new bgroup90_SkinmeApp();
+        bgroup90_Db db = new bgroup90_Db();
       
 
         public string GeneratePassword()
@@ -235,6 +235,39 @@ namespace SkinMeApp.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost]
+        [Route("api/LogIn/registerCos")]
+
+        public IHttpActionResult CosRegister([FromBody] AppCosmetologist value)
+
+        {
+            try
+            {
+                db.AppCosmetologists.Add(value);
+                db.SaveChanges();
+                return Created(new Uri(Request.RequestUri.AbsoluteUri + value.cosmetologist_id), value);
+
+            }
+            catch (DbEntityValidationException e)
+            {
+                Console.WriteLine(e);
+                return BadRequest(e.Message);
+            }
+            catch (ArgumentNullException e)
+            {
+                Console.WriteLine(e);
+                return BadRequest(e.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+
+
 
         [HttpPost]
         [Route("api/LogIn/SocialMediaLogin")]
