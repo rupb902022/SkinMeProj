@@ -74,6 +74,9 @@
     <Compile Include="AppUser.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="AutoPlan.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Class1.cs" />
     <Compile Include="Model1.Context.cs">
       <AutoGen>True</AutoGen>
