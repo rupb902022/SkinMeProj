@@ -13,8 +13,8 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CosController : ApiController
     {
-        bgroup90_test2Entities db = new bgroup90_test2Entities();
-        bgroup90_test2Entities15 db = new bgroup90_test2Entities15();
+        bgroup90_test2Entities16 db = new bgroup90_test2Entities16();
+
 
         [HttpGet]
         [Route("api/map")]
@@ -63,16 +63,13 @@ namespace SkinMeApp.Controllers
 
         [HttpPost]
         [Route("api/Cos/AddProdToPlan")]
-        public IHttpActionResult AddPTP(int id, [FromBody] Product value) // add products to skin plan
+        public IHttpActionResult AddPTP(int id, [FromBody] ProdForPlan value) // add products to skin plan
         {
             try
             {
                 SkinPlan s = db.SkinPlans.SingleOrDefault(x => x.plan_id == id);
-
                 if (s != null)
                 {
-                    //List<Product> products = db.Products.ToList(); /// ? how to change products from the plan
-
                     Products_for_plan p = new Products_for_plan();
                     p.prod_id = value.prod_id;
                     p.plan_id = id;
@@ -314,7 +311,7 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                AppCosmetologist cos = db.AppCosmetologists.SingleOrDefault(x => x.cosmetologist_id == id);
+                AppCosmetologist cos = db.AppCosmetologists.SingleOrDefault(x => x.cosmetologist_id == id.cosmetologist_id);
                 if (cos != null)
                 {
                     cos.cosmetologist_sumRate += rate; //return null 

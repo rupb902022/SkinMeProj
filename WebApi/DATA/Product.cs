@@ -31,6 +31,7 @@ namespace DATA
         public string prod_sizeType { get; set; }
         public Nullable<int> prod_size { get; set; }
         public string prod_status { get; set; }
+        public string prod_time { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Products_for_plan> Products_for_plan { get; set; }
