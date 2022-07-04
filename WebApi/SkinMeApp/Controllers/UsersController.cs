@@ -15,8 +15,50 @@ namespace SkinMeApp.Controllers
     public class UsersController : ApiController
     {
 
-        bgroup90_test2Entities17 db = new bgroup90_test2Entities17();
+        bgroup90_Db db = new bgroup90_Db();
 
+
+        [HttpGet]
+        [Route("api/Users/{id}")]
+        public IHttpActionResult GetUser(int id)
+        {
+            try
+            {
+                AppUser user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
+                if (user != null)
+                {
+                    return Ok(user);
+                }
+                return Content(HttpStatusCode.NotFound,
+                    $"User not found");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut]
+        [Route("api/Users/profileImage/{id}")]
+        public IHttpActionResult Update(int id, [FromBody] AppUser appUser) 
+        {
+            try
+            {
+                AppUser user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
+                if (user != null)
+                {
+                    user.picture = appUser.picture;
+                    db.SaveChanges();
+                    return Ok(user);
+                }
+                return Content(HttpStatusCode.NotFound,
+                    $"User not found");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPut]
         [Route("api/Users/addroute")]
