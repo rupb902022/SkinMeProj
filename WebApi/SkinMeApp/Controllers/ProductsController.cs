@@ -15,7 +15,7 @@ namespace SkinMeApp.Controllers
 
     public class ProductsController : ApiController
     {
-        bgroup90_test2Entities16 db = new bgroup90_test2Entities16();
+        bgroup90_test2Entities17 db = new bgroup90_test2Entities17();
 
 
         [HttpGet]
