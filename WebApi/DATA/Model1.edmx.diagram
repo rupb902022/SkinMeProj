@@ -4,6 +4,15 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
+      <Diagram DiagramId="a311e26bf4d346f1bce9dff0961fac7f" Name="Diagram1">
+        <EntityTypeShape EntityType="bgroup90_test2Model.AppCosmetologist" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup90_test2Model.AppUser" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup90_test2Model.AutoPlan" Width="1.5" PointX="5.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup90_test2Model.Product" Width="1.5" PointX="3" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup90_test2Model.Products_for_plan" Width="1.5" PointX="5.25" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup90_test2Model.ProductsForProfile" Width="1.5" PointX="5.25" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup90_test2Model.Profile" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup90_test2Model.SkinPlan" Width="1.5" PointX="3" PointY="12.25" IsExpanded="true" />
       <Diagram DiagramId="88861dbcfb5446bf9d9cc76ab7477084" Name="Diagram1" ZoomLevel="74">
         <EntityTypeShape EntityType="bgroup90_test2Model.AppCosmetologist" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
         <EntityTypeShape EntityType="bgroup90_test2Model.AppUser" Width="1.5" PointX="5.25" PointY="6.25" IsExpanded="true" />

@@ -15,6 +15,7 @@ namespace SkinMeApp.Controllers
     public class UsersController : ApiController
     {
 
+        bgroup90_test2Entities db = new bgroup90_test2Entities();
         bgroup90_test2Entities15 db = new bgroup90_test2Entities15();
 
         [HttpPut]
@@ -125,16 +126,15 @@ namespace SkinMeApp.Controllers
 
                 if (user != null)
                 {
-                      return Content(HttpStatusCode.OK,
-                          
-                          $"id: {user.cosmetologist_id }");
-
-                    
-
+                    AppCosmetologist cos = db.AppCosmetologists.SingleOrDefault(x => x.cosmetologist_id == user.cosmetologist_id);
+                    if (cos!=null)
+                    {
+                        return Content(HttpStatusCode.OK,cos);
+                    }
 
                 }
                 return Content(HttpStatusCode.NotFound,
-                    $"no products for plan found");
+                    $"no cos  found");
             }
             catch (Exception)
             {
