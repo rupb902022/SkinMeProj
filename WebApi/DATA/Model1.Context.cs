@@ -27,10 +27,10 @@ namespace DATA
     
         public virtual DbSet<AppCosmetologist> AppCosmetologists { get; set; }
         public virtual DbSet<AppUser> AppUsers { get; set; }
-        public virtual DbSet<AutoPlan> AutoPlans { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Products_for_plan> Products_for_plan { get; set; }
         public virtual DbSet<ProductsForProfile> ProductsForProfiles { get; set; }
+        public virtual DbSet<ProfileImage> ProfileImages { get; set; }
         public virtual DbSet<Profile> Profiles { get; set; }
         public virtual DbSet<SkinPlan> SkinPlans { get; set; }
     }

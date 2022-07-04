@@ -63,16 +63,13 @@ namespace SkinMeApp.Controllers
 
         [HttpPost]
         [Route("api/Cos/AddProdToPlan")]
-        public IHttpActionResult AddPTP(int id, [FromBody] Product value) // add products to skin plan
+        public IHttpActionResult AddPTP(int id, [FromBody] ProdForPlan value) // add products to skin plan
         {
             try
             {
                 SkinPlan s = db.SkinPlans.SingleOrDefault(x => x.plan_id == id);
-
                 if (s != null)
                 {
-                    //List<Product> products = db.Products.ToList(); /// ? how to change products from the plan
-
                     Products_for_plan p = new Products_for_plan();
                     p.prod_id = value.prod_id;
                     p.plan_id = id;
@@ -310,22 +307,18 @@ namespace SkinMeApp.Controllers
 
         [HttpPut]
         [Route("api/Cos/RateCosmetologist")]
-        public IHttpActionResult RateCosmetologist(int id,  [FromBody]  Cosmetologist rating) // Rate cosmetologist
+        public IHttpActionResult RateCosmetologist(int rate, [FromBody] Cosmetologist id) // Rate cosmetologist
         {
-            
             try
             {
-                AppCosmetologist cos = db.AppCosmetologists.SingleOrDefault(x => x.cosmetologist_id == id);
-
-
+                AppCosmetologist cos = db.AppCosmetologists.SingleOrDefault(x => x.cosmetologist_id == id.cosmetologist_id);
                 if (cos != null)
                 {
-                   
-                    cos.cosmetologist_sumRate += rating.cosmetologist_sumRate; 
-                    cos.cosmetologist_numOfRates++; 
-                    cos.cosmetologist_rate = cos.cosmetologist_sumRate / cos.cosmetologist_numOfRates; 
-
+                    cos.cosmetologist_sumRate += rate; //return null 
+                    cos.cosmetologist_numOfRates++; //return null
+                    cos.cosmetologist_rate = cos.cosmetologist_sumRate / cos.cosmetologist_numOfRates++; //return null
                     db.SaveChanges();
+
                     return Ok(cos);
                 }
                 return Content(HttpStatusCode.NotFound,

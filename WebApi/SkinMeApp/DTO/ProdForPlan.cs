@@ -10,5 +10,7 @@ namespace SkinMeApp.DTO
         public int prod_id { get; set; }
         public int plan_id { get; set; }
 
+
+
     }
 }
