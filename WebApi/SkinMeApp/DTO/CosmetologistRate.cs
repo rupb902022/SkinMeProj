@@ -5,7 +5,7 @@ using System.Web;
 
 namespace SkinMeApp.DTO
 {
-    public class Cosmetologist
+    public class CosmetologistRate
     {
         public int cosmetologist_id { get; set; }
         public int cosmetologist_sumRate { get; set; }

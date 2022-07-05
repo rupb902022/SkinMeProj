@@ -152,7 +152,7 @@ namespace SkinMeApp.Controllers
         [HttpPost]
         [Route("api/LogIn/User")]
 
-        public IHttpActionResult LogInUser([FromBody] Logincheck login)
+        public IHttpActionResult LogInUser([FromBody] Logincheck login) // login user
         {
             try
             {
@@ -177,7 +177,7 @@ namespace SkinMeApp.Controllers
         [HttpPost]
         [Route("api/LogIn/Cos")]
 
-        public IHttpActionResult LogInCos([FromBody] LogincheckCos loginc)
+        public IHttpActionResult LogInCos([FromBody] LogincheckCos loginc) // login cos
         {
             try
             {
@@ -203,7 +203,7 @@ namespace SkinMeApp.Controllers
 
         [HttpPost]
         [Route("api/LogIn/register")]
-        public IHttpActionResult Post([FromBody] AppUser value)
+        public IHttpActionResult Post([FromBody] AppUser value) // regular user register to app
         {
             try
             {
@@ -259,7 +259,7 @@ namespace SkinMeApp.Controllers
 
         [HttpPost]
         [Route("api/LogIn/registerCos")]
-        public IHttpActionResult CosRegister([FromBody] AppCosmetologist value)
+        public IHttpActionResult CosRegister([FromBody] AppCosmetologist value) // cosmetologist register to app
 
         {
             try
@@ -397,36 +397,36 @@ namespace SkinMeApp.Controllers
             }
         }
 
-        [HttpPut]
-        [Route("api/UpdateCos")]
+        //[HttpPut]
+        //[Route("api/UpdateCos")]
 
-        public IHttpActionResult UpdateCosInfo(int id, [FromBody] UpdateCosInfo up) // update cosmetologist info dto
-        {
-            try
-            {
-                AppCosmetologist user = db.AppCosmetologists.SingleOrDefault(x => x.cosmetologist_id == id);
-                if (user != null)
-                {
+        //public IHttpActionResult UpdateCosInfo(int id, [FromBody] UpdateCosInfo up) // update cosmetologist info dto
+        //{
+        //    try
+        //    {
+        //        AppCosmetologist user = db.AppCosmetologists.SingleOrDefault(x => x.cosmetologist_id == id);
+        //        if (user != null)
+        //        {
                     
-                    user.cosmetologist_email = up.email;
-                    user.cosmetologist_user_name = up.username;
-                    user.cosmetologist_user_password = up.user_password;
-                    user.cosmetic_license_num = up.cosmetic_license_num;
-                    user.cosmetic_businessName = up.cosmetic_businessName;
-                    user.cosmetic_city = up.cosmetic_city;
-                    user.cosmetic_address = up.cosmetic_address;
-                    user.cosmetologist_phoneNumber = up.cosmetologist_phoneNumber;
+        //            user.cosmetologist_email = up.email;
+        //            user.cosmetologist_user_name = up.username;
+        //            user.cosmetologist_user_password = up.user_password;
+        //            user.cosmetic_license_num = up.cosmetic_license_num;
+        //            user.cosmetic_businessName = up.cosmetic_businessName;
+        //            user.cosmetic_city = up.cosmetic_city;
+        //            user.cosmetic_address = up.cosmetic_address;
+        //            user.cosmetologist_phoneNumber = up.cosmetologist_phoneNumber;
 
-                    return Ok(user);
-                }
-                return Content(HttpStatusCode.NotFound,
-                    $"Cosmetologist with id={id} was not found.");
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+        //            return Ok(user);
+        //        }
+        //        return Content(HttpStatusCode.NotFound,
+        //            $"Cosmetologist with id={id} was not found.");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
 
         [HttpPut]
         [Route("api/login/UpdatePassword")]
@@ -442,7 +442,7 @@ namespace SkinMeApp.Controllers
                     return Ok(user);
                 }
                 return Content(HttpStatusCode.NotFound,
-                    $"User with username={id} was not found.");
+                    $"User with id={id} was not found.");
             }
             catch (Exception ex)
             {
@@ -452,7 +452,7 @@ namespace SkinMeApp.Controllers
 
         [HttpPut]
         [Route("api/login/UpdateCosPassword")]
-        public IHttpActionResult ChangeCosPassword(int id, [FromBody] ForgotCosPassword forgot) // update cos password after temp password 
+        public IHttpActionResult ChangeCosPassword(int id, [FromBody] ForgotCosPassword forgot) // update cos password 
         {
             try
             {
@@ -464,7 +464,52 @@ namespace SkinMeApp.Controllers
                     return Ok(cos);
                 }
                 return Content(HttpStatusCode.NotFound,
-                    $"Cosmetologist with username={id} was not found.");
+                    $"Cosmetologist with id={id} was not found.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut]
+        [Route("api/login/UpdateCosEmail")]
+        public IHttpActionResult ChangeCosEmail(int id, [FromBody] ChangeInfoCos info) // update cos email 
+        {
+            try
+            {
+                AppCosmetologist cos = db.AppCosmetologists.SingleOrDefault(x => x.cosmetologist_id == id);
+                if (cos != null)
+                {
+                    cos.cosmetologist_email = info.cosmetologist_email;
+                    db.SaveChanges();
+                    return Ok(cos);
+                }
+                return Content(HttpStatusCode.NotFound,
+                    $"Cosmetologist with id={id} was not found.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpPut]
+        [Route("api/login/UpdateCosPhone")]
+        public IHttpActionResult ChangeCosPhoneNumber(int id, [FromBody] ChangeInfoCos info) // update cos phone number
+        {
+            try
+            {
+                AppCosmetologist cos = db.AppCosmetologists.SingleOrDefault(x => x.cosmetologist_id == id);
+                if (cos != null)
+                {
+                    cos.cosmetologist_phoneNumber = info.cosmetologist_phoneNumber;
+                    db.SaveChanges();
+                    return Ok(cos);
+                }
+                return Content(HttpStatusCode.NotFound,
+                    $"Cosmetologist with id={id} was not found.");
             }
             catch (Exception ex)
             {

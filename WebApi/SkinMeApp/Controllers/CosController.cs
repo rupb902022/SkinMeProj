@@ -48,6 +48,7 @@ namespace SkinMeApp.Controllers
         [Route("api/Cos/AddSkinPlan")]
         public IHttpActionResult AddPlan([FromBody] SkinPlan value) // add plan
         {
+
             try
             {
                 db.SkinPlans.Add(value);
@@ -307,7 +308,7 @@ namespace SkinMeApp.Controllers
 
         [HttpPut]
         [Route("api/Cos/RateCosmetologist")]
-        public IHttpActionResult RateCosmetologist(int rate, [FromBody] Cosmetologist id) // Rate cosmetologist
+        public IHttpActionResult RateCosmetologist(int rate, [FromBody] CosmetologistRate id) // Rate cosmetologist
         {
             try
             {
