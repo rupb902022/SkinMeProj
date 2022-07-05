@@ -13,10 +13,10 @@ namespace DATA
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class bgroup90_test2Entities18 : DbContext
+    public partial class bgroup90_test2Entities19 : DbContext
     {
-        public bgroup90_test2Entities18()
-            : base("name=bgroup90_test2Entities18")
+        public bgroup90_test2Entities19()
+            : base("name=bgroup90_test2Entities19")
         {
         }
     

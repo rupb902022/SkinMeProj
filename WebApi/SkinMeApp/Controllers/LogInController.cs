@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Net;
@@ -13,7 +14,7 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class LogInController : ApiController
     {
-        bgroup90_test2Entities18 db = new bgroup90_test2Entities18();
+        bgroup90_test2Entities19 db = new bgroup90_test2Entities19();
       
 
         public string GeneratePassword()
@@ -92,7 +93,6 @@ namespace SkinMeApp.Controllers
         [Route("api/mail/forgotpassword")]
         public IHttpActionResult UpdateTempPassword(string  mail) 
         {
-
             string strNewPassword = GeneratePassword().ToString();
 
             string Projectmail = "rupb902022@gmail.com";
@@ -108,7 +108,6 @@ namespace SkinMeApp.Controllers
                 {
                     Credentials = new NetworkCredential(Projectmail, Password),
                     EnableSsl = true,
-
                 };
 
                 string subject = "Reset your password ";
@@ -121,8 +120,6 @@ namespace SkinMeApp.Controllers
 
                 if (user != null)
                 {
-
-
                     user.user_password= strNewPassword;
                     db.SaveChanges();
                     client.Send("rupb902022@gmail.com", mail, subject, body);
@@ -131,10 +128,6 @@ namespace SkinMeApp.Controllers
                 }
                 return Content(HttpStatusCode.NotFound,
                    $" not found.");
-
-
-
-
 
             }
             catch (Exception ex)
@@ -207,14 +200,42 @@ namespace SkinMeApp.Controllers
             }
         }
 
+
         [HttpPost]
         [Route("api/LogIn/register")]
-
         public IHttpActionResult Post([FromBody] AppUser value)
-
         {
             try
             {
+                List<AppCosmetologist> cosmetologists = db.AppCosmetologists.ToList(); // bring all cosmetologists in order to check email 
+                List<AppUser> users = db.AppUsers.ToList(); // bring all users in order to check email
+
+                foreach (AppCosmetologist cos in cosmetologists)
+                {
+                    if (cos.cosmetologist_email == value.email)
+                    {
+                        return Content(HttpStatusCode.Conflict,
+                    $"Email address={value.email} already exist.");
+                    }
+                    else if (cos.cosmetologist_user_name == value.username)
+                    {
+                        return Content(HttpStatusCode.Conflict,
+                    $"Username={value.username} already exist.");
+                    }
+                }
+                foreach (AppUser user in users)
+                {
+                    if (user.email == value.email)
+                    {
+                        return Content(HttpStatusCode.Conflict,
+                    $"Email address={value.email} already exist.");
+                    }
+                    else if (user.username == value.username)
+                    {
+                        return Content(HttpStatusCode.Conflict,
+                    $"Username={value.username} already exist.");
+                    }
+                }
                 db.AppUsers.Add(value);
                 db.SaveChanges();
                 return Created(new Uri(Request.RequestUri.AbsoluteUri + value.appUser_id), value);
@@ -238,12 +259,40 @@ namespace SkinMeApp.Controllers
 
         [HttpPost]
         [Route("api/LogIn/registerCos")]
-
         public IHttpActionResult CosRegister([FromBody] AppCosmetologist value)
 
         {
             try
             {
+                List<AppCosmetologist> cosmetologists = db.AppCosmetologists.ToList(); // bring all cosmetologists in order to check email 
+                List<AppUser> users = db.AppUsers.ToList(); // bring all users in order to check email
+
+                foreach (AppCosmetologist cos in cosmetologists)
+                {
+                    if (cos.cosmetologist_email == value.cosmetologist_email)
+                    {
+                        return Content(HttpStatusCode.Conflict,
+                    $"Email address={value.cosmetologist_email} already exist.");
+                    }
+                    else if (cos.cosmetologist_user_name == value.cosmetologist_user_name)
+                    {
+                        return Content(HttpStatusCode.Conflict,
+                    $"Username={value.cosmetologist_user_name} already exist.");
+                    }
+                }
+                foreach (AppUser user in users)
+                {
+                    if (user.email == value.cosmetologist_email)
+                    {
+                        return Content(HttpStatusCode.Conflict,
+                    $"Email address={value.cosmetologist_email} already exist.");
+                    }
+                    else if (user.username == value.cosmetologist_user_name)
+                    {
+                        return Content(HttpStatusCode.Conflict,
+                    $"Username={value.cosmetologist_user_name} already exist.");
+                    }
+                }
                 db.AppCosmetologists.Add(value);
                 db.SaveChanges();
                 return Created(new Uri(Request.RequestUri.AbsoluteUri + value.cosmetologist_id), value);

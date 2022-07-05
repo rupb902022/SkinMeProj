@@ -15,7 +15,7 @@ namespace SkinMeApp.Controllers
     public class UsersController : ApiController
     {
 
-        bgroup90_test2Entities18 db = new bgroup90_test2Entities18();
+        bgroup90_test2Entities19 db = new bgroup90_test2Entities19();
 
 
         [HttpGet]
@@ -37,6 +37,23 @@ namespace SkinMeApp.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+
+        [HttpGet]
+        [Route("api/Users/GetAllAppUsers")]
+        public IHttpActionResult allUsers() // Get all users 
+        {
+            try
+            {
+                return Ok(db.AppUsers);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+        }
+
 
         [HttpPut]
         [Route("api/Users/profileImage/{id}")]

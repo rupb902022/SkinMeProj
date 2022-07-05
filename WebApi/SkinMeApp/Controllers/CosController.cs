@@ -13,12 +13,12 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CosController : ApiController
     {
-        bgroup90_test2Entities18 db = new bgroup90_test2Entities18();
+        bgroup90_test2Entities19 db = new bgroup90_test2Entities19();
         
 
         [HttpGet]
-        [Route("api/map")]
-        public IHttpActionResult allcos() // Get all estheticians 
+        [Route("api/cosmetologists/GetAllCos")]
+        public IHttpActionResult allcos() // Get all cosmetologists 
         {
             try
             {
