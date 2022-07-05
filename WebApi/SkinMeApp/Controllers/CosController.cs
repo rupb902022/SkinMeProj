@@ -132,11 +132,11 @@ namespace SkinMeApp.Controllers
 
         [HttpPost]
         [Route("api/Cos/Depending")]
-        public IHttpActionResult GetDepending([FromBody] Depending status) // get users that are waiting for cosmetologist
+        public IHttpActionResult GetDepending([FromBody] Depending status, int id) // get users that are waiting for cosmetologist
         {
             try
             {
-                List<AppUser> users = db.AppUsers.Where(x => x.user_status == status.user_status).ToList();
+                List<AppUser> users = db.AppUsers.Where(x => x.user_status == status.user_status && x.cosmetologist_id == id).ToList();
 
                 if (users != null)
                 {
