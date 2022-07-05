@@ -191,7 +191,7 @@ namespace SkinMeApp.Controllers
                 AppCosmetologist logc = db.AppCosmetologists.FirstOrDefault
                     (x => x.cosmetologist_user_name == loginc.cosmetologist_user_name && x.cosmetologist_user_password == loginc.cosmetologist_user_password);
 
-                if (logc != null)
+                if (logc != null && logc.cosmetic_status!="Pending")
                 {
                     return Content(HttpStatusCode.OK,
                         $"{ logc.cosmetologist_id}");
@@ -367,6 +367,7 @@ namespace SkinMeApp.Controllers
                     user.cosmetic_city = up.cosmetic_city;
                     user.cosmetic_address = up.cosmetic_address;
                     user.cosmetologist_phoneNumber = up.cosmetologist_phoneNumber;
+                    
 
                     return Ok(user);
                 }
