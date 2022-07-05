@@ -18,6 +18,7 @@ namespace DATA
         public bgroup90_test2EntitiesSkinMe()
             : base("name=bgroup90_test2EntitiesSkinMe")
         {
+            this.Configuration.ProxyCreationEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

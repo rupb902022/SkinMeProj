@@ -80,15 +80,15 @@ namespace SkinMeApp.Controllers
         }
 
         [HttpGet]
-        [Route("api/Users/allimages")]
+        [Route("api/Users/allimages/{id}")]
         public IHttpActionResult GetUserImages(int id)
         {
             try
             {
-                UserImage img = db.UserImages.FirstOrDefault(x => x.appUser_id == id);
-                if (img != null)
+                List<UserImage> images = db.UserImages.Where(x => x.appUser_id == id).ToList<UserImage>();
+                if (images != null)
                 {
-                    return Content(HttpStatusCode.OK, img);
+                    return Content(HttpStatusCode.OK, images);
                 }
                 return Content(HttpStatusCode.NotFound,
                     $"User not found");
