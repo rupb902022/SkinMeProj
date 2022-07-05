@@ -319,7 +319,8 @@ namespace SkinMeApp.Controllers
                 {
                     cos.cosmetologist_sumRate += rating.cosmetologist_sumRate;
                     cos.cosmetologist_numOfRates++;
-                    cos.cosmetologist_rate = cos.cosmetologist_sumRate / cos.cosmetologist_numOfRates; 
+                    double res = (double)cos.cosmetologist_sumRate / (double)cos.cosmetologist_numOfRates;
+                    cos.cosmetologist_rate = Convert.ToDouble(String.Format("{0:0.00}", res));
                     db.SaveChanges();
                     return Ok(cos);
                 }
