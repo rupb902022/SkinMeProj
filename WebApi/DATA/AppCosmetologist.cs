@@ -40,7 +40,7 @@ namespace DATA
         public Nullable<double> cosmetologist_rate { get; set; }
         public Nullable<int> cosmetologist_sumRate { get; set; }
         public Nullable<int> cosmetologist_numOfRates { get; set; }
-        public Nullable<int> cosmetologist_phoneNumber { get; set; }
+        public string cosmetologist_phoneNumber { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AppUser> AppUsers { get; set; }
