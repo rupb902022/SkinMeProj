@@ -15,9 +15,7 @@ namespace SkinMeApp.Controllers
 
     public class ProductsController : ApiController
     {
-        bgroup90_test2Entities19 db = new bgroup90_test2Entities19();
-        
-
+        bgroup90_test2EntitiesSkinMe db = new bgroup90_test2EntitiesSkinMe();
 
         [HttpGet]
         [Route("api/Products/")]
@@ -412,26 +410,27 @@ namespace SkinMeApp.Controllers
             }
         }
 
-
-
         [HttpPut]
-        [Route("api/Products/RateProduct")]
-        public IHttpActionResult RateProduct(int rate, [FromBody] Product id) // Rate product
+        [Route("api/Products/RateProd")]
+        public IHttpActionResult RateProduct(int id, [FromBody] RateProd rating) // Rate cosmetologist
         {
             try
             {
-                Product prod = db.Products.SingleOrDefault(x => x.prod_id == id.prod_id);
+                Product prod = db.Products.SingleOrDefault(x => x.prod_id == id);
+
+
+
                 if (prod != null)
                 {
-                    prod.prod_sumRate += rate; 
-                    prod.prod_numOfRates++; 
-                    prod.prod_rate = prod.prod_sumRate / prod.prod_numOfRates++; 
+                    prod.prod_sumRate += rating.prod_sumRate;
+                    prod.prod_numOfRates++;
+                    double res = (double)prod.prod_sumRate / (double)prod.prod_numOfRates;
+                    prod.prod_rate = Convert.ToDouble(String.Format("{0:0.00}", res));
                     db.SaveChanges();
-
                     return Ok(prod);
                 }
                 return Content(HttpStatusCode.NotFound,
-                    $"Product with id={id} was not found.");
+                    $"Cosmetologist with id={id} was not found.");
             }
             catch (Exception ex)
             {

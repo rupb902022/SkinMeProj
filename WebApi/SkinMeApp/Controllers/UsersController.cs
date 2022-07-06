@@ -15,7 +15,7 @@ namespace SkinMeApp.Controllers
     public class UsersController : ApiController
     {
 
-        bgroup90_test2Entities19 db = new bgroup90_test2Entities19();
+        bgroup90_test2EntitiesSkinMe db = new bgroup90_test2EntitiesSkinMe();
 
 
         [HttpGet]
@@ -76,6 +76,51 @@ namespace SkinMeApp.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+
+        [HttpPost]
+        [Route("api/Users/images")] // upload images מעקב תמונות 
+
+        public IHttpActionResult Post([FromBody] UserImage img)
+        {
+            try
+            {
+                db.UserImages.Add(img);
+                db.SaveChanges();
+                return Created(new Uri(Request.RequestUri.AbsoluteUri + img.imgId), img);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("api/Users/allimages/{id}")]
+        public IHttpActionResult GetUserImages(int id)
+        {
+            try
+            {
+                List<UserImage> images = db.UserImages.Where(x => x.appUser_id == id).ToList<UserImage>();
+                if (images != null)
+                {
+                    return Content(HttpStatusCode.OK, images);
+                }
+                return Content(HttpStatusCode.NotFound,
+                    $"User not found");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+
+
+
+
 
         [HttpPut]
         [Route("api/Users/addroute")]

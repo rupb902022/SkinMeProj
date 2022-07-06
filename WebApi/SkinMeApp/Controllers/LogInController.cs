@@ -14,7 +14,7 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class LogInController : ApiController
     {
-        bgroup90_test2Entities19 db = new bgroup90_test2Entities19();
+        bgroup90_test2EntitiesSkinMe db = new bgroup90_test2EntitiesSkinMe();
       
 
         public string GeneratePassword()
@@ -184,7 +184,7 @@ namespace SkinMeApp.Controllers
                 AppCosmetologist logc = db.AppCosmetologists.FirstOrDefault
                     (x => x.cosmetologist_user_name == loginc.cosmetologist_user_name && x.cosmetologist_user_password == loginc.cosmetologist_user_password);
 
-                if (logc != null)
+                if (logc != null && logc.cosmetic_status!="Pending")
                 {
                     return Content(HttpStatusCode.OK,
                         $"{ logc.cosmetologist_id}");
@@ -449,6 +449,53 @@ namespace SkinMeApp.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+
+        [HttpPut]
+        [Route("api/login/UpdateUserEmail")]
+        public IHttpActionResult ChangeUserEmail(int id, [FromBody] UpdateUserInfo info) // update cos email 
+        {
+            try
+            {
+                AppUser user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
+                if (user != null)
+                {
+                    user.email = info.email;
+                    db.SaveChanges();
+                    return Ok(user);
+                }
+                return Content(HttpStatusCode.NotFound,
+                    $"Cosmetologist with id={id} was not found.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut]
+        [Route("api/login/UpdateUserUsername")]
+        public IHttpActionResult ChangeUserUsername(int id, [FromBody] UpdateUserInfo info) // update cos email 
+        {
+            try
+            {
+                AppUser user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
+                if (user != null)
+                {
+                    user.username = info.username;
+                    db.SaveChanges();
+                    return Ok(user);
+                }
+                return Content(HttpStatusCode.NotFound,
+                    $"Cosmetologist with id={id} was not found.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
 
         [HttpPut]
         [Route("api/login/UpdateCosPassword")]

@@ -10,6 +10,6 @@ namespace SkinMeApp.DTO
         public int cosmetologist_id { get; set; }
         public int cosmetologist_sumRate { get; set; }
         public int cosmetologist_numOfRates { get; set; }
-        public int cosmetologist_rate { get; set; }
+        public double cosmetologist_rate { get; set; }
     }
 }
