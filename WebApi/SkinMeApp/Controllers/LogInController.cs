@@ -14,7 +14,7 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class LogInController : ApiController
     {
-        bgroup90_prodEntities db = new bgroup90_prodEntities();
+        bgroup90_prodEntities1 db = new bgroup90_prodEntities1();
       
 
         public string GeneratePassword()
@@ -453,7 +453,7 @@ namespace SkinMeApp.Controllers
 
         [HttpPut]
         [Route("api/login/UpdateUserEmail")]
-        public IHttpActionResult ChangeUserEmail(int id, [FromBody] UpdateUserInfo info) // update cos email 
+        public IHttpActionResult ChangeUserEmail(int id, [FromBody] UpdateUserInfo info) // update user email 
         {
             try
             {
@@ -475,7 +475,7 @@ namespace SkinMeApp.Controllers
 
         [HttpPut]
         [Route("api/login/UpdateUserUsername")]
-        public IHttpActionResult ChangeUserUsername(int id, [FromBody] UpdateUserInfo info) // update cos email 
+        public IHttpActionResult ChangeUserUsername(int id, [FromBody] UpdateUserInfo info) // update user username
         {
             try
             {

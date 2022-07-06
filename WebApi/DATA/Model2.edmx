@@ -28,7 +28,7 @@
           <Property Name="cosmetologist_rate" Type="float" />
           <Property Name="cosmetologist_sumRate" Type="int" />
           <Property Name="cosmetologist_numOfRates" Type="int" />
-          <Property Name="cosmetologist_phoneNumber" Type="int" />
+          <Property Name="cosmetologist_phoneNumber" Type="varchar" MaxLength="15" />
         </EntityType>
         <EntityType Name="AppUsers">
           <Key>
@@ -77,6 +77,7 @@
           <Property Name="prod_rate" Type="float" />
           <Property Name="prod_sumRate" Type="int" />
           <Property Name="prod_numOfRates" Type="int" />
+          <Property Name="prod_time" Type="varchar" MaxLength="1" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'bgroup90_prod.dbo.ProductsForPlan' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -116,23 +117,6 @@ warning 6002: The table/view 'bgroup90_prod.dbo.ProductsForProfiles' does not ha
           <Property Name="plan_name" Type="varchar" MaxLength="100" />
           <Property Name="plan_date" Type="date" />
           <Property Name="notes" Type="varchar" MaxLength="2500" />
-        </EntityType>
-        <EntityType Name="Users">
-          <Key>
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserName" Type="nvarchar" MaxLength="25" Nullable="false" />
-          <Property Name="Password" Type="nvarchar" MaxLength="15" Nullable="false" />
-          <Property Name="Email" Type="nvarchar" MaxLength="40" Nullable="false" />
-          <Property Name="UserRole" Type="nvarchar" MaxLength="15" Nullable="false" />
-          <Property Name="FirstName" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="LastName" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="BirthDate" Type="date" Nullable="false" />
-          <Property Name="ImagePath" Type="nvarchar(max)" />
-          <Property Name="FrameId" Type="int" />
-          <Property Name="RoleId" Type="int" />
-          <Property Name="CreationDate" Type="date" />
         </EntityType>
         <EntityType Name="UsersImages">
           <Key>
@@ -269,7 +253,6 @@ warning 6002: The table/view 'bgroup90_prod.dbo.ProductsForProfiles' does not ha
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Profiles" EntityType="Self.Profiles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SkinPlan" EntityType="Self.SkinPlan" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UsersImages" EntityType="Self.UsersImages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductsForPlan" EntityType="Self.ProductsForPlan" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -354,7 +337,7 @@ warning 6002: The table/view 'bgroup90_prod.dbo.ProductsForProfiles' does not ha
           <Property Name="cosmetologist_rate" Type="Double" />
           <Property Name="cosmetologist_sumRate" Type="Int32" />
           <Property Name="cosmetologist_numOfRates" Type="Int32" />
-          <Property Name="cosmetologist_phoneNumber" Type="Int32" />
+          <Property Name="cosmetologist_phoneNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="AppUsers" Relationship="Self.FK_AppUsers_AppCosmetologists" FromRole="AppCosmetologists" ToRole="AppUsers" />
           <NavigationProperty Name="SkinPlans" Relationship="Self.FK_SkinPlan_AppCosmetologists" FromRole="AppCosmetologists" ToRole="SkinPlan" />
         </EntityType>
@@ -410,6 +393,7 @@ warning 6002: The table/view 'bgroup90_prod.dbo.ProductsForProfiles' does not ha
           <Property Name="prod_rate" Type="Double" />
           <Property Name="prod_sumRate" Type="Int32" />
           <Property Name="prod_numOfRates" Type="Int32" />
+          <Property Name="prod_time" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="ProductsForPlans" Relationship="Self.FK_ProductsForPlan_Products" FromRole="Products" ToRole="ProductsForPlan" />
           <NavigationProperty Name="ProductsForProfiles" Relationship="Self.FK_ProductsForProfiles_Products" FromRole="Products" ToRole="ProductsForProfiles" />
         </EntityType>
@@ -437,23 +421,6 @@ warning 6002: The table/view 'bgroup90_prod.dbo.ProductsForProfiles' does not ha
           <NavigationProperty Name="AppUsers" Relationship="Self.FK_AppUsers_SkinPlan1" FromRole="SkinPlan" ToRole="AppUsers" />
           <NavigationProperty Name="AppUser" Relationship="Self.FK_SkinPlan_AppUsers" FromRole="SkinPlan" ToRole="AppUsers" />
           <NavigationProperty Name="ProductsForPlans" Relationship="Self.FK_ProductsForPlan_SkinPlan" FromRole="SkinPlan" ToRole="ProductsForPlan" />
-        </EntityType>
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserName" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="UserRole" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="FrameId" Type="Int32" />
-          <Property Name="RoleId" Type="Int32" />
-          <Property Name="CreationDate" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="UsersImage">
           <Key>
@@ -605,13 +572,12 @@ warning 6002: The table/view 'bgroup90_prod.dbo.ProductsForProfiles' does not ha
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="bgroup90_prodEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="bgroup90_prodEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AppCosmetologists" EntityType="Self.AppCosmetologist" />
           <EntitySet Name="AppUsers" EntityType="Self.AppUser" />
           <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="Profiles" EntityType="Self.Profile" />
           <EntitySet Name="SkinPlans" EntityType="Self.SkinPlan" />
-          <EntitySet Name="Users" EntityType="Self.User" />
           <EntitySet Name="UsersImages" EntityType="Self.UsersImage" />
           <EntitySet Name="ProductsForPlans" EntityType="Self.ProductsForPlan" />
           <EntitySet Name="ProductsForProfiles" EntityType="Self.ProductsForProfile" />
@@ -661,7 +627,7 @@ warning 6002: The table/view 'bgroup90_prod.dbo.ProductsForProfiles' does not ha
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="bgroup90_prodModelStoreContainer" CdmEntityContainer="bgroup90_prodEntities">
+        <EntityContainerMapping StorageEntityContainer="bgroup90_prodModelStoreContainer" CdmEntityContainer="bgroup90_prodEntities1">
           <EntitySetMapping Name="AppCosmetologists">
             <EntityTypeMapping TypeName="bgroup90_prodModel.AppCosmetologist">
               <MappingFragment StoreEntitySet="AppCosmetologists">
@@ -735,6 +701,7 @@ warning 6002: The table/view 'bgroup90_prod.dbo.ProductsForProfiles' does not ha
                 <ScalarProperty Name="prod_rate" ColumnName="prod_rate" />
                 <ScalarProperty Name="prod_sumRate" ColumnName="prod_sumRate" />
                 <ScalarProperty Name="prod_numOfRates" ColumnName="prod_numOfRates" />
+                <ScalarProperty Name="prod_time" ColumnName="prod_time" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -756,24 +723,6 @@ warning 6002: The table/view 'bgroup90_prod.dbo.ProductsForProfiles' does not ha
                 <ScalarProperty Name="plan_name" ColumnName="plan_name" />
                 <ScalarProperty Name="plan_date" ColumnName="plan_date" />
                 <ScalarProperty Name="notes" ColumnName="notes" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="bgroup90_prodModel.User">
-              <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="UserRole" ColumnName="UserRole" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
-                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
-                <ScalarProperty Name="FrameId" ColumnName="FrameId" />
-                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
