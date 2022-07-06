@@ -18,6 +18,7 @@ namespace DATA
         public bgroup90_prodEntities()
             : base("name=bgroup90_prodEntities")
         {
+            this.Configuration.ProxyCreationEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
