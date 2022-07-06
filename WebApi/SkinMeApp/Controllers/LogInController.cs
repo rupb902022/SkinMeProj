@@ -135,6 +135,54 @@ namespace SkinMeApp.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPut]
+        [Route("api/mail/forgotcospassword")]
+        public IHttpActionResult UpdateTempPasswordCos(string mail)
+        {
+            string strNewPassword = GeneratePassword().ToString();
+
+            string Projectmail = "rupb902022@gmail.com";
+            string Password = "oqodhdtqfpxmhivc";
+            string Host = "smtp.gmail.com";
+            int Port = 587;
+
+            try
+            {
+                AppCosmetologist cos = db.AppCosmetologists.SingleOrDefault(x => x.cosmetologist_email == mail);
+
+                SmtpClient client = new SmtpClient(Host, Port)
+                {
+                    Credentials = new NetworkCredential(Projectmail, Password),
+                    EnableSsl = true,
+                };
+
+                string subject = "Reset your password ";
+
+                string body = $"Hello , \n" + " \n" +
+                              $"This is your temporary password :" + "  " + strNewPassword + "\n" + "\n" +
+                              $"In order to reset your password, go back to Skinme login page and enter this temporary password, " +
+                              $"after that you will be able in the settings section to change it for the password of your choice. " + "\n" + "\n" +
+                              "Best Regards,\n Skinme Team ";
+
+                if (cos != null)
+                {
+                    cos.cosmetologist_user_password = strNewPassword;
+                    db.SaveChanges();
+                    client.Send("rupb902022@gmail.com", mail, subject, body);
+                    return Ok("  mail sent   ");
+
+                }
+                return Content(HttpStatusCode.NotFound,
+                   $" not found.");
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
         public IHttpActionResult Get()
         {
             try
@@ -173,6 +221,8 @@ namespace SkinMeApp.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+
 
         [HttpPost]
         [Route("api/LogIn/Cos")]
@@ -264,6 +314,8 @@ namespace SkinMeApp.Controllers
             }
         }
 
+
+
         [HttpPost]
         [Route("api/LogIn/registerCos")]
         public IHttpActionResult CosRegister([FromBody] AppCosmetologist value) // cosmetologist register to app
@@ -354,30 +406,6 @@ namespace SkinMeApp.Controllers
         }
 
 
-        //public IHttpActionResult Put(int id, [FromBody] AppUser value)
-        //{
-        //    try
-        //    {
-        //        AppUser user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
-        //        if (user != null)
-        //        {
-        //            user.user_firstName = value.user_firstName;
-        //            user.user_lastName = value.user_lastName;
-        //            user.user_email = value.user_email;
-        //            user.username = value.username;
-        //            user.user_password = value.user_password;
-        //            return Ok(user);
-        //        }
-        //        return Content(HttpStatusCode.NotFound,
-        //            $"User with id={id} was not found.");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //}
-
-
         [HttpPut]
         [Route("api/UpdateUser")]
         public IHttpActionResult UpdateUserInfo(int id, [FromBody] UpdateUserInfo up) // update user info dto
@@ -404,36 +432,6 @@ namespace SkinMeApp.Controllers
             }
         }
 
-        //[HttpPut]
-        //[Route("api/UpdateCos")]
-
-        //public IHttpActionResult UpdateCosInfo(int id, [FromBody] UpdateCosInfo up) // update cosmetologist info dto
-        //{
-        //    try
-        //    {
-        //        AppCosmetologist user = db.AppCosmetologists.SingleOrDefault(x => x.cosmetologist_id == id);
-        //        if (user != null)
-        //        {
-
-        //            user.cosmetologist_email = up.email;
-        //            user.cosmetologist_user_name = up.username;
-        //            user.cosmetologist_user_password = up.user_password;
-        //            user.cosmetic_license_num = up.cosmetic_license_num;
-        //            user.cosmetic_businessName = up.cosmetic_businessName;
-        //            user.cosmetic_city = up.cosmetic_city;
-        //            user.cosmetic_address = up.cosmetic_address;
-        //            user.cosmetologist_phoneNumber = up.cosmetologist_phoneNumber;
-
-        //            return Ok(user);
-        //        }
-        //        return Content(HttpStatusCode.NotFound,
-        //            $"Cosmetologist with id={id} was not found.");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //}
 
         [HttpPut]
         [Route("api/login/UpdatePassword")]
