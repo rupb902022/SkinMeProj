@@ -12,11 +12,11 @@ namespace DATA
     using System;
     using System.Collections.Generic;
     
-    public partial class UserImage
+    public partial class UsersImage
     {
-        public int imgId { get; set; }
+        public int img_id { get; set; }
+        public string Imgurl { get; set; }
         public Nullable<int> appUser_id { get; set; }
-        public string imgUrl { get; set; }
         public Nullable<System.DateTime> upload_date { get; set; }
     
         public virtual AppUser AppUser { get; set; }

@@ -15,7 +15,7 @@ namespace SkinMeApp.Controllers
 
     public class ProductsController : ApiController
     {
-        bgroup90_test2EntitiesSkinMe db = new bgroup90_test2EntitiesSkinMe();
+        bgroup90_prod db = new bgroup90_prod();
 
         [HttpGet]
         [Route("api/Products/")]
@@ -361,18 +361,113 @@ namespace SkinMeApp.Controllers
         [Route("api/Products/GetProdForPlan")]
         public IHttpActionResult GetProductsForPlan(int id) // get products for skin plan
         {
+            
             try
             {
                 SkinPlan plan = db.SkinPlans.SingleOrDefault(x => x.appUser_id == id); // get the plan for this user
 
-                List<Products_for_plan> productsForPlan = db.Products_for_plan.Where(x => x.plan_id == plan.plan_id).ToList(); //list all the products for this plan id
+                List<ProductsForPlan> productsForPlan = db.ProductsForPlans.Where(x => x.plan_id == plan.plan_id).ToList(); //list all the products for this plan id
+
+                List<Product> prod = db.Products.ToList();
 
                 if (productsForPlan != null)
                 {
-                    foreach (Products_for_plan p in productsForPlan)
+                    foreach (ProductsForPlan p in productsForPlan)
                     {
-                        return Ok(p);
+                        foreach(Product products in prod)
+                        {
+                            if (p.prod_id==products.prod_id)
+                            {
+                                return Ok(products);
+                            }
+
+                            
+                        }
+
+                        //return Ok(p);
                     }
+                }
+                return Content(HttpStatusCode.NotFound,
+                    $"Products for plan id={id} was not found.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("api/Products/GetProdForAutoPlanDay")]
+        public IHttpActionResult GetProductsForAutoPlanDay(int id) // get products for Auto plan
+        {
+            try
+            {
+                AppUser plan = db.AppUsers.SingleOrDefault(x => x.appUser_id == id); // get the plan for this user
+
+                List<ProductsForPlan> productsForPlan = db.ProductsForPlans.Where(x => x.plan_id == plan.plan_id).ToList(); //list all the products for this plan id
+
+                List<Product> prod = db.Products.ToList();
+                List<Product> finalp = new List<Product>();
+
+                if (productsForPlan != null)
+                {
+                    foreach (ProductsForPlan p in productsForPlan)
+                    {
+                        foreach (Product products in prod)
+                        {
+                            if (p.prod_id == products.prod_id && products.prod_time =="D")
+                            {
+                                
+                                finalp.Add(products);
+                                
+                                
+                            }
+
+                        }
+ 
+                    }
+                    return Ok(finalp);
+                }
+                return Content(HttpStatusCode.NotFound,
+                    $"Products for plan id={id} was not found.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("api/Products/GetProdForAutoPlanNight")]
+        public IHttpActionResult GetProductsForAutoPlanNight(int id) // get products for Auto plan
+        {
+            try
+            {
+                AppUser plan = db.AppUsers.SingleOrDefault(x => x.appUser_id == id); // get the plan for this user
+
+                List<ProductsForPlan> productsForPlan = db.ProductsForPlans.Where(x => x.plan_id == plan.plan_id).ToList(); //list all the products for this plan id
+
+                List<Product> prod = db.Products.ToList();
+                List<Product> finalp = new List<Product>();
+
+                if (productsForPlan != null)
+                {
+                    foreach (ProductsForPlan p in productsForPlan)
+                    {
+                        foreach (Product products in prod)
+                        {
+                            if (p.prod_id == products.prod_id && products.prod_time == "N")
+                            {
+
+                                finalp.Add(products);
+
+
+                            }
+
+                        }
+
+                    }
+                    return Ok(finalp);
                 }
                 return Content(HttpStatusCode.NotFound,
                     $"Products for plan id={id} was not found.");
@@ -411,7 +506,7 @@ namespace SkinMeApp.Controllers
         }
 
         [HttpPut]
-        [Route("api/Products/RateProd")]
+        [Route("api/Products/RateProd/{id}")]
         public IHttpActionResult RateProduct(int id, [FromBody] RateProd rating) // Rate cosmetologist
         {
             try
