@@ -262,6 +262,8 @@ namespace SkinMeApp.Controllers
                             // find the u skin plan id 
                             //bring the products for plan of this plan
                             List<ProductsForPlan> productsForPlan = db.ProductsForPlans.Where(x => x.plan_id == u.plan_id).ToList();
+                            
+                            //order by rate
 
                             // put these products in our profile 
                             foreach (ProductsForPlan pfp in productsForPlan)
