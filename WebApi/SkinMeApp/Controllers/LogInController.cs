@@ -402,8 +402,7 @@ namespace SkinMeApp.Controllers
             }
         }
 
-<<<<<<< Updated upstream
-=======
+
         [HttpPut]
         [Route("api/login/UpdateUserEmail")]
         public IHttpActionResult ChangeUserEmail(int id, [FromBody] UpdateUserInfo info) // update cos email 
@@ -449,7 +448,7 @@ namespace SkinMeApp.Controllers
         }
 
 
->>>>>>> Stashed changes
+
         [HttpPut]
         [Route("api/login/UpdateCosPassword")]
         public IHttpActionResult ChangeCosPassword(int id, [FromBody] ForgotCosPassword forgot) // update cos password after temp password 
