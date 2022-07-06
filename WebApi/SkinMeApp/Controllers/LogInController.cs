@@ -15,7 +15,7 @@ namespace SkinMeApp.Controllers
     public class LogInController : ApiController
     {
         bgroup90_prodEntities db = new bgroup90_prodEntities();
-      
+
 
         public string GeneratePassword()
         {
@@ -91,7 +91,7 @@ namespace SkinMeApp.Controllers
 
         [HttpPut]
         [Route("api/mail/forgotpassword")]
-        public IHttpActionResult UpdateTempPassword(string  mail) 
+        public IHttpActionResult UpdateTempPassword(string mail)
         {
             string strNewPassword = GeneratePassword().ToString();
 
@@ -120,7 +120,7 @@ namespace SkinMeApp.Controllers
 
                 if (user != null)
                 {
-                    user.user_password= strNewPassword;
+                    user.user_password = strNewPassword;
                     db.SaveChanges();
                     client.Send("rupb902022@gmail.com", mail, subject, body);
                     return Ok("  mail sent   ");
@@ -161,7 +161,7 @@ namespace SkinMeApp.Controllers
 
                 if (log != null)
                 {
-                    return Content(HttpStatusCode.OK,log);
+                    return Content(HttpStatusCode.OK, log);
                 }
                 return Content(HttpStatusCode.NotFound,
                     $"username or password were not found");
@@ -169,7 +169,7 @@ namespace SkinMeApp.Controllers
             }
             catch (Exception e)
             {
-                Console.WriteLine(e); 
+                Console.WriteLine(e);
                 return BadRequest(e.Message);
             }
         }
@@ -184,14 +184,21 @@ namespace SkinMeApp.Controllers
                 AppCosmetologist logc = db.AppCosmetologists.FirstOrDefault
                     (x => x.cosmetologist_user_name == loginc.cosmetologist_user_name && x.cosmetologist_user_password == loginc.cosmetologist_user_password);
 
-                if (logc != null && logc.cosmetic_status!="Pending")
+                if (logc != null && logc.cosmetic_status != "Pending")
                 {
                     return Content(HttpStatusCode.OK,
-                        $"{ logc.cosmetologist_id}");
+                        $"{logc.cosmetologist_id}");
                 }
-                return Content(HttpStatusCode.NotFound,
-                    $"username or password were not found");
-
+                else if (logc != null && logc.cosmetic_status == "Pending")
+                {
+                    return Content(HttpStatusCode.Conflict,
+               $"משתמש טרם אושר");
+                }
+                else
+                {
+                    return Content(HttpStatusCode.NotFound,
+             $"שם משתמש או סיסמה אינם נכונים");
+                }
             }
             catch (Exception e)
             {
@@ -251,7 +258,7 @@ namespace SkinMeApp.Controllers
                 Console.WriteLine(e);
                 return BadRequest(e.Message);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -345,7 +352,7 @@ namespace SkinMeApp.Controllers
                 return BadRequest(e.Message);
             }
         }
-    
+
 
         //public IHttpActionResult Put(int id, [FromBody] AppUser value)
         //{
@@ -380,7 +387,7 @@ namespace SkinMeApp.Controllers
                 AppUser user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
                 if (user != null)
                 {
-                    
+
                     user.email = up.email;
                     user.username = up.username;
                     user.user_password = up.user_password;
@@ -407,7 +414,7 @@ namespace SkinMeApp.Controllers
         //        AppCosmetologist user = db.AppCosmetologists.SingleOrDefault(x => x.cosmetologist_id == id);
         //        if (user != null)
         //        {
-                    
+
         //            user.cosmetologist_email = up.email;
         //            user.cosmetologist_user_name = up.username;
         //            user.cosmetologist_user_password = up.user_password;

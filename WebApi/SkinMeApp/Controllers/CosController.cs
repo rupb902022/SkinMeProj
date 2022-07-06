@@ -327,12 +327,15 @@ namespace SkinMeApp.Controllers
                                     if (prodInPlan.prod_id == prod.prod_id)
                                     {
                                         //result = new Product(prod);
-                                        return Ok(prod);
-
+                                        result.Add(prod);
                                     }
                                 }
 
                             }
+                           
+                            result.OrderByDescending(x => x.prod_rate);
+                            return Ok(result);
+
                         }
                     }
                 }

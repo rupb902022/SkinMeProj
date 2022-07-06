@@ -9,5 +9,6 @@ namespace SkinMeApp.DTO
     {
         public string cosmetologist_user_name { get; set; }
         public string cosmetologist_user_password { get; set; }
+        public string cosmetic_status { get; set; }
     }
 }
