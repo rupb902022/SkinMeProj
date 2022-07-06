@@ -13,8 +13,8 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CosController : ApiController
     {
-        bgroup90_prodDbContext db = new bgroup90_prodDbContext();
-        
+        bgroup90_prodEntities db = new bgroup90_prodEntities();
+
 
         [HttpGet]
         [Route("api/cosmetologists/GetAllCos")]
@@ -259,12 +259,9 @@ namespace SkinMeApp.Controllers
                             u.profile_code = p.profile_code;
                             db.SaveChanges();
 
-                            // find the u skin plan id 
-                            //bring the products for plan of this plan
+                            // find the u skin plan id & bring the products for plan of this plan
                             List<ProductsForPlan> productsForPlan = db.ProductsForPlans.Where(x => x.plan_id == u.plan_id).ToList();
                             
-                            //order by rate
-
                             // put these products in our profile 
                             foreach (ProductsForPlan pfp in productsForPlan)
                             {
@@ -273,7 +270,30 @@ namespace SkinMeApp.Controllers
                                 db.ProductsForProfiles.Add(forProfile);
                                 db.SaveChanges();
                             }
+
+
+
+                            //create a list of all products in db- to get the products in plan deatails
+                            List<Product> allProducts = db.Products.ToList();
+
+                            List<Product> result = new List<Product>();
+
+                            foreach (ProductsForPlan prodInPlan in productsForPlan)
+                            {
+                                foreach (Product prod in allProducts)
+                                {
+                                    if (prodInPlan.prod_id == prod.prod_id)
+                                    {
+                                        //result = new Product(prod);
+                                        return Ok(prod);
+                                       
+                                    }
+                                }
+                               
+                            }
                         }
+
+
                         else if (smart_count >= 7 && u.profile_code != null) // if the comparing is at high score, but the comperd user has code- so put the same profile code to the new user
                         {
                             newUser.profile_code = u.profile_code.Value;
@@ -294,7 +314,25 @@ namespace SkinMeApp.Controllers
                                 db.ProductsForProfiles.Add(forProfile);
                                 db.SaveChanges();
                             }
-                            return Ok(newUser);
+
+                            //create a list of all products in db- to get the products in plan deatails
+                            List<Product> allProducts = db.Products.ToList();
+
+                            List<Product> result = new List<Product>();
+
+                            foreach (ProductsForPlan prodInPlan in productsForPlan)
+                            {
+                                foreach (Product prod in allProducts)
+                                {
+                                    if (prodInPlan.prod_id == prod.prod_id)
+                                    {
+                                        //result = new Product(prod);
+                                        return Ok(prod);
+
+                                    }
+                                }
+
+                            }
                         }
                     }
                 }
@@ -315,7 +353,7 @@ namespace SkinMeApp.Controllers
             try
             {
                 AppCosmetologist cos = db.AppCosmetologists.SingleOrDefault(x => x.cosmetologist_id == id);
-                
+
 
 
                 if (cos != null)
