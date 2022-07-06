@@ -15,7 +15,7 @@ namespace SkinMeApp.Controllers
 
     public class ProductsController : ApiController
     {
-        Skinme_prodDbContext db = new Skinme_prodDbContext();
+        bgroup90_prodDbContext db = new bgroup90_prodDbContext();
 
         [HttpGet]
         [Route("api/Products/")]

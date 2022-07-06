@@ -33,7 +33,6 @@ namespace DATA
         public Nullable<double> prod_rate { get; set; }
         public Nullable<int> prod_sumRate { get; set; }
         public Nullable<int> prod_numOfRates { get; set; }
-        public string prod_time { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductsForPlan> ProductsForPlans { get; set; }
