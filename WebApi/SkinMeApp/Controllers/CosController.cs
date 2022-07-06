@@ -13,7 +13,7 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CosController : ApiController
     {
-        bgroup90_test2EntitiesSkinMe db = new bgroup90_test2EntitiesSkinMe();
+        bgroup90_prodDbContext db = new bgroup90_prodDbContext();
         
 
         [HttpGet]
@@ -71,10 +71,10 @@ namespace SkinMeApp.Controllers
                 SkinPlan s = db.SkinPlans.SingleOrDefault(x => x.plan_id == id);
                 if (s != null)
                 {
-                    Products_for_plan p = new Products_for_plan();
+                    ProductsForPlan p = new ProductsForPlan();
                     p.prod_id = value.prod_id;
                     p.plan_id = id;
-                    db.Products_for_plan.Add(p);
+                    db.ProductsForPlans.Add(p);
                     db.SaveChanges();
                     return Ok(s);
                 }
@@ -261,10 +261,10 @@ namespace SkinMeApp.Controllers
 
                             // find the u skin plan id 
                             //bring the products for plan of this plan
-                            List<Products_for_plan> productsForPlan = db.Products_for_plan.Where(x => x.plan_id == u.plan_id).ToList();
+                            List<ProductsForPlan> productsForPlan = db.ProductsForPlans.Where(x => x.plan_id == u.plan_id).ToList();
 
                             // put these products in our profile 
-                            foreach (Products_for_plan pfp in productsForPlan)
+                            foreach (ProductsForPlan pfp in productsForPlan)
                             {
                                 ProductsForProfile forProfile = new ProductsForProfile();
                                 forProfile.prod_id = pfp.prod_id;
@@ -281,10 +281,10 @@ namespace SkinMeApp.Controllers
 
                             // find the u skin plan id 
                             //bring the products for plan of this plan
-                            List<Products_for_plan> productsForPlan = db.Products_for_plan.Where(x => x.plan_id == u.plan_id).ToList();
+                            List<ProductsForPlan> productsForPlan = db.ProductsForPlans.Where(x => x.plan_id == u.plan_id).ToList();
 
                             // put these products in our profile 
-                            foreach (Products_for_plan pfp in productsForPlan)
+                            foreach (ProductsForPlan pfp in productsForPlan)
                             {
                                 ProductsForProfile forProfile = new ProductsForProfile();
                                 forProfile.profile_code = u.profile_code;
@@ -308,7 +308,7 @@ namespace SkinMeApp.Controllers
 
         [HttpPut]
         [Route("api/Cos/RateCosmetologist")]
-        public IHttpActionResult RateCosmetologist(int id, [FromBody] Cosmetologist rating) // Rate cosmetologist
+        public IHttpActionResult RateCosmetologist(int id, [FromBody] CosmetologistRate rating) // Rate cosmetologist
         {
             try
             {

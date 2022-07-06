@@ -14,6 +14,13 @@ namespace DATA
     
     public partial class AppCosmetologist
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public AppCosmetologist()
+        {
+            this.AppUsers = new HashSet<AppUser>();
+            this.SkinPlans = new HashSet<SkinPlan>();
+        }
+    
         public int cosmetologist_id { get; set; }
         public string cosmetologist_user_name { get; set; }
         public string cosmetologist_user_password { get; set; }
@@ -34,5 +41,10 @@ namespace DATA
         public Nullable<int> cosmetologist_sumRate { get; set; }
         public Nullable<int> cosmetologist_numOfRates { get; set; }
         public Nullable<int> cosmetologist_phoneNumber { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AppUser> AppUsers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SkinPlan> SkinPlans { get; set; }
     }
 }

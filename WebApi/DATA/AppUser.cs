@@ -17,7 +17,8 @@ namespace DATA
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public AppUser()
         {
-            this.UserImages = new HashSet<UserImage>();
+            this.SkinPlans = new HashSet<SkinPlan>();
+            this.UsersImages = new HashSet<UsersImage>();
         }
     
         public int appUser_id { get; set; }
@@ -47,9 +48,12 @@ namespace DATA
         public Nullable<int> profile_code { get; set; }
         public Nullable<int> plan_id { get; set; }
     
+        public virtual AppCosmetologist AppCosmetologist { get; set; }
         public virtual Profile Profile { get; set; }
         public virtual SkinPlan SkinPlan { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserImage> UserImages { get; set; }
+        public virtual ICollection<SkinPlan> SkinPlans { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UsersImage> UsersImages { get; set; }
     }
 }
