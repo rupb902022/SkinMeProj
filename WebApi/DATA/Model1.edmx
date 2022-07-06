@@ -572,7 +572,7 @@ warning 6002: The table/view 'bgroup90_prod.dbo.ProductsForProfiles' does not ha
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Skinme_prodDbContext" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="bgroup90_prodDbContext_Skinme" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AppCosmetologists" EntityType="Self.AppCosmetologist" />
           <EntitySet Name="AppUsers" EntityType="Self.AppUser" />
           <EntitySet Name="Products" EntityType="Self.Product" />
@@ -627,7 +627,7 @@ warning 6002: The table/view 'bgroup90_prod.dbo.ProductsForProfiles' does not ha
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="bgroup90_prodModel1StoreContainer" CdmEntityContainer="Skinme_prodDbContext">
+        <EntityContainerMapping StorageEntityContainer="bgroup90_prodModel1StoreContainer" CdmEntityContainer="bgroup90_prodDbContext_Skinme">
           <EntitySetMapping Name="AppCosmetologists">
             <EntityTypeMapping TypeName="bgroup90_prodModel1.AppCosmetologist">
               <MappingFragment StoreEntitySet="AppCosmetologists">
