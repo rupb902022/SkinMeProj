@@ -74,9 +74,6 @@
     <Compile Include="AppUser.cs">
       <DependentUpon>Model2.tt</DependentUpon>
     </Compile>
-    <Compile Include="AutoPlan.cs">
-      <DependentUpon>Model2.tt</DependentUpon>
-    </Compile>
     <Compile Include="Class1.cs" />
     <Compile Include="Model2.Context.cs">
       <AutoGen>True</AutoGen>
@@ -96,10 +93,10 @@
     <Compile Include="Product.cs">
       <DependentUpon>Model2.tt</DependentUpon>
     </Compile>
-    <Compile Include="ProductsForProfile.cs">
+    <Compile Include="ProductsForPlan.cs">
       <DependentUpon>Model2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Products_for_plan.cs">
+    <Compile Include="ProductsForProfile.cs">
       <DependentUpon>Model2.tt</DependentUpon>
     </Compile>
     <Compile Include="Profile.cs">
@@ -109,7 +106,10 @@
     <Compile Include="SkinPlan.cs">
       <DependentUpon>Model2.tt</DependentUpon>
     </Compile>
-    <Compile Include="UserImage.cs">
+    <Compile Include="User.cs">
+      <DependentUpon>Model2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UsersImage.cs">
       <DependentUpon>Model2.tt</DependentUpon>
     </Compile>
   </ItemGroup>

@@ -15,7 +15,7 @@ namespace SkinMeApp.Controllers
 
     public class ProductsController : ApiController
     {
-        bgroup90_test2EntitiesSkinMe db = new bgroup90_test2EntitiesSkinMe();
+        bgroup90_prodEntities db = new bgroup90_prodEntities();
 
         [HttpGet]
         [Route("api/Products/")]
@@ -365,11 +365,11 @@ namespace SkinMeApp.Controllers
             {
                 SkinPlan plan = db.SkinPlans.SingleOrDefault(x => x.appUser_id == id); // get the plan for this user
 
-                List<Products_for_plan> productsForPlan = db.Products_for_plan.Where(x => x.plan_id == plan.plan_id).ToList(); //list all the products for this plan id
+                List<ProductsForPlan> productsForPlan = db.ProductsForPlans.Where(x => x.plan_id == plan.plan_id).ToList(); //list all the products for this plan id
 
                 if (productsForPlan != null)
                 {
-                    foreach (Products_for_plan p in productsForPlan)
+                    foreach (ProductsForPlan p in productsForPlan)
                     {
                         return Ok(p);
                     }
