@@ -402,6 +402,54 @@ namespace SkinMeApp.Controllers
             }
         }
 
+<<<<<<< Updated upstream
+=======
+        [HttpPut]
+        [Route("api/login/UpdateUserEmail")]
+        public IHttpActionResult ChangeUserEmail(int id, [FromBody] UpdateUserInfo info) // update cos email 
+        {
+            try
+            {
+                AppUser user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
+                if (user != null)
+                {
+                    user.email = info.email;
+                    db.SaveChanges();
+                    return Ok(user);
+                }
+                return Content(HttpStatusCode.NotFound,
+                    $"Cosmetologist with id={id} was not found.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut]
+        [Route("api/login/UpdateUserUsername")]
+        public IHttpActionResult ChangeUserUsername(int id, [FromBody] UpdateUserInfo info) // update cos email 
+        {
+            try
+            {
+                AppUser user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
+                if (user != null)
+                {
+                    user.username = info.username;
+                    db.SaveChanges();
+                    return Ok(user);
+                }
+                return Content(HttpStatusCode.NotFound,
+                    $"Cosmetologist with id={id} was not found.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+>>>>>>> Stashed changes
         [HttpPut]
         [Route("api/login/UpdateCosPassword")]
         public IHttpActionResult ChangeCosPassword(int id, [FromBody] ForgotCosPassword forgot) // update cos password after temp password 
