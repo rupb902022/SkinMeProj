@@ -453,7 +453,7 @@ namespace SkinMeApp.Controllers
 
         [HttpPut]
         [Route("api/login/UpdateUserEmail")]
-        public IHttpActionResult ChangeUserEmail(int id, [FromBody] UpdateUserInfo info) // update user email 
+        public IHttpActionResult ChangeUserEmail(int id, [FromBody] UpdateUserInfo info) // update cos email 
         {
             try
             {
@@ -475,7 +475,7 @@ namespace SkinMeApp.Controllers
 
         [HttpPut]
         [Route("api/login/UpdateUserUsername")]
-        public IHttpActionResult ChangeUserUsername(int id, [FromBody] UpdateUserInfo info) // update user username
+        public IHttpActionResult ChangeUserUsername(int id, [FromBody] UpdateUserInfo info) // update cos email 
         {
             try
             {

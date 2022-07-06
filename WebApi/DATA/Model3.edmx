@@ -5,7 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="bgroup90_prodModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-      <Schema Namespace="bgroup90_prodModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AppCosmetologists">
           <Key>
             <PropertyRef Name="cosmetologist_id" />
@@ -249,7 +248,6 @@ warning 6002: The table/view 'bgroup90_prod.dbo.ProductsForProfiles' does not ha
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="bgroup90_prodModel1StoreContainer">
-        <EntityContainer Name="bgroup90_prodModelStoreContainer">
           <EntitySet Name="AppCosmetologists" EntityType="Self.AppCosmetologists" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AppUsers" EntityType="Self.AppUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
@@ -316,7 +314,6 @@ warning 6002: The table/view 'bgroup90_prod.dbo.ProductsForProfiles' does not ha
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="bgroup90_prodModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-      <Schema Namespace="bgroup90_prodModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="AppCosmetologist">
           <Key>
             <PropertyRef Name="cosmetologist_id" />
@@ -576,7 +573,6 @@ warning 6002: The table/view 'bgroup90_prod.dbo.ProductsForProfiles' does not ha
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="Skinme_prodDbContext" annotation:LazyLoadingEnabled="true">
-        <EntityContainer Name="bgroup90_prodEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AppCosmetologists" EntityType="Self.AppCosmetologist" />
           <EntitySet Name="AppUsers" EntityType="Self.AppUser" />
           <EntitySet Name="Products" EntityType="Self.Product" />
@@ -634,9 +630,6 @@ warning 6002: The table/view 'bgroup90_prod.dbo.ProductsForProfiles' does not ha
         <EntityContainerMapping StorageEntityContainer="bgroup90_prodModel1StoreContainer" CdmEntityContainer="Skinme_prodDbContext">
           <EntitySetMapping Name="AppCosmetologists">
             <EntityTypeMapping TypeName="bgroup90_prodModel1.AppCosmetologist">
-        <EntityContainerMapping StorageEntityContainer="bgroup90_prodModelStoreContainer" CdmEntityContainer="bgroup90_prodEntities1">
-          <EntitySetMapping Name="AppCosmetologists">
-            <EntityTypeMapping TypeName="bgroup90_prodModel.AppCosmetologist">
               <MappingFragment StoreEntitySet="AppCosmetologists">
                 <ScalarProperty Name="cosmetologist_id" ColumnName="cosmetologist_id" />
                 <ScalarProperty Name="cosmetologist_user_name" ColumnName="cosmetologist_user_name" />
@@ -663,7 +656,6 @@ warning 6002: The table/view 'bgroup90_prod.dbo.ProductsForProfiles' does not ha
           </EntitySetMapping>
           <EntitySetMapping Name="AppUsers">
             <EntityTypeMapping TypeName="bgroup90_prodModel1.AppUser">
-            <EntityTypeMapping TypeName="bgroup90_prodModel.AppUser">
               <MappingFragment StoreEntitySet="AppUsers">
                 <ScalarProperty Name="appUser_id" ColumnName="appUser_id" />
                 <ScalarProperty Name="username" ColumnName="username" />
@@ -696,7 +688,6 @@ warning 6002: The table/view 'bgroup90_prod.dbo.ProductsForProfiles' does not ha
           </EntitySetMapping>
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="bgroup90_prodModel1.Product">
-            <EntityTypeMapping TypeName="bgroup90_prodModel.Product">
               <MappingFragment StoreEntitySet="Products">
                 <ScalarProperty Name="prod_id" ColumnName="prod_id" />
                 <ScalarProperty Name="prod_name" ColumnName="prod_name" />
@@ -716,7 +707,6 @@ warning 6002: The table/view 'bgroup90_prod.dbo.ProductsForProfiles' does not ha
           </EntitySetMapping>
           <EntitySetMapping Name="Profiles">
             <EntityTypeMapping TypeName="bgroup90_prodModel1.Profile">
-            <EntityTypeMapping TypeName="bgroup90_prodModel.Profile">
               <MappingFragment StoreEntitySet="Profiles">
                 <ScalarProperty Name="profile_code" ColumnName="profile_code" />
                 <ScalarProperty Name="profile_name" ColumnName="profile_name" />
@@ -725,7 +715,6 @@ warning 6002: The table/view 'bgroup90_prod.dbo.ProductsForProfiles' does not ha
           </EntitySetMapping>
           <EntitySetMapping Name="SkinPlans">
             <EntityTypeMapping TypeName="bgroup90_prodModel1.SkinPlan">
-            <EntityTypeMapping TypeName="bgroup90_prodModel.SkinPlan">
               <MappingFragment StoreEntitySet="SkinPlan">
                 <ScalarProperty Name="plan_id" ColumnName="plan_id" />
                 <ScalarProperty Name="cosmetologist_id" ColumnName="cosmetologist_id" />
@@ -739,7 +728,6 @@ warning 6002: The table/view 'bgroup90_prod.dbo.ProductsForProfiles' does not ha
           </EntitySetMapping>
           <EntitySetMapping Name="UsersImages">
             <EntityTypeMapping TypeName="bgroup90_prodModel1.UsersImage">
-            <EntityTypeMapping TypeName="bgroup90_prodModel.UsersImage">
               <MappingFragment StoreEntitySet="UsersImages">
                 <ScalarProperty Name="img_id" ColumnName="img_id" />
                 <ScalarProperty Name="Imgurl" ColumnName="Imgurl" />
@@ -750,7 +738,6 @@ warning 6002: The table/view 'bgroup90_prod.dbo.ProductsForProfiles' does not ha
           </EntitySetMapping>
           <EntitySetMapping Name="ProductsForPlans">
             <EntityTypeMapping TypeName="bgroup90_prodModel1.ProductsForPlan">
-            <EntityTypeMapping TypeName="bgroup90_prodModel.ProductsForPlan">
               <MappingFragment StoreEntitySet="ProductsForPlan">
                 <ScalarProperty Name="pfp_id" ColumnName="pfp_id" />
                 <ScalarProperty Name="prod_id" ColumnName="prod_id" />
@@ -760,7 +747,6 @@ warning 6002: The table/view 'bgroup90_prod.dbo.ProductsForProfiles' does not ha
           </EntitySetMapping>
           <EntitySetMapping Name="ProductsForProfiles">
             <EntityTypeMapping TypeName="bgroup90_prodModel1.ProductsForProfile">
-            <EntityTypeMapping TypeName="bgroup90_prodModel.ProductsForProfile">
               <MappingFragment StoreEntitySet="ProductsForProfiles">
                 <ScalarProperty Name="pfp_id" ColumnName="pfp_id" />
                 <ScalarProperty Name="profile_code" ColumnName="profile_code" />
