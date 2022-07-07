@@ -13,11 +13,12 @@ namespace DATA
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class bgroup90_prodEntitiesSkinme : DbContext
+    public partial class DbSkinme : DbContext
     {
-        public bgroup90_prodEntitiesSkinme()
-            : base("name=bgroup90_prodEntitiesSkinme")
+        public DbSkinme()
+            : base("name=DbSkinme")
         {
+            this.Configuration.ProxyCreationEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

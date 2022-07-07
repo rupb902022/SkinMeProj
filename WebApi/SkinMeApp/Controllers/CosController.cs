@@ -13,7 +13,7 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CosController : ApiController
     {
-        bgroup90_prodEntitiesSkinme db = new bgroup90_prodEntitiesSkinme();
+        DbSkinme db = new DbSkinme();
         
 
         [HttpGet]
@@ -22,6 +22,18 @@ namespace SkinMeApp.Controllers
         {
             try
             {
+                List<AppCosmetologist> cos = db.AppCosmetologists.Where(x => x.cosmetic_status != "Pending").ToList();
+
+                if (cos != null)
+                {
+                    foreach (AppCosmetologist c in cos)
+                    {
+                        Console.WriteLine(c.cosmetologist_last_name);
+                    }
+                    return Content(HttpStatusCode.OK, cos);
+
+
+                }
                 return Ok(db.AppCosmetologists);
             }
             catch (Exception ex)

@@ -14,7 +14,7 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class AdminController : ApiController
     {
-        bgroup90_prodEntitiesSkinme db = new bgroup90_prodEntitiesSkinme();
+        DbSkinme db = new DbSkinme();
       
 
         //public IHttpActionResult Post ([FromBody] Admin admin)
