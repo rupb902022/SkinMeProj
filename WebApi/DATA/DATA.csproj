@@ -137,13 +137,13 @@
     </Content>
     <Content Include="Skinme.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Skinme.edmx</DependentUpon>
-      <LastGenOutput>Skinme.Context.cs</LastGenOutput>
+      <DependentUpon>ModelSkinme.edmx</DependentUpon>
+      <LastGenOutput>ModelSkinme.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Skinme.tt">
+    <Content Include="ModelSkinme.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Skinme.edmx</DependentUpon>
-      <LastGenOutput>Skinme.cs</LastGenOutput>
+      <DependentUpon>ModelSkinme.edmx</DependentUpon>
+      <LastGenOutput>ModelSkinme.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
