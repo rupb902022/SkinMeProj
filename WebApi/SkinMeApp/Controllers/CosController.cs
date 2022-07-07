@@ -13,7 +13,7 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CosController : ApiController
     {
-        bgroup90_prod db = new bgroup90_prod();
+        Skinme db = new Skinme();
         
 
         [HttpGet]

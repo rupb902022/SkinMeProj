@@ -13,7 +13,7 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class LogInController : ApiController
     {
-        bgroup90_prod db = new bgroup90_prod();
+        Skinme db = new Skinme();
       
 
         public string GeneratePassword()
@@ -99,6 +99,7 @@ namespace SkinMeApp.Controllers
             string Password = "oqodhdtqfpxmhivc";
             string Host = "smtp.gmail.com";
             int Port = 587;
+           
 
             try
             {
@@ -180,6 +181,32 @@ namespace SkinMeApp.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+        [HttpPost]
+        [Route("api/LogIn/User/SocialMedia")]
+
+        public IHttpActionResult SocialMediaLogin([FromBody] Logincheck login)
+        {
+            try
+            {
+                AppUser log = db.AppUsers.FirstOrDefault
+                    (x => x.username == login.username && x.email == login.email);
+
+                if (log != null)
+                {
+                    return Content(HttpStatusCode.OK, log);
+                }
+                return Content(HttpStatusCode.NotFound,
+                    $"username or password were not found");
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return BadRequest(e.Message);
+            }
+        }
+
 
         [HttpPost]
         [Route("api/LogIn/Cos")]

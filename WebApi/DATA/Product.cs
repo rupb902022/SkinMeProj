@@ -14,13 +14,6 @@ namespace DATA
     
     public partial class Product
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Product()
-        {
-            this.ProductsForPlans = new HashSet<ProductsForPlan>();
-            this.ProductsForProfiles = new HashSet<ProductsForProfile>();
-        }
-    
         public int prod_id { get; set; }
         public string prod_name { get; set; }
         public string prod_type { get; set; }
@@ -34,10 +27,5 @@ namespace DATA
         public Nullable<int> prod_sumRate { get; set; }
         public Nullable<int> prod_numOfRates { get; set; }
         public string prod_time { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProductsForPlan> ProductsForPlans { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProductsForProfile> ProductsForProfiles { get; set; }
     }
 }

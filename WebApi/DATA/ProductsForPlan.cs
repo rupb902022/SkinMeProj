@@ -18,7 +18,6 @@ namespace DATA
         public Nullable<int> prod_id { get; set; }
         public Nullable<int> plan_id { get; set; }
     
-        public virtual Product Product { get; set; }
         public virtual SkinPlan SkinPlan { get; set; }
     }
 }
