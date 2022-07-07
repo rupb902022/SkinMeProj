@@ -13,7 +13,7 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CosController : ApiController
     {
-        bgroup90_prodEntities1 db = new bgroup90_prodEntities1();
+        bgroup90_prodEntities db = new bgroup90_prodEntities();
 
 
         [HttpGet]
@@ -170,7 +170,9 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                List<AppUser> users = db.AppUsers.Where(x => x.cosmetologist_id == id.cosmetologist_id).ToList();
+                List<AppUser> users = db.AppUsers.Where(x => x.cosmetologist_id == id.cosmetologist_id &&
+                x.plan_id != 1 && x.plan_id != 2 && x.plan_id != 3 &&
+                x.user_status != "waiting").ToList();
 
                 if (users != null)
                 {
@@ -358,7 +360,7 @@ namespace SkinMeApp.Controllers
 
         [HttpPut]
         [Route("api/Cos/RateCosmetologist/{id}")]
-        public IHttpActionResult RateCosmetologist(int id, [FromBody] Cosmetologist rating) // Rate cosmetologist
+        public IHttpActionResult RateCosmetologist(int id, [FromBody] CosmetologistRate rating) // Rate cosmetologist
         {
             try
             {

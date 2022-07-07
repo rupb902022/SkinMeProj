@@ -13,10 +13,10 @@ namespace DATA
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class bgroup90_prodDbContext : DbContext
+    public partial class bgroup90_prodEntities : DbContext
     {
-        public bgroup90_prodDbContext()
-            : base("name=bgroup90_prodDbContext")
+        public bgroup90_prodEntities()
+            : base("name=bgroup90_prodEntities")
         {
         }
     
@@ -28,10 +28,11 @@ namespace DATA
         public virtual DbSet<AppCosmetologist> AppCosmetologists { get; set; }
         public virtual DbSet<AppUser> AppUsers { get; set; }
         public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<ProductsForProfile> ProductsForProfiles { get; set; }
         public virtual DbSet<Profile> Profiles { get; set; }
         public virtual DbSet<SkinPlan> SkinPlans { get; set; }
+        public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UsersImage> UsersImages { get; set; }
         public virtual DbSet<ProductsForPlan> ProductsForPlans { get; set; }
-        public virtual DbSet<ProductsForProfile> ProductsForProfiles { get; set; }
     }
 }

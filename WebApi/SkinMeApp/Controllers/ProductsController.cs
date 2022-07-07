@@ -15,7 +15,7 @@ namespace SkinMeApp.Controllers
 
     public class ProductsController : ApiController
     {
-        bgroup90_prodEntities1 db = new bgroup90_prodEntities1();
+        bgroup90_prodEntities db = new bgroup90_prodEntities();
 
         [HttpGet]
         [Route("api/Products/")]
@@ -386,41 +386,41 @@ namespace SkinMeApp.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("api/Products/GetProdForAutoPlan")]
-        public IHttpActionResult GetProductsForAutoPlan(int id) // get products for skin plan
-        {
-            try
-            {
-                AppUser plan = db.AppUsers.SingleOrDefault(x => x.plan_id == id); // get the plan for this user
+        //[HttpGet]
+        //[Route("api/Products/GetProdForAutoPlan")]
+        //public IHttpActionResult GetProductsForAutoPlan(int id) // get products for skin plan
+        //{
+        //    try
+        //    {
+        //        AppUser plan = db.AppUsers.SingleOrDefault(x => x.plan_id == id); // get the plan for this user
 
-                List<ProductsForPlan> productsForPlan = db.ProductsForPlans.Where(x => x.plan_id == plan.plan_id).ToList(); //list all the products for this plan id
+        //        List<ProductsForPlan> productsForPlan = db.ProductsForPlans.Where(x => x.plan_id == plan.plan_id).ToList(); //list all the products for this plan id
 
-                if (productsForPlan != null)
-                {
-                    foreach (ProductsForPlan p in productsForPlan)
-                    {
-                        foreach(Product products in prod)
-                        {
-                            if (p.prod_id==products.prod_id)
-                            {
-                                return Ok(products);
-                            }
+        //        if (productsForPlan != null)
+        //        {
+        //            foreach (ProductsForPlan p in productsForPlan)
+        //            {
+        //                foreach(Product products in prod)
+        //                {
+        //                    if (p.prod_id==products.prod_id)
+        //                    {
+        //                        return Ok(products);
+        //                    }
 
                             
-                        }
+        //                }
 
-                        //return Ok(p);
-                    }
-                }
-                return Content(HttpStatusCode.NotFound,
-                    $"Products for plan id={id} was not found.");
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+        //                //return Ok(p);
+        //            }
+        //        }
+        //        return Content(HttpStatusCode.NotFound,
+        //            $"Products for plan id={id} was not found.");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
 
         [HttpGet]
         [Route("api/Products/GetProdForAutoPlanDay")]
