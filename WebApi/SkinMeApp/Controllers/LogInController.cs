@@ -14,7 +14,7 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class LogInController : ApiController
     {
-        Skinme db = new Skinme();
+        bgroup90_prodEntitiesSkinme db = new bgroup90_prodEntitiesSkinme();
       
 
         public string GeneratePassword()
@@ -95,8 +95,8 @@ namespace SkinMeApp.Controllers
         {
             string strNewPassword = GeneratePassword().ToString();
 
-            string Projectmail = "rupb902022@gmail.com";
-            string Password = "oqodhdtqfpxmhivc";
+            string Projectmail = "bgroup90ruppin@gmail.com";
+            string Password = "puokmbnhweaeedpa";
             string Host = "smtp.gmail.com";
             int Port = 587;
            
@@ -142,8 +142,8 @@ namespace SkinMeApp.Controllers
         {
             string strNewPassword = GeneratePassword().ToString();
 
-            string Projectmail = "rupb902022@gmail.com";
-            string Password = "oqodhdtqfpxmhivc";
+            string Projectmail = "bgroup90ruppin@gmail.com";
+            string Password = "puokmbnhweaeedpa";
             string Host = "smtp.gmail.com";
             int Port = 587;
 
@@ -277,38 +277,38 @@ namespace SkinMeApp.Controllers
 
 
 
-        [HttpPost]
-        [Route("api/LogIn/Cos")]
+        //[HttpPost]
+        //[Route("api/LogIn/Cos")]
 
-        public IHttpActionResult LogInCos([FromBody] LogincheckCos loginc) // login cos
-        {
-            try
-            {
-                AppCosmetologist logc = db.AppCosmetologists.FirstOrDefault
-                    (x => x.cosmetologist_user_name == loginc.cosmetologist_user_name && x.cosmetologist_user_password == loginc.cosmetologist_user_password);
+        //public IHttpActionResult LogInCos([FromBody] LogincheckCos loginc) // login cos
+        //{
+        //    try
+        //    {
+        //        AppCosmetologist logc = db.AppCosmetologists.FirstOrDefault
+        //            (x => x.cosmetologist_user_name == loginc.cosmetologist_user_name && x.cosmetologist_user_password == loginc.cosmetologist_user_password);
 
-                if (logc != null && logc.cosmetic_status != "Pending")
-                {
-                    return Content(HttpStatusCode.OK,
-                        $"{logc.cosmetologist_id}");
-                }
-                else if (logc != null && logc.cosmetic_status == "Pending")
-                {
-                    return Content(HttpStatusCode.Conflict,
-               $"משתמש טרם אושר");
-                }
-                else
-                {
-                    return Content(HttpStatusCode.NotFound,
-             $"שם משתמש או סיסמה אינם נכונים");
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                return BadRequest(e.Message);
-            }
-        }
+        //        if (logc != null && logc.cosmetic_status != "Pending")
+        //        {
+        //            return Content(HttpStatusCode.OK,
+        //                $"{logc.cosmetologist_id}");
+        //        }
+        //        else if (logc != null && logc.cosmetic_status == "Pending")
+        //        {
+        //            return Content(HttpStatusCode.Conflict,
+        //       $"משתמש טרם אושר");
+        //        }
+        //        else
+        //        {
+        //            return Content(HttpStatusCode.NotFound,
+        //     $"שם משתמש או סיסמה אינם נכונים");
+        //        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        Console.WriteLine(e);
+        //        return BadRequest(e.Message);
+        //    }
+        //}
 
 
         [HttpPost]

@@ -14,13 +14,6 @@ namespace DATA
     
     public partial class Product
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Product()
-        {
-            this.ProductsForPlans = new HashSet<ProductsForPlan>();
-            this.ProductsForProfiles = new HashSet<ProductsForProfile>();
-        }
-    
         public int prod_id { get; set; }
         public string prod_name { get; set; }
         public string prod_type { get; set; }

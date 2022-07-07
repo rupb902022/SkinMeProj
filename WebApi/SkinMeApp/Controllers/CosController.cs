@@ -13,7 +13,7 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CosController : ApiController
     {
-        Skinme db = new Skinme();
+        bgroup90_prodEntitiesSkinme db = new bgroup90_prodEntitiesSkinme();
         
 
         [HttpGet]
@@ -352,7 +352,7 @@ namespace SkinMeApp.Controllers
 
         [HttpPut]
         [Route("api/Cos/RateCosmetologist/{id}")]
-        public IHttpActionResult RateCosmetologist(int id, [FromBody] Cosmetologist rating) // Rate cosmetologist
+        public IHttpActionResult RateCosmetologist(int id, [FromBody] CosmetologistRate rating) // Rate cosmetologist
         {
             try
             {
