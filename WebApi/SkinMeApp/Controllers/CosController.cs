@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -46,12 +45,12 @@ namespace SkinMeApp.Controllers
 
         [HttpPost]
         [Route("api/Cos/AddSkinPlan")]
-        public IHttpActionResult AddPlan([FromBody] SkinPlan value) // add plan
+        public IHttpActionResult AddPlan([FromBody] SkinPlan value, int id) // add plan
         {
-
             try
             {
                 db.SkinPlans.Add(value);
+                updateUserStatus(id, value);
                 db.SaveChanges();
                 return Created(new Uri(Request.RequestUri.AbsoluteUri + value.plan_id), value);
 
@@ -62,19 +61,33 @@ namespace SkinMeApp.Controllers
             }
         }
 
-        //public string setStatus()
-        //{
-        //    AppUser user = db.AppUsers.SingleOrDefault(x => value.appUser_id == id);
 
-        //}
+        [HttpPut]
+        [Route("api/Cos/updateStatus")]
+        public IHttpActionResult updateUserStatus(int id, [FromBody] SkinPlan value) // update status after creating skin plan for user
+        {
+            AppUser u = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
+
+            try
+            {
+                u.user_status = "approved";
+                u.plan_id = value.plan_id;
+                return Ok(u);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost]
         [Route("api/Cos/AddProdToPlan")]
         public IHttpActionResult AddPTP(int id, [FromBody] ProdForPlan value) // add products to skin plan
         {
+
+            SkinPlan s = db.SkinPlans.SingleOrDefault(x => x.plan_id == id);
             try
             {
-                SkinPlan s = db.SkinPlans.SingleOrDefault(x => x.plan_id == id);
                 if (s != null)
                 {
                     ProductsForPlan p = new ProductsForPlan();
@@ -293,10 +306,10 @@ namespace SkinMeApp.Controllers
                                     {
                                         //result = new Product(prod);
                                         return Ok(prod);
-                                       
+
                                     }
                                 }
-                               
+
                             }
                         }
 
@@ -339,7 +352,7 @@ namespace SkinMeApp.Controllers
                                 }
 
                             }
-                           
+
                             result.OrderByDescending(x => x.prod_rate);
                             return Ok(result);
 
