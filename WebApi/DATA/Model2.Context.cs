@@ -13,11 +13,12 @@ namespace DATA
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class bgroup90_prodEntitiesSkinme : DbContext
+    public partial class bgroup90_prodEntities1 : DbContext
     {
-        public bgroup90_prodEntitiesSkinme()
-            : base("name=bgroup90_prodEntitiesSkinme")
+        public bgroup90_prodEntities1()
+            : base("name=bgroup90_prodEntities1")
         {
+            this.Configuration.ProxyCreationEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -28,10 +29,10 @@ namespace DATA
         public virtual DbSet<AppCosmetologist> AppCosmetologists { get; set; }
         public virtual DbSet<AppUser> AppUsers { get; set; }
         public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<ProductsForPlan> ProductsForPlans { get; set; }
         public virtual DbSet<ProductsForProfile> ProductsForProfiles { get; set; }
         public virtual DbSet<Profile> Profiles { get; set; }
         public virtual DbSet<SkinPlan> SkinPlans { get; set; }
         public virtual DbSet<UsersImage> UsersImages { get; set; }
-        public virtual DbSet<ProductsForPlan> ProductsForPlans { get; set; }
     }
 }
