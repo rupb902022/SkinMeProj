@@ -13,7 +13,7 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CosController : ApiController
     {
-        bgroup90_prodEntities db = new bgroup90_prodEntities();
+        bgroup90_prodEntities1 db = new bgroup90_prodEntities1();
 
 
         [HttpGet]
@@ -61,6 +61,12 @@ namespace SkinMeApp.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        //public string setStatus()
+        //{
+        //    AppUser user = db.AppUsers.SingleOrDefault(x => value.appUser_id == id);
+
+        //}
 
         [HttpPost]
         [Route("api/Cos/AddProdToPlan")]
