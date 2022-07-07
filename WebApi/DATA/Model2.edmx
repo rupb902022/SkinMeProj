@@ -484,7 +484,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-<<<<<<<< HEAD:WebApi/DATA/Model2.edmx
         <Association Name="FK_ProductsForProfiles_Profiles">
           <End Role="Profiles" Type="Self.Profile" Multiplicity="0..1" />
           <End Role="ProductsForProfiles" Type="Self.ProductsForProfile" Multiplicity="*" />
@@ -498,9 +497,6 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="bgroup90_prodEntities1" annotation:LazyLoadingEnabled="true">
-========
-        <EntityContainer Name="DbSkinme" annotation:LazyLoadingEnabled="true">
->>>>>>>> 88ae5c32b790f8802018c264c34d7e974a2cfb60:WebApi/DATA/ModelSkinme.edmx
           <EntitySet Name="AppCosmetologists" EntityType="Self.AppCosmetologist" />
           <EntitySet Name="AppUsers" EntityType="Self.AppUser" />
           <EntitySet Name="Products" EntityType="Self.Product" />
@@ -547,11 +543,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-<<<<<<<< HEAD:WebApi/DATA/Model2.edmx
         <EntityContainerMapping StorageEntityContainer="bgroup90_prodModelStoreContainer" CdmEntityContainer="bgroup90_prodEntities1">
-========
-        <EntityContainerMapping StorageEntityContainer="bgroup90_prodModelStoreContainer" CdmEntityContainer="DbSkinme">
->>>>>>>> 88ae5c32b790f8802018c264c34d7e974a2cfb60:WebApi/DATA/ModelSkinme.edmx
           <EntitySetMapping Name="AppCosmetologists">
             <EntityTypeMapping TypeName="bgroup90_prodModel.AppCosmetologist">
               <MappingFragment StoreEntitySet="AppCosmetologists">
@@ -678,18 +670,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-<<<<<<<< HEAD:WebApi/DATA/Model2.edmx
-========
-          <EntitySetMapping Name="ProductsForPlans">
-            <EntityTypeMapping TypeName="bgroup90_prodModel.ProductsForPlan">
-              <MappingFragment StoreEntitySet="ProductsForPlan">
-                <ScalarProperty Name="pfp_id" ColumnName="pfp_id" />
-                <ScalarProperty Name="prod_id" ColumnName="prod_id" />
-                <ScalarProperty Name="plan_id" ColumnName="plan_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
->>>>>>>> 88ae5c32b790f8802018c264c34d7e974a2cfb60:WebApi/DATA/ModelSkinme.edmx
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

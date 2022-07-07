@@ -13,17 +13,10 @@ namespace DATA
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-<<<<<<<< HEAD:WebApi/DATA/Model2.Context.cs
     public partial class bgroup90_prodEntities1 : DbContext
     {
         public bgroup90_prodEntities1()
             : base("name=bgroup90_prodEntities1")
-========
-    public partial class DbSkinme : DbContext
-    {
-        public DbSkinme()
-            : base("name=DbSkinme")
->>>>>>>> 88ae5c32b790f8802018c264c34d7e974a2cfb60:WebApi/DATA/ModelSkinme.Context.cs
         {
             this.Configuration.ProxyCreationEnabled = false;
         }

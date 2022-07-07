@@ -2,11 +2,7 @@
 <#@ include file="EF6.Utility.CS.ttinclude"#><#@
  output extension=".cs"#><#
 
-<<<<<<<< HEAD:WebApi/DATA/Model2.Context.tt
 const string inputFile = @"Model2.edmx";
-========
-const string inputFile = @"ModelSkinme.edmx";
->>>>>>>> 88ae5c32b790f8802018c264c34d7e974a2cfb60:WebApi/DATA/ModelSkinme.Context.tt
 var textTransform = DynamicTextTransformation.Create(this);
 var code = new CodeGenerationTools(this);
 var ef = new MetadataTools(this);
