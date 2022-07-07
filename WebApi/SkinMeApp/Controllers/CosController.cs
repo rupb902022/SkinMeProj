@@ -170,9 +170,7 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                List<AppUser> users = db.AppUsers.Where(x => x.cosmetologist_id == id.cosmetologist_id &&
-                x.plan_id != 1 && x.plan_id != 2 && x.plan_id != 3 &&
-                x.user_status != "waiting").ToList();
+                List<AppUser> users = db.AppUsers.Where(x => x.cosmetologist_id == id.cosmetologist_id && x.user_status != "waiting").ToList();
 
                 if (users != null)
                 {
