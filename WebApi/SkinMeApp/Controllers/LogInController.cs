@@ -249,31 +249,31 @@ namespace SkinMeApp.Controllers
         }
 
 
-        [HttpPost]
-        [Route("api/LogIn/Cos")]
+        //[HttpPost]
+        //[Route("api/LogIn/Cos")]
 
-        public IHttpActionResult LogInCos([FromBody] LogincheckCos loginc)
-        {
-            try
-            {
-                AppCosmetologist logc = db.AppCosmetologists.FirstOrDefault
-                    (x => x.cosmetologist_user_name == loginc.cosmetologist_user_name && x.cosmetologist_user_password == loginc.cosmetologist_user_password);
+        //public IHttpActionResult LogInCos([FromBody] LogincheckCos loginc)
+        //{
+        //    try
+        //    {
+        //        AppCosmetologist logc = db.AppCosmetologists.FirstOrDefault
+        //            (x => x.cosmetologist_user_name == loginc.cosmetologist_user_name && x.cosmetologist_user_password == loginc.cosmetologist_user_password);
 
-                if (logc != null && logc.cosmetic_status!="Pending")
-                {
-                    return Content(HttpStatusCode.OK,
-                        $"{ logc.cosmetologist_id}");
-                }
-                return Content(HttpStatusCode.NotFound,
-                    $"username or password were not found");
+        //        if (logc != null && logc.cosmetic_status!="Pending")
+        //        {
+        //            return Content(HttpStatusCode.OK,
+        //                $"{ logc.cosmetologist_id}");
+        //        }
+        //        return Content(HttpStatusCode.NotFound,
+        //            $"username or password were not found");
 
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                return BadRequest(e.Message);
-            }
-        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        Console.WriteLine(e);
+        //        return BadRequest(e.Message);
+        //    }
+        //}
 
 
 

@@ -103,21 +103,6 @@
       <DependentUpon>Model4.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Skinme.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Skinme.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Skinme.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Skinme.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Skinme.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Skinme.edmx</DependentUpon>
-    </Compile>
     <Compile Include="SkinPlan.cs">
       <DependentUpon>Model4.tt</DependentUpon>
     </Compile>
@@ -135,13 +120,6 @@
       <DependentUpon>Model4.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
-    <EntityDeploy Include="Skinme.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Skinme.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="Skinme.edmx.diagram">
-      <DependentUpon>Skinme.edmx</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

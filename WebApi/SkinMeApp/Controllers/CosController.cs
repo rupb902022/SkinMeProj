@@ -62,6 +62,12 @@ namespace SkinMeApp.Controllers
             }
         }
 
+        //public string setStatus()
+        //{
+        //    AppUser user = db.AppUsers.SingleOrDefault(x => value.appUser_id == id);
+
+        //}
+
         [HttpPost]
         [Route("api/Cos/AddProdToPlan")]
         public IHttpActionResult AddPTP(int id, [FromBody] ProdForPlan value) // add products to skin plan
@@ -164,7 +170,7 @@ namespace SkinMeApp.Controllers
         {
             try
             {
-                List<AppUser> users = db.AppUsers.Where(x => x.cosmetologist_id == id.cosmetologist_id).ToList();
+                List<AppUser> users = db.AppUsers.Where(x => x.cosmetologist_id == id.cosmetologist_id && x.user_status != "waiting").ToList();
 
                 if (users != null)
                 {
