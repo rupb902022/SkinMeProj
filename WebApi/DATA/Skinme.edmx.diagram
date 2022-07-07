@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c0175316b3214072ad002256edfcdd33" Name="Diagram1">
+        <EntityTypeShape EntityType="bgroup90_prodModel.AppCosmetologist" Width="1.5" PointX="0.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup90_prodModel.AppUser" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup90_prodModel.Product" Width="1.5" PointX="5.25" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup90_prodModel.Profile" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup90_prodModel.SkinPlan" Width="1.5" PointX="5.25" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup90_prodModel.UsersImage" Width="1.5" PointX="5.25" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup90_prodModel.ProductsForPlan" Width="1.5" PointX="7.5" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup90_prodModel.ProductsForProfile" Width="1.5" PointX="7.5" PointY="11.125" IsExpanded="true" />
+        <AssociationConnector Association="bgroup90_prodModel.FK_AppUsers_AppCosmetologists" ManuallyRouted="false" />
+        <AssociationConnector Association="bgroup90_prodModel.FK_SkinPlan_AppCosmetologists" ManuallyRouted="false" />
+        <AssociationConnector Association="bgroup90_prodModel.FK_AppUsers_Profiles" ManuallyRouted="false" />
+        <AssociationConnector Association="bgroup90_prodModel.FK_AppUsers_SkinPlan1" ManuallyRouted="false" />
+        <AssociationConnector Association="bgroup90_prodModel.FK_SkinPlan_AppUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="bgroup90_prodModel.FK_UsersImages_AppUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="bgroup90_prodModel.FK_ProductsForPlan_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="bgroup90_prodModel.FK_ProductsForProfiles_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="bgroup90_prodModel.FK_ProductsForProfiles_Profiles" ManuallyRouted="false" />
+        <AssociationConnector Association="bgroup90_prodModel.FK_ProductsForPlan_SkinPlan" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

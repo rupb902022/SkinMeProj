@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="bgroup90_prodModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="bgroup90_prodModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AppCosmetologists">
           <Key>
             <PropertyRef Name="cosmetologist_id" />
@@ -116,23 +116,6 @@ warning 6002: The table/view 'bgroup90_prod.dbo.ProductsForPlan' does not have a
           <Property Name="plan_date" Type="date" />
           <Property Name="notes" Type="varchar" MaxLength="2500" />
         </EntityType>
-        <EntityType Name="Users">
-          <Key>
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserName" Type="nvarchar" MaxLength="25" Nullable="false" />
-          <Property Name="Password" Type="nvarchar" MaxLength="15" Nullable="false" />
-          <Property Name="Email" Type="nvarchar" MaxLength="40" Nullable="false" />
-          <Property Name="UserRole" Type="nvarchar" MaxLength="15" Nullable="false" />
-          <Property Name="FirstName" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="LastName" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="BirthDate" Type="date" Nullable="false" />
-          <Property Name="ImagePath" Type="nvarchar(max)" />
-          <Property Name="FrameId" Type="int" />
-          <Property Name="RoleId" Type="int" />
-          <Property Name="CreationDate" Type="date" />
-        </EntityType>
         <EntityType Name="UsersImages">
           <Key>
             <PropertyRef Name="img_id" />
@@ -238,14 +221,13 @@ warning 6002: The table/view 'bgroup90_prod.dbo.ProductsForPlan' does not have a
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="bgroup90_prodModelStoreContainer">
+        <EntityContainer Name="bgroup90_prodModel1StoreContainer">
           <EntitySet Name="AppCosmetologists" EntityType="Self.AppCosmetologists" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AppUsers" EntityType="Self.AppUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductsForProfiles" EntityType="Self.ProductsForProfiles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Profiles" EntityType="Self.Profiles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SkinPlan" EntityType="Self.SkinPlan" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UsersImages" EntityType="Self.UsersImages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductsForPlan" EntityType="Self.ProductsForPlan" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -291,7 +273,7 @@ warning 6002: The table/view 'bgroup90_prod.dbo.ProductsForPlan' does not have a
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="bgroup90_prodModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="bgroup90_prodModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="AppCosmetologist">
           <Key>
             <PropertyRef Name="cosmetologist_id" />
@@ -406,23 +388,6 @@ warning 6002: The table/view 'bgroup90_prod.dbo.ProductsForPlan' does not have a
           <NavigationProperty Name="AppUsers" Relationship="Self.FK_AppUsers_SkinPlan1" FromRole="SkinPlan" ToRole="AppUsers" />
           <NavigationProperty Name="AppUser" Relationship="Self.FK_SkinPlan_AppUsers" FromRole="SkinPlan" ToRole="AppUsers" />
           <NavigationProperty Name="ProductsForPlans" Relationship="Self.FK_ProductsForPlan_SkinPlan" FromRole="SkinPlan" ToRole="ProductsForPlan" />
-        </EntityType>
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserName" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="UserRole" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="FrameId" Type="Int32" />
-          <Property Name="RoleId" Type="Int32" />
-          <Property Name="CreationDate" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="UsersImage">
           <Key>
@@ -539,14 +504,13 @@ warning 6002: The table/view 'bgroup90_prod.dbo.ProductsForPlan' does not have a
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="bgroup90_prodEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="bgroup90_prodEntitiesSkinme" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AppCosmetologists" EntityType="Self.AppCosmetologist" />
           <EntitySet Name="AppUsers" EntityType="Self.AppUser" />
           <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="ProductsForProfiles" EntityType="Self.ProductsForProfile" />
           <EntitySet Name="Profiles" EntityType="Self.Profile" />
           <EntitySet Name="SkinPlans" EntityType="Self.SkinPlan" />
-          <EntitySet Name="Users" EntityType="Self.User" />
           <EntitySet Name="UsersImages" EntityType="Self.UsersImage" />
           <EntitySet Name="ProductsForPlans" EntityType="Self.ProductsForPlan" />
           <AssociationSet Name="FK_AppUsers_AppCosmetologists" Association="Self.FK_AppUsers_AppCosmetologists">
@@ -587,9 +551,9 @@ warning 6002: The table/view 'bgroup90_prod.dbo.ProductsForPlan' does not have a
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="bgroup90_prodModelStoreContainer" CdmEntityContainer="bgroup90_prodEntities">
+        <EntityContainerMapping StorageEntityContainer="bgroup90_prodModel1StoreContainer" CdmEntityContainer="bgroup90_prodEntitiesSkinme">
           <EntitySetMapping Name="AppCosmetologists">
-            <EntityTypeMapping TypeName="bgroup90_prodModel.AppCosmetologist">
+            <EntityTypeMapping TypeName="bgroup90_prodModel1.AppCosmetologist">
               <MappingFragment StoreEntitySet="AppCosmetologists">
                 <ScalarProperty Name="cosmetologist_id" ColumnName="cosmetologist_id" />
                 <ScalarProperty Name="cosmetologist_user_name" ColumnName="cosmetologist_user_name" />
@@ -615,7 +579,7 @@ warning 6002: The table/view 'bgroup90_prod.dbo.ProductsForPlan' does not have a
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AppUsers">
-            <EntityTypeMapping TypeName="bgroup90_prodModel.AppUser">
+            <EntityTypeMapping TypeName="bgroup90_prodModel1.AppUser">
               <MappingFragment StoreEntitySet="AppUsers">
                 <ScalarProperty Name="appUser_id" ColumnName="appUser_id" />
                 <ScalarProperty Name="username" ColumnName="username" />
@@ -647,7 +611,7 @@ warning 6002: The table/view 'bgroup90_prod.dbo.ProductsForPlan' does not have a
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Products">
-            <EntityTypeMapping TypeName="bgroup90_prodModel.Product">
+            <EntityTypeMapping TypeName="bgroup90_prodModel1.Product">
               <MappingFragment StoreEntitySet="Products">
                 <ScalarProperty Name="prod_id" ColumnName="prod_id" />
                 <ScalarProperty Name="prod_name" ColumnName="prod_name" />
@@ -666,7 +630,7 @@ warning 6002: The table/view 'bgroup90_prod.dbo.ProductsForPlan' does not have a
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ProductsForProfiles">
-            <EntityTypeMapping TypeName="bgroup90_prodModel.ProductsForProfile">
+            <EntityTypeMapping TypeName="bgroup90_prodModel1.ProductsForProfile">
               <MappingFragment StoreEntitySet="ProductsForProfiles">
                 <ScalarProperty Name="pfp_id" ColumnName="pfp_id" />
                 <ScalarProperty Name="profile_code" ColumnName="profile_code" />
@@ -675,7 +639,7 @@ warning 6002: The table/view 'bgroup90_prod.dbo.ProductsForPlan' does not have a
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Profiles">
-            <EntityTypeMapping TypeName="bgroup90_prodModel.Profile">
+            <EntityTypeMapping TypeName="bgroup90_prodModel1.Profile">
               <MappingFragment StoreEntitySet="Profiles">
                 <ScalarProperty Name="profile_code" ColumnName="profile_code" />
                 <ScalarProperty Name="profile_name" ColumnName="profile_name" />
@@ -683,7 +647,7 @@ warning 6002: The table/view 'bgroup90_prod.dbo.ProductsForPlan' does not have a
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SkinPlans">
-            <EntityTypeMapping TypeName="bgroup90_prodModel.SkinPlan">
+            <EntityTypeMapping TypeName="bgroup90_prodModel1.SkinPlan">
               <MappingFragment StoreEntitySet="SkinPlan">
                 <ScalarProperty Name="plan_id" ColumnName="plan_id" />
                 <ScalarProperty Name="cosmetologist_id" ColumnName="cosmetologist_id" />
@@ -695,26 +659,8 @@ warning 6002: The table/view 'bgroup90_prod.dbo.ProductsForPlan' does not have a
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="bgroup90_prodModel.User">
-              <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="UserRole" ColumnName="UserRole" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
-                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
-                <ScalarProperty Name="FrameId" ColumnName="FrameId" />
-                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="UsersImages">
-            <EntityTypeMapping TypeName="bgroup90_prodModel.UsersImage">
+            <EntityTypeMapping TypeName="bgroup90_prodModel1.UsersImage">
               <MappingFragment StoreEntitySet="UsersImages">
                 <ScalarProperty Name="img_id" ColumnName="img_id" />
                 <ScalarProperty Name="Imgurl" ColumnName="Imgurl" />
@@ -724,7 +670,7 @@ warning 6002: The table/view 'bgroup90_prod.dbo.ProductsForPlan' does not have a
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ProductsForPlans">
-            <EntityTypeMapping TypeName="bgroup90_prodModel.ProductsForPlan">
+            <EntityTypeMapping TypeName="bgroup90_prodModel1.ProductsForPlan">
               <MappingFragment StoreEntitySet="ProductsForPlan">
                 <ScalarProperty Name="pfp_id" ColumnName="pfp_id" />
                 <ScalarProperty Name="prod_id" ColumnName="prod_id" />
