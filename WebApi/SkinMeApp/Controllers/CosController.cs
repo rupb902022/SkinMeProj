@@ -13,8 +13,8 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CosController : ApiController
     {
-        bgroup90_prodEntities db = new bgroup90_prodEntities();
-
+        Skinme db = new Skinme();
+        
 
         [HttpGet]
         [Route("api/cosmetologists/GetAllCos")]
@@ -259,9 +259,10 @@ namespace SkinMeApp.Controllers
                             u.profile_code = p.profile_code;
                             db.SaveChanges();
 
-                            // find the u skin plan id & bring the products for plan of this plan
+                            // find the u skin plan id 
+                            //bring the products for plan of this plan
                             List<ProductsForPlan> productsForPlan = db.ProductsForPlans.Where(x => x.plan_id == u.plan_id).ToList();
-                            
+
                             // put these products in our profile 
                             foreach (ProductsForPlan pfp in productsForPlan)
                             {
@@ -350,8 +351,8 @@ namespace SkinMeApp.Controllers
 
 
         [HttpPut]
-        [Route("api/Cos/RateCosmetologist")]
-        public IHttpActionResult RateCosmetologist(int id, [FromBody] CosmetologistRate rating) // Rate cosmetologist
+        [Route("api/Cos/RateCosmetologist/{id}")]
+        public IHttpActionResult RateCosmetologist(int id, [FromBody] Cosmetologist rating) // Rate cosmetologist
         {
             try
             {

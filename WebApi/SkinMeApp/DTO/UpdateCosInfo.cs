@@ -15,7 +15,7 @@ namespace SkinMeApp.DTO
         public string cosmetic_address { get; set; }
         public string cosmetic_city { get; set; }
         public string cosmetic_speciality { get; set; }
-        public int cosmetologist_phoneNumber { get; set; }
+        public string cosmetologist_phoneNumber { get; set; }
 
     }
 }

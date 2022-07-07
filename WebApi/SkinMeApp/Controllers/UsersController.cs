@@ -15,7 +15,7 @@ namespace SkinMeApp.Controllers
     public class UsersController : ApiController
     {
 
-        bgroup90_prodDbContext db = new bgroup90_prodDbContext();
+        Skinme db = new Skinme();
 
 
         [HttpGet]

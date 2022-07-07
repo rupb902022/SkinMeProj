@@ -14,8 +14,8 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class LogInController : ApiController
     {
-        bgroup90_prodEntities db = new bgroup90_prodEntities();
-
+        Skinme db = new Skinme();
+      
 
         public string GeneratePassword()
         {
@@ -99,6 +99,7 @@ namespace SkinMeApp.Controllers
             string Password = "oqodhdtqfpxmhivc";
             string Host = "smtp.gmail.com";
             int Port = 587;
+           
 
             try
             {
@@ -209,7 +210,59 @@ namespace SkinMeApp.Controllers
 
                 if (log != null)
                 {
+                    return Content(HttpStatusCode.OK,log);
+                }
+                return Content(HttpStatusCode.NotFound,
+                    $"username or password were not found");
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e); 
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("api/LogIn/User/SocialMedia")]
+
+        public IHttpActionResult SocialMediaLogin([FromBody] Logincheck login)
+        {
+            try
+            {
+                AppUser log = db.AppUsers.FirstOrDefault
+                    (x => x.username == login.username && x.email == login.email);
+
+                if (log != null)
+                {
                     return Content(HttpStatusCode.OK, log);
+                }
+                return Content(HttpStatusCode.NotFound,
+                    $"username or password were not found");
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return BadRequest(e.Message);
+            }
+        }
+
+
+        [HttpPost]
+        [Route("api/LogIn/Cos")]
+
+        public IHttpActionResult LogInCos([FromBody] LogincheckCos loginc)
+        {
+            try
+            {
+                AppCosmetologist logc = db.AppCosmetologists.FirstOrDefault
+                    (x => x.cosmetologist_user_name == loginc.cosmetologist_user_name && x.cosmetologist_user_password == loginc.cosmetologist_user_password);
+
+                if (logc != null && logc.cosmetic_status!="Pending")
+                {
+                    return Content(HttpStatusCode.OK,
+                        $"{ logc.cosmetologist_id}");
                 }
                 return Content(HttpStatusCode.NotFound,
                     $"username or password were not found");

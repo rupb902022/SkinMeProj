@@ -69,38 +69,38 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppCosmetologist.cs">
-      <DependentUpon>Model2.tt</DependentUpon>
+      <DependentUpon>ModelSkinme.tt</DependentUpon>
     </Compile>
     <Compile Include="AppUser.cs">
-      <DependentUpon>Model2.tt</DependentUpon>
+      <DependentUpon>ModelSkinme.tt</DependentUpon>
     </Compile>
     <Compile Include="Class1.cs" />
-    <Compile Include="Model2.Context.cs">
+    <Compile Include="ModelSkinme.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model2.Context.tt</DependentUpon>
+      <DependentUpon>ModelSkinme.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model2.cs">
+    <Compile Include="ModelSkinme.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model2.tt</DependentUpon>
+      <DependentUpon>ModelSkinme.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model2.Designer.cs">
+    <Compile Include="ModelSkinme.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model2.edmx</DependentUpon>
+      <DependentUpon>ModelSkinme.edmx</DependentUpon>
     </Compile>
     <Compile Include="Product.cs">
-      <DependentUpon>Model2.tt</DependentUpon>
+      <DependentUpon>ModelSkinme.tt</DependentUpon>
     </Compile>
     <Compile Include="ProductsForPlan.cs">
-      <DependentUpon>Model2.tt</DependentUpon>
+      <DependentUpon>ModelSkinme.tt</DependentUpon>
     </Compile>
     <Compile Include="ProductsForProfile.cs">
-      <DependentUpon>Model2.tt</DependentUpon>
+      <DependentUpon>ModelSkinme.tt</DependentUpon>
     </Compile>
     <Compile Include="Profile.cs">
-      <DependentUpon>Model2.tt</DependentUpon>
+      <DependentUpon>ModelSkinme.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Skinme.Context.cs">
@@ -119,20 +119,20 @@
       <DependentUpon>Skinme.edmx</DependentUpon>
     </Compile>
     <Compile Include="SkinPlan.cs">
-      <DependentUpon>Model2.tt</DependentUpon>
+      <DependentUpon>ModelSkinme.tt</DependentUpon>
     </Compile>
     <Compile Include="UsersImage.cs">
-      <DependentUpon>Model2.tt</DependentUpon>
+      <DependentUpon>ModelSkinme.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
-    <EntityDeploy Include="Model2.edmx">
+    <EntityDeploy Include="ModelSkinme.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model2.Designer.cs</LastGenOutput>
+      <LastGenOutput>ModelSkinme.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Model2.edmx.diagram">
-      <DependentUpon>Model2.edmx</DependentUpon>
+    <None Include="ModelSkinme.edmx.diagram">
+      <DependentUpon>ModelSkinme.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <EntityDeploy Include="Skinme.edmx">
@@ -147,15 +147,15 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Model2.Context.tt">
+    <Content Include="ModelSkinme.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model2.edmx</DependentUpon>
-      <LastGenOutput>Model2.Context.cs</LastGenOutput>
+      <DependentUpon>ModelSkinme.edmx</DependentUpon>
+      <LastGenOutput>ModelSkinme.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Model2.tt">
+    <Content Include="ModelSkinme.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model2.edmx</DependentUpon>
-      <LastGenOutput>Model2.cs</LastGenOutput>
+      <DependentUpon>ModelSkinme.edmx</DependentUpon>
+      <LastGenOutput>ModelSkinme.cs</LastGenOutput>
     </Content>
     <Content Include="Skinme.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
