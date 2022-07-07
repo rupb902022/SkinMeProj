@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="bgroup90_prodModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="bgroup90_prodModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AppCosmetologists">
           <Key>
             <PropertyRef Name="cosmetologist_id" />
@@ -79,6 +79,8 @@
           <Property Name="prod_numOfRates" Type="int" />
           <Property Name="prod_time" Type="varchar" MaxLength="1" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'bgroup90_prod.dbo.ProductsForPlan' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ProductsForPlan">
           <Key>
             <PropertyRef Name="pfp_id" />
@@ -219,15 +221,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="bgroup90_prodModelStoreContainer">
+        <EntityContainer Name="bgroup90_prodModel1StoreContainer">
           <EntitySet Name="AppCosmetologists" EntityType="Self.AppCosmetologists" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AppUsers" EntityType="Self.AppUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ProductsForPlan" EntityType="Self.ProductsForPlan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductsForProfiles" EntityType="Self.ProductsForProfiles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Profiles" EntityType="Self.Profiles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SkinPlan" EntityType="Self.SkinPlan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UsersImages" EntityType="Self.UsersImages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductsForPlan" EntityType="Self.ProductsForPlan" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ProductsForPlan].[pfp_id] AS [pfp_id], 
+    [ProductsForPlan].[prod_id] AS [prod_id], 
+    [ProductsForPlan].[plan_id] AS [plan_id]
+    FROM [dbo].[ProductsForPlan] AS [ProductsForPlan]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_AppUsers_AppCosmetologists" Association="Self.FK_AppUsers_AppCosmetologists">
             <End Role="AppCosmetologists" EntitySet="AppCosmetologists" />
             <End Role="AppUsers" EntitySet="AppUsers" />
@@ -265,7 +273,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="bgroup90_prodModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="bgroup90_prodModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="AppCosmetologist">
           <Key>
             <PropertyRef Name="cosmetologist_id" />
@@ -347,15 +355,6 @@
           <Property Name="prod_numOfRates" Type="Int32" />
           <Property Name="prod_time" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="ProductsForPlan">
-          <Key>
-            <PropertyRef Name="pfp_id" />
-          </Key>
-          <Property Name="pfp_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="prod_id" Type="Int32" />
-          <Property Name="plan_id" Type="Int32" />
-          <NavigationProperty Name="SkinPlan" Relationship="Self.FK_ProductsForPlan_SkinPlan" FromRole="ProductsForPlan" ToRole="SkinPlan" />
-        </EntityType>
         <EntityType Name="ProductsForProfile">
           <Key>
             <PropertyRef Name="pfp_id" />
@@ -399,6 +398,15 @@
           <Property Name="appUser_id" Type="Int32" />
           <Property Name="upload_date" Type="DateTime" Precision="0" />
           <NavigationProperty Name="AppUser" Relationship="Self.FK_UsersImages_AppUsers" FromRole="UsersImages" ToRole="AppUsers" />
+        </EntityType>
+        <EntityType Name="ProductsForPlan">
+          <Key>
+            <PropertyRef Name="pfp_id" />
+          </Key>
+          <Property Name="pfp_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="prod_id" Type="Int32" />
+          <Property Name="plan_id" Type="Int32" />
+          <NavigationProperty Name="SkinPlan" Relationship="Self.FK_ProductsForPlan_SkinPlan" FromRole="ProductsForPlan" ToRole="SkinPlan" />
         </EntityType>
         <Association Name="FK_AppUsers_AppCosmetologists">
           <End Role="AppCosmetologists" Type="Self.AppCosmetologist" Multiplicity="0..1" />
@@ -472,18 +480,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProductsForPlan_SkinPlan">
-          <End Role="SkinPlan" Type="Self.SkinPlan" Multiplicity="0..1" />
-          <End Role="ProductsForPlan" Type="Self.ProductsForPlan" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SkinPlan">
-              <PropertyRef Name="plan_id" />
-            </Principal>
-            <Dependent Role="ProductsForPlan">
-              <PropertyRef Name="plan_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ProductsForProfiles_Profiles">
           <End Role="Profiles" Type="Self.Profile" Multiplicity="0..1" />
           <End Role="ProductsForProfiles" Type="Self.ProductsForProfile" Multiplicity="*" />
@@ -496,15 +492,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="bgroup90_prodEntities1" annotation:LazyLoadingEnabled="true">
+        <Association Name="FK_ProductsForPlan_SkinPlan">
+          <End Role="SkinPlan" Type="Self.SkinPlan" Multiplicity="0..1" />
+          <End Role="ProductsForPlan" Type="Self.ProductsForPlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SkinPlan">
+              <PropertyRef Name="plan_id" />
+            </Principal>
+            <Dependent Role="ProductsForPlan">
+              <PropertyRef Name="plan_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="bgroup90_prodEntitiesSkinme" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AppCosmetologists" EntityType="Self.AppCosmetologist" />
           <EntitySet Name="AppUsers" EntityType="Self.AppUser" />
           <EntitySet Name="Products" EntityType="Self.Product" />
-          <EntitySet Name="ProductsForPlans" EntityType="Self.ProductsForPlan" />
           <EntitySet Name="ProductsForProfiles" EntityType="Self.ProductsForProfile" />
           <EntitySet Name="Profiles" EntityType="Self.Profile" />
           <EntitySet Name="SkinPlans" EntityType="Self.SkinPlan" />
           <EntitySet Name="UsersImages" EntityType="Self.UsersImage" />
+          <EntitySet Name="ProductsForPlans" EntityType="Self.ProductsForPlan" />
           <AssociationSet Name="FK_AppUsers_AppCosmetologists" Association="Self.FK_AppUsers_AppCosmetologists">
             <End Role="AppCosmetologists" EntitySet="AppCosmetologists" />
             <End Role="AppUsers" EntitySet="AppUsers" />
@@ -529,13 +537,13 @@
             <End Role="AppUsers" EntitySet="AppUsers" />
             <End Role="UsersImages" EntitySet="UsersImages" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProductsForPlan_SkinPlan" Association="Self.FK_ProductsForPlan_SkinPlan">
-            <End Role="SkinPlan" EntitySet="SkinPlans" />
-            <End Role="ProductsForPlan" EntitySet="ProductsForPlans" />
-          </AssociationSet>
           <AssociationSet Name="FK_ProductsForProfiles_Profiles" Association="Self.FK_ProductsForProfiles_Profiles">
             <End Role="Profiles" EntitySet="Profiles" />
             <End Role="ProductsForProfiles" EntitySet="ProductsForProfiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductsForPlan_SkinPlan" Association="Self.FK_ProductsForPlan_SkinPlan">
+            <End Role="SkinPlan" EntitySet="SkinPlans" />
+            <End Role="ProductsForPlan" EntitySet="ProductsForPlans" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -543,9 +551,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="bgroup90_prodModelStoreContainer" CdmEntityContainer="bgroup90_prodEntities1">
+        <EntityContainerMapping StorageEntityContainer="bgroup90_prodModel1StoreContainer" CdmEntityContainer="bgroup90_prodEntitiesSkinme">
           <EntitySetMapping Name="AppCosmetologists">
-            <EntityTypeMapping TypeName="bgroup90_prodModel.AppCosmetologist">
+            <EntityTypeMapping TypeName="bgroup90_prodModel1.AppCosmetologist">
               <MappingFragment StoreEntitySet="AppCosmetologists">
                 <ScalarProperty Name="cosmetologist_id" ColumnName="cosmetologist_id" />
                 <ScalarProperty Name="cosmetologist_user_name" ColumnName="cosmetologist_user_name" />
@@ -571,7 +579,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AppUsers">
-            <EntityTypeMapping TypeName="bgroup90_prodModel.AppUser">
+            <EntityTypeMapping TypeName="bgroup90_prodModel1.AppUser">
               <MappingFragment StoreEntitySet="AppUsers">
                 <ScalarProperty Name="appUser_id" ColumnName="appUser_id" />
                 <ScalarProperty Name="username" ColumnName="username" />
@@ -603,7 +611,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Products">
-            <EntityTypeMapping TypeName="bgroup90_prodModel.Product">
+            <EntityTypeMapping TypeName="bgroup90_prodModel1.Product">
               <MappingFragment StoreEntitySet="Products">
                 <ScalarProperty Name="prod_id" ColumnName="prod_id" />
                 <ScalarProperty Name="prod_name" ColumnName="prod_name" />
@@ -621,17 +629,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ProductsForPlans">
-            <EntityTypeMapping TypeName="bgroup90_prodModel.ProductsForPlan">
-              <MappingFragment StoreEntitySet="ProductsForPlan">
-                <ScalarProperty Name="pfp_id" ColumnName="pfp_id" />
-                <ScalarProperty Name="prod_id" ColumnName="prod_id" />
-                <ScalarProperty Name="plan_id" ColumnName="plan_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ProductsForProfiles">
-            <EntityTypeMapping TypeName="bgroup90_prodModel.ProductsForProfile">
+            <EntityTypeMapping TypeName="bgroup90_prodModel1.ProductsForProfile">
               <MappingFragment StoreEntitySet="ProductsForProfiles">
                 <ScalarProperty Name="pfp_id" ColumnName="pfp_id" />
                 <ScalarProperty Name="profile_code" ColumnName="profile_code" />
@@ -640,7 +639,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Profiles">
-            <EntityTypeMapping TypeName="bgroup90_prodModel.Profile">
+            <EntityTypeMapping TypeName="bgroup90_prodModel1.Profile">
               <MappingFragment StoreEntitySet="Profiles">
                 <ScalarProperty Name="profile_code" ColumnName="profile_code" />
                 <ScalarProperty Name="profile_name" ColumnName="profile_name" />
@@ -648,7 +647,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SkinPlans">
-            <EntityTypeMapping TypeName="bgroup90_prodModel.SkinPlan">
+            <EntityTypeMapping TypeName="bgroup90_prodModel1.SkinPlan">
               <MappingFragment StoreEntitySet="SkinPlan">
                 <ScalarProperty Name="plan_id" ColumnName="plan_id" />
                 <ScalarProperty Name="cosmetologist_id" ColumnName="cosmetologist_id" />
@@ -661,12 +660,21 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UsersImages">
-            <EntityTypeMapping TypeName="bgroup90_prodModel.UsersImage">
+            <EntityTypeMapping TypeName="bgroup90_prodModel1.UsersImage">
               <MappingFragment StoreEntitySet="UsersImages">
                 <ScalarProperty Name="img_id" ColumnName="img_id" />
                 <ScalarProperty Name="Imgurl" ColumnName="Imgurl" />
                 <ScalarProperty Name="appUser_id" ColumnName="appUser_id" />
                 <ScalarProperty Name="upload_date" ColumnName="upload_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductsForPlans">
+            <EntityTypeMapping TypeName="bgroup90_prodModel1.ProductsForPlan">
+              <MappingFragment StoreEntitySet="ProductsForPlan">
+                <ScalarProperty Name="pfp_id" ColumnName="pfp_id" />
+                <ScalarProperty Name="prod_id" ColumnName="prod_id" />
+                <ScalarProperty Name="plan_id" ColumnName="plan_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
