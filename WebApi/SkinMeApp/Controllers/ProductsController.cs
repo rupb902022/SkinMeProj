@@ -424,7 +424,7 @@ namespace SkinMeApp.Controllers
 
         [HttpGet]
         [Route("api/Products/GetProdForAutoPlanDay")]
-        public IHttpActionResult GetProductsForAutoPlanDay(int id) // get products for Auto plan
+        public IHttpActionResult GetProductsForAutoPlanDay(int id) // get products for plan
         {
             try
             {
@@ -435,22 +435,17 @@ namespace SkinMeApp.Controllers
                 List<Product> prod = db.Products.ToList();
                 List<Product> finalp = new List<Product>();
 
-                if (productsForPlan != null)
+                    if (productsForPlan != null)
                 {
                     foreach (ProductsForPlan p in productsForPlan)
                     {
                         foreach (Product products in prod)
                         {
-                            if (p.prod_id == products.prod_id && products.prod_time =="D")
+                            if (p.prod_id == products.prod_id && products.prod_time =="D" && !finalp.Contains(products))
                             {
-                                
-                                finalp.Add(products);
-                                
-                                
+                                    finalp.Add(products);
                             }
-
                         }
- 
                     }
                     return Ok(finalp);
                 }
@@ -465,7 +460,7 @@ namespace SkinMeApp.Controllers
 
         [HttpGet]
         [Route("api/Products/GetProdForAutoPlanNight")]
-        public IHttpActionResult GetProductsForAutoPlanNight(int id) // get products for Auto plan
+        public IHttpActionResult GetProductsForAutoPlanNight(int id) // get products for plan
         {
             try
             {
@@ -482,7 +477,7 @@ namespace SkinMeApp.Controllers
                     {
                         foreach (Product products in prod)
                         {
-                            if (p.prod_id == products.prod_id && products.prod_time == "N")
+                            if (p.prod_id == products.prod_id && products.prod_time == "N" && !finalp.Contains(products))
                             {
 
                                 finalp.Add(products);
