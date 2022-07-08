@@ -12,8 +12,13 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CosController : ApiController
     {
-        bgroup90_prodEntitiesSkinme db = new bgroup90_prodEntitiesSkinme();
-        
+        bgroup90_prodEntities db;
+
+        public CosController()
+        {
+            db = new bgroup90_prodEntities();
+        }
+
 
         [HttpGet]
         [Route("api/cosmetologists/GetAllCos")]
@@ -81,8 +86,8 @@ namespace SkinMeApp.Controllers
         }
 
         [HttpPost]
-        [Route("api/Cos/AddProdToPlan")]
-        public IHttpActionResult AddPTP(int id, [FromBody] ProdForPlan value) // add products to skin plan
+        [Route("api/Cos/AddProdToPlan/{id}")]
+        public IHttpActionResult AddPTP(int id, [FromBody] List<Product> values) // add products to skin plan
         {
 
             SkinPlan s = db.SkinPlans.SingleOrDefault(x => x.plan_id == id);
@@ -90,10 +95,14 @@ namespace SkinMeApp.Controllers
             {
                 if (s != null)
                 {
-                    ProductsForPlan p = new ProductsForPlan();
-                    p.prod_id = value.prod_id;
-                    p.plan_id = id;
-                    db.ProductsForPlans.Add(p);
+                    foreach (var item in values)
+                    {
+
+                        ProductsForPlan p = new ProductsForPlan();
+                        p.prod_id = item.prod_id;
+                        p.plan_id = id;
+                        db.ProductsForPlans.Add(p);
+                    }
                     db.SaveChanges();
                     return Ok(s);
                 }
@@ -177,13 +186,13 @@ namespace SkinMeApp.Controllers
             }
         }
 
-        [HttpPost]
-        [Route("api/Cos/GetClients")]
-        public IHttpActionResult GetClients([FromBody] Clients id) // get clients for cosmetologist
+        [HttpGet]
+        [Route("api/Cos/GetClients/{id}")]
+        public IHttpActionResult GetClients(int id) // get clients for cosmetologist
         {
             try
             {
-                List<AppUser> users = db.AppUsers.Where(x => x.cosmetologist_id == id.cosmetologist_id && x.user_status != "waiting").ToList();
+                List<AppUser> users = db.AppUsers.Where(x => x.cosmetologist_id == id && x.user_status != "waiting").ToList();
 
                 if (users != null)
                 {
@@ -206,7 +215,7 @@ namespace SkinMeApp.Controllers
 
 
         [HttpPost]
-        [Route("api/Cos/SearchFamiliar")]
+        [Route("api/Cos/SearchFamiliar/{id}")]
         public IHttpActionResult SearchFamiliar(int id) // search familiar users like this 
         {
             AppUser newUser = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
@@ -218,6 +227,8 @@ namespace SkinMeApp.Controllers
 
                 if (users != null)
                 {
+                    List<Product> result = new List<Product>();
+
                     foreach (AppUser u in users) // check every characteristic of my person comparing to other users (each user at a time)
                     {
                         string temp_new_profile_name = ""; // will save temp name for new profile. if needed, we will use it at the end of the checks
@@ -266,7 +277,7 @@ namespace SkinMeApp.Controllers
 
                         }
 
-                        if (smart_count >= 7 && u.profile_code == null) // if the comparing is at high score, but there is no profile code to both users: create new profile and give it to both of them
+                        if (smart_count >= 5 && u.profile_code == null) // if the comparing is at high score, but there is no profile code to both users: create new profile and give it to both of them
                         {
                             Profile p = new Profile();
                             p.profile_name = temp_new_profile_name;
@@ -296,25 +307,23 @@ namespace SkinMeApp.Controllers
                             //create a list of all products in db- to get the products in plan deatails
                             List<Product> allProducts = db.Products.ToList();
 
-                            List<Product> result = new List<Product>();
-
                             foreach (ProductsForPlan prodInPlan in productsForPlan)
                             {
                                 foreach (Product prod in allProducts)
                                 {
-                                    if (prodInPlan.prod_id == prod.prod_id)
+                                    if (prodInPlan.prod_id == prod.prod_id && !result.Contains(prod))
                                     {
-                                        //result = new Product(prod);
-                                        return Ok(prod);
+                                        result.Add(prod);
 
                                     }
                                 }
-
                             }
+                            result.OrderByDescending(x => x.prod_rate);
+                            
                         }
 
 
-                        else if (smart_count >= 7 && u.profile_code != null) // if the comparing is at high score, but the comperd user has code- so put the same profile code to the new user
+                        else if (smart_count >= 5 && u.profile_code != null) // if the comparing is at high score, but the comperd user has code- so put the same profile code to the new user
                         {
                             newUser.profile_code = u.profile_code.Value;
 
@@ -338,13 +347,13 @@ namespace SkinMeApp.Controllers
                             //create a list of all products in db- to get the products in plan deatails
                             List<Product> allProducts = db.Products.ToList();
 
-                            List<Product> result = new List<Product>();
+                           
 
                             foreach (ProductsForPlan prodInPlan in productsForPlan)
                             {
                                 foreach (Product prod in allProducts)
                                 {
-                                    if (prodInPlan.prod_id == prod.prod_id)
+                                    if (prodInPlan.prod_id == prod.prod_id&&!result.Contains(prod))
                                     {
                                         //result = new Product(prod);
                                         result.Add(prod);
@@ -353,13 +362,13 @@ namespace SkinMeApp.Controllers
 
                             }
 
-                            result.OrderByDescending(x => x.prod_rate);
-                            return Ok(result);
-
+                            
                         }
                     }
+                    result=result.OrderByDescending(x => x.prod_rate).ToList<Product>();
+                    return Content(HttpStatusCode.OK, result);
                 }
-                return Content(HttpStatusCode.OK, "No matching profile was found");
+                return Content(HttpStatusCode.OK, new List<Product>());
             }
             catch (Exception e)
             {
