@@ -12,26 +12,39 @@ namespace SkinMeApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CosController : ApiController
     {
-        bgroup90_prodEntities db;
+        SkinmeDbContext db;
 
         public CosController()
         {
-            db = new bgroup90_prodEntities();
+            db = new SkinmeDbContext();
         }
 
 
         [HttpGet]
         [Route("api/cosmetologists/GetAllCos")]
-        public IHttpActionResult allcos() // Get all cosmetologists 
+        public IHttpActionResult ApprovedCos(string status = "Approved") // get only approved products 
         {
             try
             {
-                return Ok(db.AppCosmetologists);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
+                List<AppCosmetologist> cos = db.AppCosmetologists.Where(x => x.cosmetic_status == status).ToList();
 
+                if (cos != null)
+                {
+                    foreach (AppCosmetologist c in cos)
+                    {
+                        Console.WriteLine(c.cosmetologist_last_name);
+                    }
+                    return Content(HttpStatusCode.OK, cos);
+
+
+                }
+                return Content(HttpStatusCode.NotFound,
+                    $"no approved products found");
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
 

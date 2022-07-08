@@ -18,6 +18,7 @@ namespace DATA
         public bgroup90_test2Entities19()
             : base("name=bgroup90_test2Entities19")
         {
+           
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
