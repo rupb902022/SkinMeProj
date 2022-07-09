@@ -129,47 +129,9 @@ namespace SkinMeApp.Controllers
         }
 
 
-        public IHttpActionResult Put(int id, [FromBody] PlanUpdate value) // Update plan 
-        {
-            try
-            {
-                SkinPlan s = db.SkinPlans.SingleOrDefault(x => x.plan_id == id);
-                if (s != null)
-                {
-                    s.plan_name = value.plan_name;
-                    s.plan_date = value.plan_date;
-                    s.notes = value.notes;
-                    List<Product> products = db.Products.ToList(); /// ? how to change products from the plan
+       
 
-                    return Ok(s);
-                }
-                return Content(HttpStatusCode.NotFound,
-                    $"Plan with id={id} was not found.");
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        public IHttpActionResult Delete(int id) // Delete plan 
-        {
-            try
-            {
-                SkinPlan s = db.SkinPlans.SingleOrDefault(x => x.plan_id == id);
-                if (s != null)
-                {
-                    db.SkinPlans.Remove(s);
-                    return Ok();
-                }
-                return Content(HttpStatusCode.NotFound,
-                    $"Plan with id={id} was not found to delete");
-            }
-            catch (Exception ex)
-            {
-                return Content(HttpStatusCode.BadRequest, ex);
-            }
-        }
+       
 
         [HttpPost]
         [Route("api/Cos/Depending")]

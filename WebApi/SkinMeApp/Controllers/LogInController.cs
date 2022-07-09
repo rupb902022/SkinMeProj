@@ -49,45 +49,7 @@ namespace SkinMeApp.Controllers
             return NewPassword;
         }
 
-        //[HttpGet]
-        //[Route("api/mail")]
-        //public  IHttpActionResult SendMail()
-        //{
-        //    string strNewPassword = GeneratePassword().ToString();
-
-        //    string Projectmail = "rupb902022@gmail.com";
-        //    string Password = "oqodhdtqfpxmhivc";
-        //    string Host = "smtp.gmail.com";
-        //    int Port = 587;
-
-        //    try
-        //    {
-        //        SmtpClient client = new SmtpClient(Host, Port)
-        //        {
-        //            Credentials = new NetworkCredential(Projectmail, Password),
-        //            EnableSsl = true,
-
-        //        };
-
-        //        string subject = "Reset your password ";
-
-        //        string body = $"Hello , \n" + " \n" +
-        //                      $"This is your temporary password :" + "  " + strNewPassword + "\n" + "\n" +
-        //                      $"In order to reset your password, go back to Skinme login page and enter this temporary password, " +
-        //                      $"after that you will be able to change it for your a password of your choice. " + "\n" + "\n" +
-        //                      "Best Regards,\n Skinme Team ";
-
-
-        //        client.Send("rupb902022@gmail.com", "elise.wenger25@gmail.com", subject, body);
-        //        return Ok("mail sent ");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-
-        //    }
-
-        //}
+        
 
         [HttpPut]
         [Route("api/mail/forgotpassword")]
@@ -249,32 +211,6 @@ namespace SkinMeApp.Controllers
         }
 
 
-        //[HttpPost]
-        //[Route("api/LogIn/Cos")]
-
-        //public IHttpActionResult LogInCos([FromBody] LogincheckCos loginc)
-        //{
-        //    try
-        //    {
-        //        AppCosmetologist logc = db.AppCosmetologists.FirstOrDefault
-        //            (x => x.cosmetologist_user_name == loginc.cosmetologist_user_name && x.cosmetologist_user_password == loginc.cosmetologist_user_password);
-
-        //        if (logc != null && logc.cosmetic_status!="Pending")
-        //        {
-        //            return Content(HttpStatusCode.OK,
-        //                $"{ logc.cosmetologist_id}");
-        //        }
-        //        return Content(HttpStatusCode.NotFound,
-        //            $"username or password were not found");
-
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        Console.WriteLine(e);
-        //        return BadRequest(e.Message);
-        //    }
-        //}
-
 
 
         [HttpPost]
@@ -430,60 +366,9 @@ namespace SkinMeApp.Controllers
 
 
 
-        [HttpPost]
-        [Route("api/LogIn/SocialMediaLogin")]
-        public IHttpActionResult SocialMediaLogin([FromBody] SocialMediaLogin value)
-        {
-            try
-            {
-                AppUser social = new AppUser();
-                if (social.appUser_id == 0)
-                {
-                    social.first_name = value.first_name;
-                    social.email = value.user_email;
-                    //social.picture = value.user_profilepic;
+        
 
-                    db.AppUsers.Add(social);
-                    db.SaveChanges();
-                    return Created(new Uri(Request.RequestUri.AbsoluteUri + value.appUser_id), value);
-                }
-                return Content(HttpStatusCode.NotFound,
-                    $"Could not connect to your social media ");
-
-            }
-            catch (DbEntityValidationException e)
-            {
-                Console.WriteLine(e);
-                return BadRequest(e.Message);
-            }
-        }
-
-
-        [HttpPut]
-        [Route("api/UpdateUser")]
-        public IHttpActionResult UpdateUserInfo(int id, [FromBody] UpdateUserInfo up) // update user info dto
-        {
-            try
-            {
-                AppUser user = db.AppUsers.SingleOrDefault(x => x.appUser_id == id);
-                if (user != null)
-                {
-
-                    user.email = up.email;
-                    user.username = up.username;
-                    user.user_password = up.user_password;
-                    //user.picture = up.picture;
-
-                    return Ok(user);
-                }
-                return Content(HttpStatusCode.NotFound,
-                    $"User with id={id} was not found.");
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+        
 
 
         [HttpPut]
@@ -511,7 +396,7 @@ namespace SkinMeApp.Controllers
 
         [HttpPut]
         [Route("api/login/UpdateUserEmail")]
-        public IHttpActionResult ChangeUserEmail(int id, [FromBody] UpdateUserInfo info) // update cos email 
+        public IHttpActionResult ChangeUserEmail(int id, [FromBody] UpdateUserInfo info) // update user email 
         {
             try
             {
@@ -533,7 +418,7 @@ namespace SkinMeApp.Controllers
 
         [HttpPut]
         [Route("api/login/UpdateUserUsername")]
-        public IHttpActionResult ChangeUserUsername(int id, [FromBody] UpdateUserInfo info) // update cos email 
+        public IHttpActionResult ChangeUserUsername(int id, [FromBody] UpdateUserInfo info) // update user username 
         {
             try
             {

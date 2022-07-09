@@ -193,31 +193,6 @@ namespace SkinMeApp.Controllers
             }
         }
 
-        //    public IHttpActionResult Get(string userrole = "user") // get only cosmetologist
-        //    {
-        //        try
-        //        {
-        //            List<AppUsers> users = db.AppUsers.Where(x => x.user_role == userrole).ToList();
-
-        //            if (users != null)
-        //            {
-        //                foreach (AppUsers u in users)
-        //                {
-        //                    Console.WriteLine(u.first_name);
-        //                }
-        //                return Content(HttpStatusCode.OK, users);
-
-
-        //            }
-        //            return Content(HttpStatusCode.NotFound,
-        //                $"no user found");
-        //        }
-        //        catch (Exception)
-        //        {
-
-        //            throw;
-        //        }
-        //}
 
         [HttpGet]
         [Route("api/User/Mycos")]
